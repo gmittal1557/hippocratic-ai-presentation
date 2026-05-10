@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The colonoscopy call that nobody makes — Hippocratic AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #0F0F0F;
+      --bg: #FAFAFA;
+      --accent: #2F5D50;
+      --accent-bg: rgba(47, 93, 80, 0.07);
+      --accent-bg-strong: rgba(47, 93, 80, 0.12);
+      --border: #E8E8E5;
+      --risk: #A04040;
+      --muted: #888884;
+      --muted-light: #BBBBB7;
+      --serif: 'Newsreader', Georgia, serif;
+      --sans: 'Source Sans 3', sans-serif;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --nav-h: 60px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── NAV ─── */
+    #site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(250, 250, 250, 0.93);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      transform: translateY(-100%);
+      transition: transform 0.2s ease;
+    }
+    #site-nav.visible { transform: translateY(0); }
+    #site-nav ul { display: flex; gap: 2.25rem; list-style: none; }
+    #site-nav a {
+      font-family: var(--sans);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.025em;
+      padding-bottom: 3px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    #site-nav a:hover { color: var(--text); }
+    #site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 2rem 6rem;
+      position: relative;
+    }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(38px, 5.5vw, 68px);
+      font-weight: 400;
+      line-height: 1.1;
+      max-width: 840px;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-subhead {
+      font-family: var(--sans);
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 300;
+      color: #505050;
+      max-width: 580px;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .hero-byline {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .hero-chevron {
+      position: absolute;
+      bottom: 7vh;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bob 2.2s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ─── LAYOUT ─── */
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      scroll-margin-top: calc(var(--nav-h) + 12px);
+    }
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2.75rem;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2.75rem;
+    }
+    @media (max-width: 860px) {
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .three-col { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ─── TYPOGRAPHY ─── */
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    .section-header {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.01em;
+    }
+    .lead { font-size: 18px; line-height: 1.7; color: #2A2A2A; }
+    .stat-large {
+      font-family: var(--serif);
+      font-size: clamp(54px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .caption {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .mono, code { font-family: var(--mono); font-size: 13.5px; }
+
+    /* ─── FADE SECTIONS (applied via JS) ─── */
+    .fade-section {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    }
+    .fade-section.in-view { opacity: 1; transform: none; }
+
+    /* ─── CALLOUT ─── */
+    .callout {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin: 2.5rem 0;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #2A2A2A;
+    }
+
+    /* ─── TABLES ─── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin: 2rem 0;
+    }
+    .data-table th {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table th.featured,
+    .data-table td.featured {
+      background: var(--accent-bg);
+      border-left: 2px solid var(--accent);
+    }
+    .data-table tr.bold-row td { font-weight: 700; }
+    .data-table .mono-cell { font-family: var(--mono); font-size: 13px; }
+
+    /* ─── COLLAPSIBLES ─── */
+    details {
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+    details + details { margin-top: 1rem; }
+    summary {
+      font-family: var(--sans);
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--accent);
+      padding: 0.9rem 1.25rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
+      outline: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '▸';
+      font-size: 11px;
+      display: inline-block;
+      transition: transform 0.22s ease;
+      flex-shrink: 0;
+    }
+    details[open] > summary::before { transform: rotate(90deg); }
+    summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+    .details-body {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow: hidden;
+    }
+    .details-body p { margin-bottom: 0.8rem; }
+    .details-body ul { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .details-body li { margin-bottom: 0.5rem; }
+    .details-body .data-table { font-size: 13.5px; }
+
+    .collapsible-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .collapsible-row details { flex: 1; min-width: 240px; margin: 0; }
+
+    /* ─── DEMO PLACEHOLDER ─── */
+    .demo-placeholder {
+      aspect-ratio: 16/9;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2.5rem;
+      margin: 2rem 0;
+      background: #F5F5F2;
+    }
+    .demo-placeholder pre {
+      font-family: var(--mono);
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+
+    /* ─── DEFINITION LIST ─── */
+    dl.config-list dt {
+      font-family: var(--sans);
+      font-weight: 600;
+      font-size: 16px;
+      margin-top: 1.75rem;
+      color: var(--text);
+    }
+    dl.config-list dt:first-child { margin-top: 0; }
+    dl.config-list dd {
+      margin-left: 0;
+      color: #444440;
+      margin-top: 0.3rem;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    /* ─── STAT BLOCK ─── */
+    .stat-block { text-align: center; padding: 4rem 0 1.5rem; }
+    .stat-label { font-size: 16px; color: var(--muted); margin-top: 0.75rem; }
+
+    /* ─── SECTION 3 COLUMNS ─── */
+    .agent-does {
+      border-left: 3px solid var(--accent);
+      padding-left: 1.75rem;
+    }
+    .agent-does h3 {
+      font-family: var(--sans);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 1.1rem;
+    }
+    .agent-does ul { list-style: none; padding: 0; }
+    .agent-does li {
+      padding: 0.45rem 0;
+      font-size: 17px;
+      display: flex;
+      gap: 0.65rem;
+    }
+    .agent-does li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+
+    .agent-doesnt { color: #555550; }
+    .agent-doesnt h3 {
+      font-family: var(--sans);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .agent-doesnt ul { list-style: none; padding: 0; }
+    .agent-doesnt li {
+      padding: 0.35rem 0;
+      font-size: 15.5px;
+      display: flex;
+      gap: 0.65rem;
+    }
+    .agent-doesnt li::before { content: '×'; color: var(--muted-light); flex-shrink: 0; }
+
+    /* ─── SECTION 3 ANCHOR ─── */
+    .s3-anchor {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 400;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto 3.5rem;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── SECTION 5 FHIR COLS ─── */
+    .fhir-col h3 {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.01em;
+    }
+    .fhir-col ul { list-style: none; padding: 0; }
+    .fhir-col li {
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 0.35rem 0;
+      color: var(--text);
+      border-bottom: 1px solid #F0F0ED;
+    }
+    .fhir-col li:last-child { border-bottom: none; }
+    .fhir-col.voice li { font-family: var(--sans); font-size: 14.5px; }
+
+    /* ─── SECTION 5 HONEST STMTS ─── */
+    .honest-col h3 {
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.75rem;
+    }
+    .honest-col p { font-size: 15px; color: #444440; line-height: 1.65; }
+
+    /* ─── SECTION 6 RISK BLOCKS ─── */
+    .risk-block {
+      margin: 2.5rem 0;
+      padding: 2rem 2.25rem;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--risk);
+      border-radius: 4px;
+    }
+    .risk-block h3 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--risk);
+      margin-bottom: 0.8rem;
+    }
+    .risk-block .risk-desc {
+      color: #333330;
+      margin-bottom: 1.25rem;
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .risk-block .mit-label {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .risk-block .mitigation { font-size: 16px; line-height: 1.65; color: #333330; }
+
+    /* ─── DIAGRAM WRAP ─── */
+    .diagram-wrap { margin: 2.5rem 0; overflow: hidden; }
+    .diagram-wrap svg { width: 100%; height: auto; display: block; }
+    .diagram-caption { text-align: center; margin-top: 0.75rem; }
+
+    /* ─── BACK TO TOP ─── */
+    #back-to-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s, background 0.15s;
+      z-index: 199;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); }
+    #back-to-top:hover { background: #244840; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 2rem;
+      text-align: center;
+    }
+    footer p { font-size: 14px; color: var(--muted); line-height: 2; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      #site-nav ul { gap: 1rem; }
+      #site-nav a { font-size: 12px; }
+      .container { padding: 0 1.5rem; }
+      section { padding: 72px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav id="site-nav" aria-label="Section navigation">
+  <ul>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#why-agentic">Why agentic</a></li>
+    <li><a href="#the-agent">The agent</a></li>
+    <li><a href="#configuration">Configuration</a></li>
+    <li><a href="#integration">Integration</a></li>
+    <li><a href="#tradeoffs">Tradeoffs</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section id="hero" aria-label="Introduction">
+  <h1 class="hero-headline">The colonoscopy call that nobody makes.</h1>
+  <p class="hero-subhead">A Day&#8209;before prep coaching agent — built for high&#8209;volume GI service lines.</p>
+  <p class="hero-byline">[YOUR NAME]&nbsp;&middot;&nbsp;For Hippocratic AI&nbsp;&middot;&nbsp;Agent Deployment Architect Onsite</p>
+  <div class="hero-chevron" aria-hidden="true">
+    <svg width="30" height="19" viewBox="0 0 30 19" fill="none">
+      <path d="M2 2L15 15L28 2" stroke="#2F5D50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SECTION 1: PROBLEM ═══════════════════════════ -->
+<section id="problem" aria-labelledby="h-problem">
+  <div class="container">
+    <h2 class="section-header" id="h-problem">The problem</h2>
+    <div class="two-col">
+
+      <!-- Left: text -->
+      <div>
+        <p class="lead">Most colonoscopies don't fail because of the procedure. They fail before the procedure ever starts.</p>
+        <p>Twenty to twenty-five percent of colonoscopies have inadequate bowel prep. About eight percent are cancelled or aborted same-day. At a high-volume GI service line doing 30,000 procedures a year, that's three million dollars or more in preventable annual revenue loss — plus the downstream cost of repeat procedures within 12 months.</p>
+        <p>But the cost isn't only financial. A colonoscopy that fails because of prep is a patient who took the day off work, drank a gallon of laxative, found a ride to the hospital — and now has to do it all again. Most of these failures are preventable.</p>
+      </div>
+
+      <!-- Right: stacked bar chart -->
+      <div>
+        <svg viewBox="0 0 500 190" role="img" aria-label="Stacked bar chart: reasons colonoscopies are missed">
+          <!-- Bar: x=0..460, y=30, h=52 -->
+          <!-- Prep 30% = 138 -->
+          <rect x="0" y="30" width="138" height="52" fill="#2F5D50"/>
+          <!-- Logistical 25% = 115 -->
+          <rect x="138" y="30" width="115" height="52" fill="#BBBBB7"/>
+          <!-- Illness 15% = 69 -->
+          <rect x="253" y="30" width="69" height="52" fill="#CECECA"/>
+          <!-- Anxiety 15% = 69 -->
+          <rect x="322" y="30" width="69" height="52" fill="#D8D8D4"/>
+          <!-- Financial 10% = 46 -->
+          <rect x="391" y="30" width="46" height="52" fill="#E4E4E0"/>
+          <!-- Other 5% = 23 -->
+          <rect x="437" y="30" width="23" height="52" fill="#EDEDEA"/>
+
+          <!-- % labels inside bars -->
+          <text x="69" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="white" font-weight="500">30%</text>
+          <text x="195" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#555552">25%</text>
+          <text x="287" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#666662">15%</text>
+          <text x="356" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#666662">15%</text>
+          <text x="414" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">10%</text>
+          <!-- Other 5% too narrow, skip label -->
+
+          <!-- Legend row 1 -->
+          <rect x="0"   y="102" width="11" height="11" fill="#2F5D50"/>
+          <text x="16"  y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Prep-related</text>
+          <rect x="110" y="102" width="11" height="11" fill="#BBBBB7"/>
+          <text x="126" y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Logistical</text>
+          <rect x="210" y="102" width="11" height="11" fill="#CECECA"/>
+          <text x="226" y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Patient illness</text>
+
+          <!-- Legend row 2 -->
+          <rect x="0"   y="126" width="11" height="11" fill="#D8D8D4"/>
+          <text x="16"  y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Anxiety / no-show</text>
+          <rect x="145" y="126" width="11" height="11" fill="#E4E4E0"/>
+          <text x="161" y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Financial / access</text>
+          <rect x="290" y="126" width="11" height="11" fill="#EDEDEA"/>
+          <text x="306" y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Other</text>
+        </svg>
+        <p class="caption" style="margin-top:0.5rem;">Source: published cohort studies of GI endoscopy units.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      Most centers' pre-procedure call happens 3–7 days before the procedure. The published RCT shows the call that actually moves prep adequacy is the one made the night before — but staffing it across a high-volume center would require approximately 9 dedicated evening nurses.
+    </div>
+
+    <details>
+      <summary>See the published evidence</summary>
+      <div class="details-body">
+        <ul>
+          <li><strong>Liu et al., 2021</strong> — RCT showing Day -1 telephone education improved adequate prep from 70.3% to 81.6% (n=470)</li>
+          <li><strong>Kohli et al., 2018</strong> — multi-site retrospective cohort (n=4,016) showing scheduled Day -5 nurse calls had no measurable effect on prep adequacy</li>
+          <li><strong>ASGE GI Operations Benchmarking Survey, 2019</strong> — same-day cancellation rates of 5.6–8.45% across U.S. endoscopy units</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════════════ SECTION 2: WHY AN AGENT ═══════════════════════ -->
+<section id="why-agentic" aria-labelledby="h-why">
+  <div class="container">
+    <h2 class="section-header" id="h-why">Why an agent fixes it</h2>
+    <p class="lead">The Day-before evening call is the highest-leverage intervention published in the literature. Hospitals haven't deployed it because it doesn't scale on human labor. A voice agent makes the unstaffable workflow possible.</p>
+
+    <table class="data-table" aria-label="Comparison of prep coaching approaches">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Mailed instructions only</th>
+          <th>Day -5 nurse call</th>
+          <th class="featured">Day -1 evening agent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reaches patients</td>
+          <td>At distribution</td>
+          <td>Scheduled time</td>
+          <td class="featured">At the moment of action</td>
+        </tr>
+        <tr>
+          <td>Coaching available when needed</td>
+          <td>No</td>
+          <td>No</td>
+          <td class="featured">Yes</td>
+        </tr>
+        <tr>
+          <td>Scales to thousands per night</td>
+          <td>N/A</td>
+          <td>No (~$700K nurse cost)</td>
+          <td class="featured">Yes</td>
+        </tr>
+        <tr>
+          <td>Published outcome impact</td>
+          <td>Baseline</td>
+          <td>No measurable improvement</td>
+          <td class="featured">+11pp prep adequacy</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stat-block">
+      <div class="stat-large">$3M+</div>
+      <p class="stat-label">in preventable annual revenue per high-volume GI service line</p>
+    </div>
+    <p style="text-align:center; color:#444440; max-width:640px; margin:0 auto 2.5rem; font-size:16px;">Plus avoided downstream cost (repeat procedures within 12 months) at approximately $1,500 per case. Detailed scenario math in section 6.</p>
+
+    <details>
+      <summary>See the math</summary>
+      <div class="details-body">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Inadequate prep rate after</th>
+              <th>Annual recovered value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Conservative</td>
+              <td class="mono-cell">14% (vs. 20% baseline)</td>
+              <td>~$720K</td>
+            </tr>
+            <tr class="bold-row">
+              <td>Central</td>
+              <td class="mono-cell">12%</td>
+              <td>~$3.1M</td>
+            </tr>
+            <tr>
+              <td>Optimistic</td>
+              <td class="mono-cell">9% (full RCT effect)</td>
+              <td>~$4.8M</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Central case: 30,000 colonoscopies × 8 percentage point reduction in inadequate prep = 2,400 fewer inadequate prep cases per year. Of those, approximately 40% would have led to outright cancellation (recovered at $1,000 contribution margin per slot = $960K) and 60% would have led to repeat procedures within 12 months (avoided cost at $1,500 per case = $2.16M). Total: $3.1M recovered annually per high-volume site.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════════════ SECTION 3: WHAT THE AGENT DOES ══════════════════════ -->
+<section id="the-agent" aria-labelledby="h-agent">
+  <div class="container">
+    <h2 class="section-header" id="h-agent">What the agent does</h2>
+
+    <p class="s3-anchor">A voice agent that calls every patient scheduled for colonoscopy at approximately 6&nbsp;PM the evening before — coaches them through bowel prep, catches errors in real time, and escalates to a GI nurse when prep is failing.</p>
+
+    <!-- Timeline SVG -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 800 190" role="img" aria-label="Three-step timeline: pre-call data pull at 3 PM, the call at 6 PM, outcome pairing at 7 AM">
+        <!-- Connector -->
+        <line x1="148" y1="82" x2="356" y2="82" stroke="#E8E8E5" stroke-width="2"/>
+        <line x1="444" y1="82" x2="652" y2="82" stroke="#E8E8E5" stroke-width="2"/>
+        <polygon points="349,77 361,82 349,87" fill="#E8E8E5"/>
+        <polygon points="645,77 657,82 645,87" fill="#E8E8E5"/>
+
+        <!-- Node 1 -->
+        <circle cx="110" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
+        <circle cx="110" cy="82" r="22" fill="#2F5D50"/>
+        <text x="110" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">1</text>
+        <text x="110" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">3 PM · Day -1</text>
+        <text x="110" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">Pre-call data pull</text>
+        <text x="110" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Roster + clinical context</text>
+        <text x="110" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">loaded for tomorrow's patients</text>
+
+        <!-- Node 2 -->
+        <circle cx="400" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
+        <circle cx="400" cy="82" r="22" fill="#2F5D50"/>
+        <text x="400" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">2</text>
+        <text x="400" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">6 PM · Day -1</text>
+        <text x="400" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">The call (~4 min)</text>
+        <text x="400" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Prep coaching, medication</text>
+        <text x="400" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">confirmations, escalation if needed</text>
+
+        <!-- Node 3 -->
+        <circle cx="690" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
+        <circle cx="690" cy="82" r="22" fill="#2F5D50"/>
+        <text x="690" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">3</text>
+        <text x="690" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">Day 0 · 7 AM</text>
+        <text x="690" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">Outcome paired back</text>
+        <text x="690" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">BBPS, abort flags,</text>
+        <text x="690" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">eval data</text>
+      </svg>
+    </div>
+
+    <div class="two-col" style="margin-top:3.5rem;">
+      <div class="agent-does">
+        <h3>What it does</h3>
+        <ul>
+          <li>Coaches bowel prep at the moment of action</li>
+          <li>Confirms perioperative medications</li>
+          <li>Triages symptoms; escalates to nurse on red flags</li>
+          <li>Confirms transportation and arrival logistics</li>
+          <li>Documents the call in Epic (note + flag + observations + In-Basket)</li>
+        </ul>
+      </div>
+      <div class="agent-doesnt">
+        <h3>What it deliberately does not do</h3>
+        <ul>
+          <li>Schedule colonoscopies (Hippocratic's existing COL agent already does this)</li>
+          <li>Diagnose conditions or make clinical decisions</li>
+          <li>Address transportation barriers (Phase 2 — separate agent)</li>
+          <li>Handle financial counseling (Phase 2 — separate agent)</li>
+          <li>Replace the GI nurse — escalates to one when needed</li>
+        </ul>
+      </div>
+    </div>
+
+    <details style="margin-top:2.5rem;">
+      <summary>See the conversation flow</summary>
+      <div class="details-body">
+        <svg viewBox="0 0 560 540" role="img" aria-label="Conversation flow decision tree" style="max-width:480px; display:block; margin:0 auto;">
+          <!-- Step 1 -->
+          <rect x="160" y="8" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
+          <text x="280" y="29" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Greeting and ID verify</text>
+          <text x="280" y="47" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">DOB + last 4 of phone</text>
+          <line x1="280" y1="58" x2="280" y2="86" stroke="#E8E8E5" stroke-width="1.5"/>
+          <polygon points="275,80 280,90 285,80" fill="#E8E8E5"/>
+
+          <!-- Step 2 -->
+          <rect x="160" y="90" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
+          <text x="280" y="111" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Frame the call</text>
+          <text x="280" y="129" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">establish purpose, set expectations</text>
+          <!-- Branch -->
+          <line x1="400" y1="115" x2="430" y2="115" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="432" y="111" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if refuses →</text>
+          <text x="432" y="123" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">document + end</text>
+          <line x1="280" y1="140" x2="280" y2="168" stroke="#E8E8E5" stroke-width="1.5"/>
+          <polygon points="275,162 280,172 285,162" fill="#E8E8E5"/>
+
+          <!-- Step 3 — accent -->
+          <rect x="150" y="172" width="260" height="52" rx="6" fill="#EBF2EF" stroke="#2F5D50" stroke-width="1.5"/>
+          <text x="280" y="194" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#2F5D50" font-weight="600">Prep status check</text>
+          <text x="280" y="213" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#2F5D50">the longest moment</text>
+          <!-- Branch -->
+          <line x1="410" y1="198" x2="432" y2="198" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="434" y="194" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if prep failing →</text>
+          <text x="434" y="206" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">escalate to nurse</text>
+          <line x1="280" y1="224" x2="280" y2="252" stroke="#E8E8E5" stroke-width="1.5"/>
+          <polygon points="275,246 280,256 285,246" fill="#E8E8E5"/>
+
+          <!-- Step 4 -->
+          <rect x="160" y="256" width="240" height="52" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
+          <text x="280" y="277" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Medication confirmations</text>
+          <text x="280" y="296" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">filtered to relevant meds only</text>
+          <!-- Branch -->
+          <line x1="400" y1="282" x2="432" y2="282" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="434" y="278" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if hold violated →</text>
+          <text x="434" y="290" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">escalate to nurse</text>
+          <line x1="280" y1="308" x2="280" y2="336" stroke="#E8E8E5" stroke-width="1.5"/>
+          <polygon points="275,330 280,340 285,330" fill="#E8E8E5"/>
+
+          <!-- Step 5 -->
+          <rect x="160" y="340" width="240" height="52" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
+          <text x="280" y="361" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Logistics confirmation</text>
+          <text x="280" y="380" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">escort, arrival time</text>
+          <!-- Branch -->
+          <line x1="400" y1="366" x2="432" y2="366" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
+          <text x="434" y="362" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if no escort →</text>
+          <text x="434" y="374" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">flag + alert nurse</text>
+          <line x1="280" y1="392" x2="280" y2="420" stroke="#E8E8E5" stroke-width="1.5"/>
+          <polygon points="275,414 280,424 285,414" fill="#E8E8E5"/>
+
+          <!-- Step 6 -->
+          <rect x="160" y="424" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
+          <text x="280" y="445" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Wrap-up with reminder</text>
+          <text x="280" y="463" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">arrival time, nothing by mouth cutoff</text>
+        </svg>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════════════ SECTION 4: CONFIGURATION ══════════════════════ -->
+<section id="configuration" aria-labelledby="h-config">
+  <div class="container">
+    <h2 class="section-header" id="h-config">How it's configured</h2>
+    <p class="lead" style="max-width:760px;">I built this in the Hippocratic SafetyPortal. Per-customer configuration goes here — practitioner prep templates, code maps, escalation routing. The portal is where deployment-week-one work happens.</p>
+
+    <div class="demo-placeholder" aria-label="Demo video placeholder — to be recorded from SafetyPortal">
+      <pre>[DEMO PLACEHOLDER]
+A 2–3 minute video walkthrough of the agent will be placed here.
+Will show: happy path (90 seconds) followed by failure case
+(patient throwing up the prep, agent escalating to nurse).
+Recorded from the SafetyPortal.</pre>
+    </div>
+
+    <p style="max-width:760px; margin-bottom:3rem;">The Day -1 call for Mrs. Chen (composite patient): 58 years old, screening colonoscopy tomorrow, type 2 diabetic on Ozempic, on Eliquis. The first 90 seconds show the happy path. At 1:45 we walk through the failure case — patient throwing up the prep — and the warm-transfer escalation.</p>
+
+    <dl class="config-list">
+      <dt>Service-type codes</dt>
+      <dd>Your local codes for colonoscopy. Varies per site. Could be SNOMED, Epic-internal, or local.</dd>
+
+      <dt>Prep regimens by physician</dt>
+      <dd>Each GI doc has standing preferences. Dr. Smith uses split-dose SUPREP. Dr. Patel uses MoviPrep. Captured in deployment week one.</dd>
+
+      <dt>In-Basket pool routing</dt>
+      <dd>Which nurse pool gets escalations. Different sites route differently.</dd>
+
+      <dt>Note type for write-back</dt>
+      <dd>Which Epic note type our structured notes file under. Must match an existing template the GI nurses already review.</dd>
+
+      <dt>Perioperative protocol per physician</dt>
+      <dd>Anticoagulant hold rules, insulin adjustments. Per-site, sometimes per-physician within a site.</dd>
+
+      <dt>Escalation triggers</dt>
+      <dd>Site-specific risk thresholds. Vomiting count, prep timing slippage, missing escort.</dd>
+    </dl>
+
+    <details>
+      <summary>See the SafetyPortal configuration walkthrough</summary>
+      <div class="details-body">
+        <p>[PLACEHOLDER: SafetyPortal screenshots with annotations — to be added once the demo agent is built in the portal.]</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════════════ SECTION 5: INTEGRATION ══════════════════════ -->
+<section id="integration" aria-labelledby="h-integration">
+  <div class="container">
+    <h2 class="section-header" id="h-integration">How it integrates</h2>
+
+    <!-- Architecture diagram -->
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 720 420" role="img" aria-label="Architecture diagram: Agent at center connected to Epic EHR above, Twilio voice stack to the right, Patient below, and GI Nurse on-call lower-right via dashed escalation arrow">
+
+        <!-- Epic EHR (top center) -->
+        <rect x="280" y="18" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
+        <text x="360" y="41" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Epic EHR</text>
+        <text x="360" y="59" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">FHIR R4 / HL7 v2</text>
+
+        <!-- Agent (center) -->
+        <rect x="268" y="183" width="184" height="58" rx="8" fill="#2F5D50"/>
+        <text x="360" y="208" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="15" fill="white" font-weight="600">Agent</text>
+        <text x="360" y="228" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="rgba(255,255,255,0.65)">Polaris LLM</text>
+
+        <!-- Voice stack (right) -->
+        <rect x="530" y="183" width="160" height="58" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
+        <text x="610" y="208" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Voice stack</text>
+        <text x="610" y="226" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">Twilio SIP</text>
+
+        <!-- Patient (bottom center) -->
+        <rect x="280" y="348" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
+        <text x="360" y="371" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Patient</text>
+        <text x="360" y="389" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">mobile phone</text>
+
+        <!-- GI Nurse (lower right, dashed) -->
+        <rect x="530" y="348" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <text x="610" y="370" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">GI Nurse on-call</text>
+        <text x="610" y="388" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">warm transfer</text>
+
+        <!-- Epic ↔ Agent (solid vertical) -->
+        <line x1="360" y1="72"  x2="360" y2="183" stroke="#2F5D50" stroke-width="1.5"/>
+        <polygon points="355,174 360,183 365,174" fill="#2F5D50"/>
+        <polygon points="355,81  360,72  365,81"  fill="#2F5D50"/>
+
+        <!-- Agent ↔ Voice (solid horizontal) -->
+        <line x1="452" y1="212" x2="530" y2="212" stroke="#2F5D50" stroke-width="1.5"/>
+        <polygon points="521,207 530,212 521,217" fill="#2F5D50"/>
+        <polygon points="461,207 452,212 461,217" fill="#2F5D50"/>
+
+        <!-- Agent ↔ Patient (solid vertical) -->
+        <line x1="360" y1="241" x2="360" y2="348" stroke="#2F5D50" stroke-width="1.5"/>
+        <polygon points="355,339 360,348 365,339" fill="#2F5D50"/>
+        <polygon points="355,250 360,241 365,250" fill="#2F5D50"/>
+
+        <!-- Agent → GI Nurse (dashed diagonal) -->
+        <line x1="452" y1="237" x2="530" y2="348" stroke="#C8C8C4" stroke-width="1.5" stroke-dasharray="6,3"/>
+        <polygon points="525,341 530,348 523,344" fill="#C8C8C4"/>
+        <!-- escalate label -->
+        <text x="515" y="295" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#AAAAAA" transform="rotate(-56 515 295)">escalate</text>
+      </svg>
+    </div>
+    <p class="caption diagram-caption">Five components, four connections. Everything else is detail.</p>
+
+    <!-- FHIR three columns -->
+    <div class="three-col" style="margin-top:3.5rem;">
+      <div class="fhir-col">
+        <h3>3 PM — pre-call pull</h3>
+        <ul>
+          <li>Appointment</li>
+          <li>Patient</li>
+          <li>ServiceRequest</li>
+          <li>Practitioner, Location</li>
+          <li>Condition (filtered)</li>
+          <li>MedicationStatement (filtered)</li>
+          <li>Observation (recent labs)</li>
+          <li>AllergyIntolerance</li>
+          <li>DocumentReference (prep templates)</li>
+        </ul>
+      </div>
+      <div class="fhir-col voice">
+        <h3>6 PM — the call</h3>
+        <ul>
+          <li>Voice over Twilio SIP</li>
+          <li>Polaris LLM reasoning</li>
+          <li>Real-time turn-taking</li>
+          <li>Warm transfer on escalation</li>
+          <li style="font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:0.75rem; line-height:1.6;">Pre-loaded data drives conversation; no live FHIR calls during the call</li>
+        </ul>
+      </div>
+      <div class="fhir-col">
+        <h3>6:05 PM — write-back</h3>
+        <ul>
+          <li>DocumentReference (structured note)</li>
+          <li>Communication (call disposition)</li>
+          <li>Flag (if risk identified)</li>
+          <li>Observation (patient-reported data)</li>
+          <li>In-Basket message (if escalation needed)</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="text-align:center; color:#444440; margin-top:1.5rem;">All reads happen at 3 PM. Pre-loaded data drives the call. Writes fire after the call ends, within seconds.</p>
+
+    <!-- Honest statements -->
+    <div class="three-col" style="margin-top:3.5rem; padding-top:2.25rem; border-top:1px solid var(--border);">
+      <div class="honest-col">
+        <h3>FHIR-first, hybrid in reality.</h3>
+        <p>The primary path is FHIR R4 for reads and most writes. HL7 v2 fallback for sites not yet FHIR-current. Epic-specific operations such as <code>Communication.$send-in-basket</code> for In-Basket messaging where standard FHIR doesn't cover the workflow.</p>
+      </div>
+      <div class="honest-col">
+        <h3>Pre-load discipline.</h3>
+        <p>The agent doesn't fetch data live during conversations. Comprehensive pre-load at 3 PM means zero EHR-dependent latency during patient calls. Voice doesn't tolerate the silence of a mid-conversation tool call. This is a deliberate safety and UX choice.</p>
+      </div>
+      <div class="honest-col">
+        <h3>The hardest deployment problem.</h3>
+        <p>Bowel prep regimen choice doesn't live in a standard FHIR field. It's a 30-minute working session per customer in deployment week one. Not a code problem — a configuration problem.</p>
+      </div>
+    </div>
+
+    <!-- Three collapsibles -->
+    <div class="collapsible-row" style="margin-top:2rem;">
+      <details>
+        <summary>Full FHIR resource map</summary>
+        <div class="details-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Resource</th>
+                <th>What we read</th>
+                <th>Why we read it</th>
+                <th>Variability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono-cell">Appointment</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">ServiceRequest</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Patient</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Practitioner</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Location</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Condition</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">MedicationStatement</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Observation</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">AllergyIntolerance</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+              <tr><td class="mono-cell">Procedure</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
+              <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details>
+        <summary>Auth, security, and HIPAA posture</summary>
+        <div class="details-body">
+          <ul>
+            <li>OAuth 2.0 + SMART-on-FHIR Backend Services profile</li>
+            <li>JWT-signed assertions, system-level scopes registered through Epic Vendor Services</li>
+            <li>TLS 1.3 in transit, audit logging at every PHI access point</li>
+            <li>HIPAA + HITRUST certified pipeline (Hippocratic-side)</li>
+            <li>PHI never logged to LLM provider; minimum-necessary in agent prompt</li>
+            <li>Identity verification (DOB + last 4 of phone) before any clinical content</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Deployment timeline</summary>
+        <div class="details-body">
+          <ul>
+            <li><strong>Week 1:</strong> Discovery — service-type codes, In-Basket pool, note type mapping, prep regimen capture per physician</li>
+            <li><strong>Weeks 2–4:</strong> Integration build — FHIR/HL7 channel setup with customer's interface engine team, security review, scope provisioning</li>
+            <li><strong>Weeks 5–8:</strong> Configuration and shadow mode — agent runs in shadow, no actual calls placed; outputs reviewed by GI nurses</li>
+            <li><strong>Weeks 9–12:</strong> Pilot — limited patient cohort with explicit consent and nurse oversight on every call</li>
+            <li><strong>Weeks 13–16:</strong> Production rollout — full volume, weekly performance review for first quarter</li>
+            <li><strong>Subsequent sites on the same Epic instance:</strong> 2–3 weeks (configuration only, no integration build)</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ SECTION 6: TRADEOFFS ══════════════════════ -->
+<section id="tradeoffs" aria-labelledby="h-tradeoffs">
+  <div class="container">
+    <h2 class="section-header" id="h-tradeoffs">Tradeoffs and roadmap</h2>
+    <p class="lead" style="max-width:720px; margin-bottom:3rem;">Three things will be hard. Here's how I'd handle each.</p>
+
+    <div class="risk-block">
+      <h3>Risk 1: GI nurse adoption.</h3>
+      <p class="risk-desc">Nurses worry the agent will replace them or that it will generate too many false escalations and waste their time. A failed adoption looks like nurses ignoring agent flags or routing patients around the agent.</p>
+      <p class="mit-label">Mitigation</p>
+      <p class="mitigation">Position the agent as a triage layer that increases nurse leverage — nurses get higher-quality patients to review, not more patients. Track escalation precision (percent of escalated calls where the nurse actually intervened) as a primary metric. Co-design escalation rules with the GI service line in deployment week one. Expect the first month of production to require active tuning.</p>
+    </div>
+
+    <div class="risk-block">
+      <h3>Risk 2: Patient pushback on robocalls.</h3>
+      <p class="risk-desc">Patients hate cold-call IVRs and may hang up before the agent can establish what it is. Older patients in particular may distrust the medium.</p>
+      <p class="mit-label">Mitigation</p>
+      <p class="mitigation">Caller ID branding (the call shows "Cleveland Clinic GI" not a random number). Opt-in at scheduling so patients are pre-warned. Evening time window respected (no calls before 5 PM or after 9 PM). Immediate handoff to a human within 30 seconds when patient asks. Hippocratic's published 9.0/10 patient ratings on existing post-discharge agents are evidence the approach works when these principles are followed.</p>
+    </div>
+
+    <div class="risk-block">
+      <h3>Risk 3: Multi-language deployment.</h3>
+      <p class="risk-desc">A high-volume AMC serves Spanish, Mandarin, Vietnamese, and other-language patients. Day-one deployment in English only would exclude the populations who most need attention.</p>
+      <p class="mit-label">Mitigation</p>
+      <p class="mitigation">Day-one deployment includes English and Spanish. Phase two expands per customer demand. Important not to over-promise on day one — patients don't tolerate a robocall in the wrong language. Better to escalate to a human nurse for non-supported languages than to attempt a poor agent experience.</p>
+    </div>
+
+    <!-- Roadmap timeline SVG -->
+    <div class="diagram-wrap" style="margin-top:4rem;">
+      <svg viewBox="0 0 800 200" role="img" aria-label="Three-phase roadmap: current use case, Phase 2, Phase 3">
+        <!-- Connectors -->
+        <line x1="168" y1="82" x2="346" y2="82" stroke="#E8E8E5" stroke-width="2"/>
+        <line x1="454" y1="82" x2="632" y2="82" stroke="#E8E8E5" stroke-width="2"/>
+        <polygon points="340,77 352,82 340,87" fill="#E8E8E5"/>
+        <polygon points="626,77 638,82 626,87" fill="#E8E8E5"/>
+
+        <!-- Node 1: current (filled accent) -->
+        <circle cx="120" cy="82" r="34" fill="#2F5D50" fill-opacity="0.1"/>
+        <circle cx="120" cy="82" r="24" fill="#2F5D50"/>
+        <text x="120" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="white" font-weight="500">NOW</text>
+
+        <text x="120" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">This use case</text>
+        <text x="120" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Day -1 evening prep</text>
+        <text x="120" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">coaching agent</text>
+
+        <!-- Node 2 -->
+        <circle cx="400" cy="82" r="34" fill="#E8E8E5" fill-opacity="0.5"/>
+        <circle cx="400" cy="82" r="24" fill="#E8E8E5" stroke="#C8C8C4" stroke-width="1.5"/>
+        <text x="400" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">PH.2</text>
+
+        <text x="400" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#444440" font-weight="600">Phase 2</text>
+        <text x="400" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Transportation agent.</text>
+        <text x="400" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Fear-of-findings agent</text>
+        <text x="400" y="182" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">for FIT-positive patients</text>
+
+        <!-- Node 3 -->
+        <circle cx="680" cy="82" r="34" fill="#E8E8E5" fill-opacity="0.3"/>
+        <circle cx="680" cy="82" r="24" fill="#E8E8E5" stroke="#C8C8C4" stroke-width="1.5"/>
+        <text x="680" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">PH.3</text>
+
+        <text x="680" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#444440" font-weight="600">Phase 3</text>
+        <text x="680" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Payor expansion.</text>
+        <text x="680" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">HEDIS COL-FU attribution</text>
+      </svg>
+    </div>
+
+    <p style="max-width:760px; margin:2rem auto 0; color:#444440; line-height:1.7;">This agent addresses the prep-related share of colonoscopy misses — about 30% of the failure modes. Other failure types (transportation, fear of findings, financial access) each deserve their own agent with different conversational depth, different integrations, and different safety architecture. The provider deployment generates the outcome data that makes the payor expansion fast.</p>
+
+    <details style="max-width:760px; margin:2rem auto 0;">
+      <summary>Why provider-first, payor-second</summary>
+      <div class="details-body">
+        <p>Payors have a real and growing interest in colonoscopy outcomes. The new HEDIS COL-FU measure tracks completion of follow-up colonoscopy after positive stool tests — currently sitting around 35–65% completion. Federal regulations as of January 2023 eliminated patient cost-sharing for these follow-up procedures, which puts payors more financially on the hook for completion.</p>
+        <p>A Medicare Advantage plan with 200,000 members in the screening-age population sees roughly 20,000 colonoscopies per year. If our agent reduces inadequate prep rate by 8 percentage points, that's 1,600 fewer repeat procedures within 12 months — about $2.4M in avoided medical spend.</p>
+        <p>But the right sequence is provider deployment first. Providers feel the pain immediately through cancelled OR slots. Payors feel it annually through HEDIS attestation. The provider deployment generates per-call outcome data that makes the payor sale fast and defensible. Going to a payor first means making claims about effect size we can't yet prove.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div style="max-width:580px; margin:0 auto;">
+    <p>Built for the Hippocratic AI Agent Deployment Architect onsite.</p>
+    <p>Questions? Happy to dig deeper into any section live or asynchronously.</p>
+    <p style="margin-top:0.5rem;">[YOUR NAME]&nbsp;&middot;&nbsp;[YOUR EMAIL]&nbsp;&middot;&nbsp;[YOUR LINKEDIN URL]</p>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" aria-label="Back to top">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 13V3M3 8L8 3L13 8" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<script>
+  // ── Sticky nav visibility ──
+  const nav     = document.getElementById('site-nav');
+  const hero    = document.getElementById('hero');
+  const bttBtn  = document.getElementById('back-to-top');
+  const section2 = document.getElementById('why-agentic');
+  const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
+  const sections = Array.from(document.querySelectorAll('section[id]:not(#hero)'));
+
+  new IntersectionObserver(([e]) => nav.classList.toggle('visible', !e.isIntersecting), { threshold: 0.05 })
+    .observe(hero);
+
+  // ── Active section highlight ──
+  const secObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-60px 0px -55% 0px' });
+  sections.forEach(s => secObs.observe(s));
+
+  // ── Smooth scroll with nav offset ──
+  navLinks.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' });
+    });
+  });
+
+  // ── Back to top ──
+  new IntersectionObserver(([e]) => bttBtn.classList.toggle('visible', !e.isIntersecting), { threshold: 0 })
+    .observe(section2);
+  bttBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // ── Fade-in on scroll ──
+  sections.forEach(s => s.classList.add('fade-section'));
+  const fadeObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: 0.08 });
+  sections.forEach(s => fadeObs.observe(s));
+
+  // ── Animated collapsible expand/collapse ──
+  document.querySelectorAll('details').forEach(det => {
+    const summary = det.querySelector('summary');
+    const body    = det.querySelector('.details-body');
+    if (!body) return;
+    summary.addEventListener('click', e => {
+      e.preventDefault();
+      if (det.open) {
+        // Close
+        body.style.height = body.scrollHeight + 'px';
+        body.offsetHeight; // reflow
+        body.style.transition = 'height 0.22s ease-out';
+        body.style.height = '0';
+        body.style.overflow = 'hidden';
+        body.addEventListener('transitionend', () => {
+          det.open = false;
+          body.style.cssText = '';
+        }, { once: true });
+      } else {
+        // Open
+        det.open = true;
+        const h = body.scrollHeight;
+        body.style.height = '0';
+        body.style.overflow = 'hidden';
+        body.offsetHeight; // reflow
+        body.style.transition = 'height 0.22s ease-out';
+        body.style.height = h + 'px';
+        body.addEventListener('transitionend', () => {
+          body.style.cssText = '';
+        }, { once: true });
+      }
+    });
+  });
+</script>
+</body>
+</html>
