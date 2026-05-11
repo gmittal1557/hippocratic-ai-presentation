@@ -435,17 +435,19 @@
     }
     .problem-bullets li {
       padding: 0.65rem 0;
+      padding-left: 1.5rem;
       font-size: 15.5px;
       line-height: 1.55;
-      display: flex;
-      gap: 0.7rem;
+      display: block;
+      text-indent: -1.5rem;
     }
     .problem-bullets li:not(:last-child) { border-bottom: 0.5px solid #EFEFE9; }
-    .problem-bullets li strong { font-weight: 500; }
-    .bullet-marker {
+    .problem-bullets li strong { font-weight: 500; margin-right: 0.25rem; }
+    .problem-bullets .bullet-marker {
       color: var(--accent);
-      flex-shrink: 0;
+      margin-right: 0.6rem;
     }
+    .missed-reasons-chart { padding-top: 0.65rem; }
     .missed-reasons-chart .missed-reasons-label {
       font-family: var(--mono);
       font-size: 10px;
@@ -471,14 +473,21 @@
     }
     .reason-bar-wrap {
       flex: 1;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      gap: 0.625rem;
+      gap: 0.875rem;
+    }
+    .reason-bar-track {
+      width: 160px;
+      height: 12px;
+      background: transparent;
     }
     .reason-bar {
       height: 12px;
       background: #BBBBB7;
       border-radius: 2px;
+      min-width: 8px;
     }
     .reason-name {
       font-size: 13.5px;
@@ -1019,6 +1028,7 @@
       letter-spacing: -0.02em;
       max-width: 52rem;
       margin-bottom: 1.25rem;
+      text-wrap: balance;
     }
     .section-subtitle {
       font-size: clamp(16px, 1.5vw, 18px);
@@ -1140,42 +1150,42 @@
           <div class="reason-row prep-row">
             <span class="reason-pct">30%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 30%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 30%;"></div></div>
               <span class="reason-name">Prep-related</span>
             </div>
           </div>
           <div class="reason-row">
             <span class="reason-pct">25%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 25%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 25%;"></div></div>
               <span class="reason-name">Logistical</span>
             </div>
           </div>
           <div class="reason-row">
             <span class="reason-pct">15%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 15%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 15%;"></div></div>
               <span class="reason-name">Patient illness</span>
             </div>
           </div>
           <div class="reason-row">
             <span class="reason-pct">15%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 15%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 15%;"></div></div>
               <span class="reason-name">Anxiety or no-show</span>
             </div>
           </div>
           <div class="reason-row">
             <span class="reason-pct">10%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 10%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 10%;"></div></div>
               <span class="reason-name">Financial or access</span>
             </div>
           </div>
           <div class="reason-row">
             <span class="reason-pct">5%</span>
             <div class="reason-bar-wrap">
-              <div class="reason-bar" style="width: 5%"></div>
+              <div class="reason-bar-track"><div class="reason-bar" style="width: 5%;"></div></div>
               <span class="reason-name">Other</span>
             </div>
           </div>
