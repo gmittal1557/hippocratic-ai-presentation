@@ -14,6 +14,8 @@
       --text: #0F0F0F;
       --bg: #FAFAFA;
       --accent: #2F5D50;
+      --accent-2: #6F6A45;
+      --ink: #1C2421;
       --accent-bg: rgba(47, 93, 80, 0.07);
       --accent-bg-strong: rgba(47, 93, 80, 0.12);
       --border: #E8E8E5;
@@ -186,13 +188,18 @@
     /* ─── HERO ─── */
     #hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+      gap: clamp(2rem, 5vw, 5rem);
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: calc(var(--bar-h) + var(--nav-h) + 3rem) 2rem 4rem;
+      text-align: left;
+      padding: calc(var(--bar-h) + var(--nav-h) + 3rem) max(2rem, calc((100vw - 1120px) / 2 + 2.75rem)) 4rem;
       position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 86% 22%, rgba(47,93,80,0.08), transparent 28rem),
+        linear-gradient(180deg, #FBFBF9 0%, #F6F6F1 100%);
     }
     .hero-headline {
       font-family: var(--serif);
@@ -201,22 +208,144 @@
       line-height: 1.1;
       max-width: 840px;
       margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      letter-spacing: 0;
     }
     .hero-subhead {
       font-family: var(--sans);
       font-size: clamp(17px, 2vw, 22px);
       font-weight: 300;
       color: #505050;
-      max-width: 580px;
+      max-width: 620px;
       margin-bottom: 0;
       line-height: 1.5;
     }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      border: 1px solid rgba(47,93,80,0.18);
+      background: rgba(255,255,255,0.72);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .hero-kicker::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(47,93,80,0.1);
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(47,93,80,0.25);
+      padding: 0.72rem 1.05rem;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--accent);
+      background: rgba(255,255,255,0.72);
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+    .hero-btn.primary { background: var(--accent); color: white; }
+    .hero-btn:hover { transform: translateY(-1px); border-color: rgba(47,93,80,0.45); }
+    .hero-visual {
+      position: relative;
+      min-height: 520px;
+      width: 100%;
+    }
+    .photo-card {
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid rgba(15,15,15,0.08);
+      background: white;
+      box-shadow: 0 18px 50px rgba(31,45,40,0.12);
+    }
+    .photo-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .photo-card.main {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(100%, 390px);
+      height: 360px;
+    }
+    .photo-card.secondary {
+      position: absolute;
+      left: 0;
+      bottom: 58px;
+      width: 250px;
+      height: 190px;
+    }
+    .metric-card {
+      position: absolute;
+      right: 28px;
+      bottom: 0;
+      width: 260px;
+      border: 1px solid rgba(47,93,80,0.18);
+      border-radius: 8px;
+      padding: 1.1rem;
+      background: rgba(255,255,255,0.94);
+      box-shadow: 0 14px 34px rgba(31,45,40,0.12);
+    }
+    .metric-card .metric-num {
+      display: block;
+      font-family: var(--serif);
+      font-size: 46px;
+      line-height: 1;
+      color: var(--accent);
+    }
+    .metric-card p {
+      margin-top: 0.45rem;
+      color: #444440;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    .rubric-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      margin-top: 2.2rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--border);
+      max-width: 760px;
+    }
+    .rubric-strip span {
+      background: rgba(255,255,255,0.7);
+      padding: 0.85rem;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      line-height: 1.4;
+      color: #555550;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
     .scroll-cue {
       position: absolute;
-      bottom: 7vh;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 1.65rem;
+      left: max(2rem, calc((100vw - 1120px) / 2 + 2.75rem));
       font-family: var(--mono);
       font-size: 12.5px;
       color: var(--muted);
@@ -298,6 +427,33 @@
       font-size: 16px;
       line-height: 1.7;
       color: #2A2A2A;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2.5rem 0 0;
+    }
+    .proof-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fff;
+    }
+    .proof-card strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 30px;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 0.55rem;
+      font-weight: 400;
+    }
+    .proof-card span {
+      display: block;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #555550;
     }
 
     /* ─── TABLES ─── */
@@ -496,7 +652,7 @@
       color: var(--text);
     }
 
-    /* ─── DEMO PLACEHOLDER ─── */
+    /* ─── DEMO PANEL ─── */
     .demo-placeholder {
       aspect-ratio: 16/9;
       border: 2px dashed var(--border);
@@ -515,6 +671,51 @@
       color: var(--muted);
       line-height: 1.9;
       white-space: pre-wrap;
+    }
+    .demo-card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(280px, 1.05fr);
+      gap: 1.5rem;
+      align-items: stretch;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+    .demo-card-media {
+      min-height: 310px;
+      background: #eef1ec;
+    }
+    .demo-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .demo-script {
+      padding: 1.75rem;
+    }
+    .demo-script h3 {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .script-row {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .script-row:first-of-type { border-top: none; }
+    .script-time {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .script-row p {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #333330;
     }
 
     /* ─── TABS ─── */
@@ -684,6 +885,31 @@
       margin-bottom: 0.4rem;
     }
     .risk-block .mitigation { font-size: 16px; line-height: 1.65; color: #333330; }
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .interview-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      padding: 1.25rem;
+    }
+    .interview-card h3 {
+      font-family: var(--sans);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+    .interview-card p {
+      color: #444440;
+      font-size: 15px;
+      line-height: 1.6;
+    }
 
     /* ─── DIAGRAM WRAP ─── */
     .diagram-wrap { margin: 2.5rem 0; overflow: hidden; }
@@ -726,6 +952,20 @@
       #site-nav ul a { font-size: 12px; }
       .container { padding: 0 1.5rem; }
       section { padding: 72px 0; }
+      #hero {
+        grid-template-columns: 1fr;
+        text-align: left;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+      .hero-visual { min-height: 440px; }
+      .photo-card.main { width: 100%; height: 280px; }
+      .photo-card.secondary { width: 190px; height: 150px; bottom: 56px; }
+      .metric-card { right: 0; width: 220px; }
+      .rubric-strip { grid-template-columns: 1fr; }
+      .proof-grid, .interview-grid { grid-template-columns: 1fr; }
+      .demo-card { grid-template-columns: 1fr; }
+      .demo-card-media { min-height: 230px; }
     }
     @media (max-width: 540px) {
       #site-nav ul { display: none; }
@@ -847,8 +1087,34 @@
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
 <section id="hero" aria-label="Introduction">
-  <h1 class="hero-headline">The check-in call the night before colonoscopy.</h1>
-  <p class="hero-subhead">Prevents costly same-day colonoscopy cancellations across the schedule.</p>
+  <div>
+    <div class="hero-kicker">Hippocratic AI · Agent Deployment Architect</div>
+    <h1 class="hero-headline">The check-in call the night before colonoscopy.</h1>
+    <p class="hero-subhead">A Day -1 voice agent that prevents same-day cancellations by coaching patients at the exact moment bowel prep fails.</p>
+    <div class="hero-actions">
+      <a class="hero-btn primary" href="#configuration">Show demo plan →</a>
+      <a class="hero-btn" href="#integration">Review technical flow</a>
+    </div>
+    <div class="rubric-strip" aria-label="Assignment rubric coverage">
+      <span>Workflow depth</span>
+      <span>ROI math</span>
+      <span>Demo realism</span>
+      <span>FHIR/API detail</span>
+      <span>Risks & mitigations</span>
+    </div>
+  </div>
+  <div class="hero-visual" aria-hidden="true">
+    <figure class="photo-card main">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=82" alt="">
+    </figure>
+    <figure class="photo-card secondary">
+      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=700&q=82" alt="">
+    </figure>
+    <div class="metric-card">
+      <span class="metric-num">$3.1M</span>
+      <p>central annual recovered value for a 30,000-procedure GI service line.</p>
+    </div>
+  </div>
   <a href="#problem" class="scroll-cue" aria-label="Scroll to the problem section">Scroll to the problem ↓</a>
 </section>
 
@@ -904,6 +1170,25 @@
 
     <div class="callout">
       Most centers' pre-procedure call happens 3–7 days before the procedure. The published RCT shows the call that actually moves prep adequacy is the one made the night before — but staffing it across a high-volume center would require approximately 9 dedicated evening nurses.
+    </div>
+
+    <div class="proof-grid" aria-label="Business case proof points">
+      <div class="proof-card">
+        <strong>20–25%</strong>
+        <span>of colonoscopies have inadequate bowel prep.</span>
+      </div>
+      <div class="proof-card">
+        <strong>8%</strong>
+        <span>same-day cancellation or aborted procedure rate.</span>
+      </div>
+      <div class="proof-card">
+        <strong>+11pp</strong>
+        <span>prep adequacy lift from Day -1 telephone education in the RCT.</span>
+      </div>
+      <div class="proof-card">
+        <strong>9 nurses</strong>
+        <span>needed to staff the evening workflow at one high-volume center.</span>
+      </div>
     </div>
 
     <div class="citation-wrap" id="citation-wrap-1">
@@ -1192,12 +1477,29 @@
       </div>
 
       <div class="tab-panel">
-        <div class="demo-placeholder" aria-label="Demo video placeholder — to be recorded from SafetyPortal">
-          <pre>[DEMO PLACEHOLDER]
-A 2–3 minute video walkthrough of the agent will be placed here.
-Will show: happy path (90 seconds) followed by failure case
-(patient throwing up the prep, agent escalating to nurse).
-Recorded from the SafetyPortal.</pre>
+        <div class="demo-card" aria-label="Demo walkthrough plan">
+          <div class="demo-card-media">
+            <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=82" alt="Clinician reviewing patient information on a tablet">
+          </div>
+          <div class="demo-script">
+            <h3>Demo arc: prove the agent can handle the real edge case.</h3>
+            <div class="script-row">
+              <span class="script-time">0:00</span>
+              <p>Cold open with Mrs. Chen: identity verification, clinic-branded caller ID, and consent framing.</p>
+            </div>
+            <div class="script-row">
+              <span class="script-time">0:45</span>
+              <p>Happy path: confirms split-dose prep, Ozempic hold, arrival time, and escort.</p>
+            </div>
+            <div class="script-row">
+              <span class="script-time">1:45</span>
+              <p>Failure case: patient vomited the prep. Agent stops coaching, escalates, and warm-transfers to GI nurse.</p>
+            </div>
+            <div class="script-row">
+              <span class="script-time">2:30</span>
+              <p>Post-call proof: structured Epic note, Communication disposition, Flag, and In-Basket escalation.</p>
+            </div>
+          </div>
         </div>
         <p style="max-width:760px; margin-top:1.5rem;">The Day -1 call for Mrs. Chen (composite patient): 58 years old, screening colonoscopy tomorrow, type 2 diabetic on Ozempic, on Eliquis. The first 90 seconds show the happy path. At 1:45 we walk through the failure case — patient throwing up the prep — and the warm-transfer escalation.</p>
       </div>
@@ -1330,18 +1632,18 @@ Recorded from the SafetyPortal.</pre>
                 </tr>
               </thead>
               <tbody>
-                <tr><td class="mono-cell">Appointment</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">ServiceRequest</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Patient</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Practitioner</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Location</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Condition</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">MedicationStatement</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Observation</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">AllergyIntolerance</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-                <tr><td class="mono-cell">Procedure</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
-                <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
+                <tr><td class="mono-cell">Appointment</td><td>Tomorrow's colonoscopy schedule, status, arrival time</td><td>Build the call roster and suppress cancelled cases</td><td>Local service-type codes vary by site</td></tr>
+                <tr><td class="mono-cell">ServiceRequest</td><td>Ordered procedure, indication, ordering physician</td><td>Confirm procedure context and physician-specific prep</td><td>Sometimes encoded in orders, sometimes in notes</td></tr>
+                <tr><td class="mono-cell">Patient</td><td>Name, DOB, preferred language, phone, consent flags</td><td>Identity verification and outreach eligibility</td><td>Preferred language quality varies</td></tr>
+                <tr><td class="mono-cell">Practitioner</td><td>GI physician and care team metadata</td><td>Map physician prep defaults and escalation ownership</td><td>Physician naming and pools differ by Epic instance</td></tr>
+                <tr><td class="mono-cell">Location</td><td>Endoscopy suite, arrival location, phone number</td><td>Give accurate logistics and caller framing</td><td>Multiple campuses under one service line</td></tr>
+                <tr><td class="mono-cell">Condition</td><td>Filtered diabetes, kidney disease, anticoagulation-relevant flags</td><td>Ask only clinically relevant safety questions</td><td>Use minimum-necessary filters, not full problem list</td></tr>
+                <tr><td class="mono-cell">MedicationStatement</td><td>Filtered anticoagulants, insulin, GLP-1s, iron</td><td>Confirm holds and identify nurse escalation triggers</td><td>Medication reconciliation can be stale</td></tr>
+                <tr><td class="mono-cell">Observation</td><td>Recent labs only when relevant to prep or medication safety</td><td>Support nurse-facing escalation context</td><td>Read-only context; agent does not interpret labs</td></tr>
+                <tr><td class="mono-cell">AllergyIntolerance</td><td>Relevant allergies and adverse reactions</td><td>Avoid unsafe scripted advice if patient asks</td><td>Escalate rather than improvise</td></tr>
+                <tr><td class="mono-cell">DocumentReference</td><td>Prep instruction templates and physician standing orders</td><td>Ground the call in the customer's approved language</td><td>Often PDF/template based, not structured FHIR</td></tr>
+                <tr><td class="mono-cell">Procedure</td><td>Completed/aborted status, BBPS if available</td><td>Pair call disposition to actual outcome</td><td>Used for eval loop after procedure</td></tr>
+                <tr><td class="mono-cell">DocumentReference</td><td>Agent call summary, transcript pointer, structured note</td><td>Write back nurse-readable documentation</td><td>Note type and filing location are customer-configured</td></tr>
               </tbody>
             </table>
           </div>
@@ -1407,6 +1709,21 @@ Recorded from the SafetyPortal.</pre>
     </div>
     <h2 class="section-heading" id="h-tradeoffs">Tradeoffs and roadmap</h2>
     <p class="section-subtitle" style="margin-bottom:3rem;">Three things will be hard. Here's how I'd handle each.</p>
+
+    <div class="interview-grid" aria-label="Likely interviewer concerns and concise answers">
+      <div class="interview-card">
+        <h3>Q: Is this clinically safe?</h3>
+        <p>The agent does not diagnose or change medication plans. It verifies instructions, detects deviations, and escalates on predefined criteria with a human handoff.</p>
+      </div>
+      <div class="interview-card">
+        <h3>Q: Will nurses trust it?</h3>
+        <p>Adoption hinges on escalation precision. The first pilot should measure whether nurse interventions are actually useful, not just whether calls complete.</p>
+      </div>
+      <div class="interview-card">
+        <h3>Q: Can it integrate for real?</h3>
+        <p>FHIR R4 is the primary path, HL7 v2 is the fallback, and site-specific prep logic is captured as configuration during deployment week one.</p>
+      </div>
+    </div>
 
     <div class="risk-block">
       <h3>Risk 1: GI nurse adoption.</h3>
@@ -1521,6 +1838,15 @@ Recorded from the SafetyPortal.</pre>
   };
 
   const progressBar = document.getElementById('progress-bar');
+  const updateActiveSection = () => {
+    let activeId = sections[0]?.id;
+    sections.forEach(section => {
+      if (section.getBoundingClientRect().top <= 140) activeId = section.id;
+    });
+    const meta = sectionMeta[activeId];
+    sectionItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + activeId));
+    if (meta) { btnNum.textContent = meta.num; btnLabel.textContent = meta.label; }
+  };
 
   new IntersectionObserver(([e]) => {
     const past = !e.isIntersecting;
@@ -1531,7 +1857,10 @@ Recorded from the SafetyPortal.</pre>
   window.addEventListener('scroll', () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     progressBar.style.width = (total > 0 ? scrollY / total * 100 : 0) + '%';
+    updateActiveSection();
   }, { passive: true });
+  window.addEventListener('hashchange', updateActiveSection);
+  window.addEventListener('load', updateActiveSection);
 
   // ── Dropdown open / close ──
   sectionsBtn.addEventListener('click', e => {
@@ -1590,6 +1919,7 @@ Recorded from the SafetyPortal.</pre>
     });
   }, { threshold: 0.3, rootMargin: '-60px 0px -55% 0px' });
   sections.forEach(s => secObs.observe(s));
+  updateActiveSection();
 
   // ── Back to top ──
   new IntersectionObserver(([e]) => bttBtn.classList.toggle('visible', !e.isIntersecting), { threshold: 0 })

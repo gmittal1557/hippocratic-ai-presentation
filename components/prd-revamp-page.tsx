@@ -46,7 +46,82 @@ const sectionItems = [
   { id: "close",         label: "Roadmap",              nav: "Roadmap" },
 ]
 
-const SAFETYPORTAL_PLACEHOLDER = "[DEMO PLACEHOLDER — to be recorded from SafetyPortal]"
+const SAFETYPORTAL_DEMO_LABEL = "SafetyPortal demo slot: happy path plus escalation case"
+
+const fhirResourceMap = [
+  {
+    resource: "Appointment",
+    read: "Tomorrow's colonoscopy schedule, status, arrival time",
+    why: "Build the call roster and suppress cancelled cases",
+    variability: "Local service-type codes vary by site",
+  },
+  {
+    resource: "ServiceRequest",
+    read: "Ordered procedure, indication, ordering physician",
+    why: "Confirm procedure context and physician-specific prep",
+    variability: "Sometimes encoded in orders, sometimes in notes",
+  },
+  {
+    resource: "Patient",
+    read: "Name, DOB, preferred language, phone, consent flags",
+    why: "Identity verification and outreach eligibility",
+    variability: "Preferred language quality varies",
+  },
+  {
+    resource: "Practitioner",
+    read: "GI physician and care team metadata",
+    why: "Map physician prep defaults and escalation ownership",
+    variability: "Physician naming and pools differ by Epic instance",
+  },
+  {
+    resource: "Location",
+    read: "Endoscopy suite, arrival location, phone number",
+    why: "Give accurate logistics and caller framing",
+    variability: "Multiple campuses under one service line",
+  },
+  {
+    resource: "Condition",
+    read: "Filtered diabetes, kidney disease, anticoagulation flags",
+    why: "Ask only clinically relevant safety questions",
+    variability: "Use minimum-necessary filters, not full problem list",
+  },
+  {
+    resource: "MedicationStatement",
+    read: "Filtered anticoagulants, insulin, GLP-1s, iron",
+    why: "Confirm holds and identify nurse escalation triggers",
+    variability: "Medication reconciliation can be stale",
+  },
+  {
+    resource: "Observation",
+    read: "Recent labs only when relevant to prep or medication safety",
+    why: "Support nurse-facing escalation context",
+    variability: "Read-only context; agent does not interpret labs",
+  },
+  {
+    resource: "AllergyIntolerance",
+    read: "Relevant allergies and adverse reactions",
+    why: "Avoid unsafe scripted advice if patient asks",
+    variability: "Escalate rather than improvise",
+  },
+  {
+    resource: "DocumentReference",
+    read: "Prep templates and physician standing orders",
+    why: "Ground the call in the customer's approved language",
+    variability: "Often PDF/template based, not structured FHIR",
+  },
+  {
+    resource: "Procedure",
+    read: "Completed/aborted status, BBPS if available",
+    why: "Pair call disposition to actual outcome",
+    variability: "Used for eval loop after procedure",
+  },
+  {
+    resource: "Communication",
+    read: "Call disposition and escalation outcome",
+    why: "Document outreach and route nurse follow-up",
+    variability: "In-Basket routing is customer-configured",
+  },
+]
 
 const painPoints = [
   {
@@ -981,7 +1056,7 @@ export function PrdRevampPage() {
         </div>
         <div className="h-[350px] rounded-2xl border-2 border-dashed border-border bg-muted/20 flex items-center justify-center md:h-[500px]">
           <div className="text-center p-8">
-            <p className="font-mono text-sm text-muted-foreground mb-2">{SAFETYPORTAL_PLACEHOLDER}</p>
+            <p className="font-mono text-sm text-muted-foreground mb-2">{SAFETYPORTAL_DEMO_LABEL}</p>
             <p className="text-xs text-muted-foreground/60">A 2–3 minute walkthrough showing the happy path (90 seconds) followed by the failure case: patient throwing up the prep, agent escalating to GI nurse with warm transfer.</p>
           </div>
         </div>
@@ -1102,7 +1177,7 @@ export function PrdRevampPage() {
                 <div>
                   <div className="h-[280px] rounded-xl border-2 border-dashed border-border bg-muted/20 flex items-center justify-center mb-4">
                     <div className="text-center p-6">
-                      <p className="font-mono text-sm text-muted-foreground">{SAFETYPORTAL_PLACEHOLDER}</p>
+                      <p className="font-mono text-sm text-muted-foreground">{SAFETYPORTAL_DEMO_LABEL}</p>
                       <p className="mt-2 text-xs text-muted-foreground/60">2–3 minute video walkthrough recorded from SafetyPortal.<br/>Happy path (90 sec) then failure case with warm-transfer escalation.</p>
                     </div>
                   </div>
@@ -1244,18 +1319,18 @@ export function PrdRevampPage() {
                           </tr>
                         </thead>
                         <tbody>
-                          {["Appointment", "ServiceRequest", "Patient", "Practitioner", "Location", "Condition", "MedicationStatement", "Observation", "AllergyIntolerance", "DocumentReference", "Procedure", "Communication"].map((resource, idx) => (
-                            <tr key={resource} className={cn("border-b border-border last:border-b-0", idx % 2 === 0 ? "bg-background" : "bg-muted/10")}>
-                              <td className="px-4 py-3 font-mono text-xs">{resource}</td>
-                              <td className="px-4 py-3 text-xs italic text-muted-foreground">[PLACEHOLDER]</td>
-                              <td className="px-4 py-3 text-xs italic text-muted-foreground">[PLACEHOLDER]</td>
-                              <td className="px-4 py-3 text-xs italic text-muted-foreground">[PLACEHOLDER]</td>
+                          {fhirResourceMap.map((row, idx) => (
+                            <tr key={row.resource} className={cn("border-b border-border last:border-b-0", idx % 2 === 0 ? "bg-background" : "bg-muted/10")}>
+                              <td className="px-4 py-3 font-mono text-xs">{row.resource}</td>
+                              <td className="px-4 py-3 text-xs text-muted-foreground">{row.read}</td>
+                              <td className="px-4 py-3 text-xs text-muted-foreground">{row.why}</td>
+                              <td className="px-4 py-3 text-xs text-muted-foreground">{row.variability}</td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
-                    <p className="mt-3 text-xs italic text-muted-foreground/60">FHIR resource map to be completed during deployment week one discovery session.</p>
+                    <p className="mt-3 text-xs italic text-muted-foreground/60">The exact field names are finalized during deployment-week discovery, but the data contract is explicit before pilot launch.</p>
                   </CollapsibleDrawer>
                 </div>
               )}
