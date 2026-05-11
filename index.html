@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The colonoscopy call that nobody makes — Hippocratic AI</title>
+  <title>Day-1 colonoscopy prep call — Hippocratic AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -428,34 +428,80 @@
       line-height: 1.7;
       color: #2A2A2A;
     }
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin: 2.5rem 0 0;
+    .problem-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .proof-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-      background: #fff;
+    .problem-bullets li {
+      padding: 0.65rem 0;
+      font-size: 15.5px;
+      line-height: 1.55;
+      display: flex;
+      gap: 0.7rem;
     }
-    .proof-card strong {
-      display: block;
-      font-family: var(--serif);
-      font-size: 30px;
-      line-height: 1;
+    .problem-bullets li:not(:last-child) { border-bottom: 0.5px solid #EFEFE9; }
+    .problem-bullets li strong { font-weight: 500; }
+    .bullet-marker {
       color: var(--accent);
-      margin-bottom: 0.55rem;
-      font-weight: 400;
+      flex-shrink: 0;
     }
-    .proof-card span {
-      display: block;
+    .missed-reasons-chart .missed-reasons-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .reason-row {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0.25rem 0;
+    }
+    .reason-pct {
+      font-family: var(--mono);
       font-size: 13px;
-      line-height: 1.45;
-      color: #555550;
+      font-weight: 400;
+      width: 2.5rem;
+      text-align: right;
+      color: var(--muted);
+      flex-shrink: 0;
     }
-
+    .reason-bar-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+    .reason-bar {
+      height: 12px;
+      background: #BBBBB7;
+      border-radius: 2px;
+    }
+    .reason-name {
+      font-size: 13.5px;
+      color: #444440;
+    }
+    .prep-row .reason-pct {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .prep-row .reason-bar {
+      background: var(--accent);
+      height: 14px;
+    }
+    .prep-row .reason-name {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .reasons-source {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted-light);
+      margin-top: 1.25rem;
+    }
     /* ─── TABLES ─── */
     .data-table {
       width: 100%;
@@ -542,56 +588,6 @@
 
     .collapsible-row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .collapsible-row details { flex: 1; min-width: 240px; margin: 0; }
-
-    /* ─── MISSED-REASONS BREAKDOWN ─── */
-    .missed-reasons {
-      display: flex;
-      flex-direction: column;
-    }
-    .missed-reasons-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-    .missed-reason-row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.875rem;
-      padding: 0.6rem 0.5rem;
-      border-radius: 5px;
-      transition: background 0.1s;
-    }
-    .missed-reason-row:hover { background: rgba(0,0,0,0.025); }
-    .missed-reason-row.emphasized {
-      background: var(--accent-bg);
-      border-left: 2px solid var(--accent);
-      padding-left: 0.75rem;
-    }
-    .missed-reason-pct {
-      font-family: var(--mono);
-      font-size: 14px;
-      font-weight: 500;
-      width: 3rem;
-      text-align: right;
-      flex-shrink: 0;
-      color: var(--muted);
-    }
-    .missed-reason-row.emphasized .missed-reason-pct { color: var(--accent); }
-    .missed-reason-name {
-      font-family: var(--sans);
-      font-size: 15.5px;
-      color: var(--text);
-    }
-    .missed-reasons-source {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted-light);
-      margin-top: 0.875rem;
-      padding-left: 0.5rem;
-    }
 
     /* ─── CITATION CHIP + PANEL ─── */
     .citation-wrap { position: relative; display: inline-block; margin-top: 1.25rem; }
@@ -963,7 +959,7 @@
       .photo-card.secondary { width: 190px; height: 150px; bottom: 56px; }
       .metric-card { right: 0; width: 220px; }
       .rubric-strip { grid-template-columns: 1fr; }
-      .proof-grid, .interview-grid { grid-template-columns: 1fr; }
+      .interview-grid { grid-template-columns: 1fr; }
       .demo-card { grid-template-columns: 1fr; }
       .demo-card-media { min-height: 230px; }
     }
@@ -1126,69 +1122,71 @@
       <div class="section-divider-line"></div>
       <span class="section-divider-label">The Problem</span>
     </div>
-    <h2 class="section-heading" id="h-problem">The problem</h2>
+    <h2 class="section-heading" id="h-problem">1 in 5 colonoscopies has inadequate prep.</h2>
     <div class="two-col">
-
-      <!-- Left: text -->
       <div>
-        <p class="lead">Most colonoscopies don't fail because of the procedure. They fail before it starts.</p>
-        <p>Twenty to twenty-five percent have inadequate bowel prep. Eight percent are cancelled or aborted same-day. At a 30,000-procedure GI service line, that's $3M+ in preventable revenue annually — and a patient who took the day off, drank a gallon of laxative, and now has to do it again.</p>
+        <ul class="problem-bullets">
+          <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
+          <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
+          <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue per high-volume gastroenterology (GI) service line</li>
+          <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
+        </ul>
       </div>
 
-      <!-- Right: missed-reasons breakdown -->
       <div>
-        <div class="missed-reasons">
+        <div class="missed-reasons-chart">
           <div class="missed-reasons-label">Why colonoscopies get missed</div>
-          <div class="missed-reason-row emphasized">
-            <span class="missed-reason-pct">30%</span>
-            <span class="missed-reason-name">Prep-related</span>
+
+          <div class="reason-row prep-row">
+            <span class="reason-pct">30%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 30%"></div>
+              <span class="reason-name">Prep-related</span>
+            </div>
           </div>
-          <div class="missed-reason-row">
-            <span class="missed-reason-pct">25%</span>
-            <span class="missed-reason-name">Logistical (transport, work, weather)</span>
+          <div class="reason-row">
+            <span class="reason-pct">25%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 25%"></div>
+              <span class="reason-name">Logistical</span>
+            </div>
           </div>
-          <div class="missed-reason-row">
-            <span class="missed-reason-pct">15%</span>
-            <span class="missed-reason-name">Patient illness</span>
+          <div class="reason-row">
+            <span class="reason-pct">15%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 15%"></div>
+              <span class="reason-name">Patient illness</span>
+            </div>
           </div>
-          <div class="missed-reason-row">
-            <span class="missed-reason-pct">15%</span>
-            <span class="missed-reason-name">Anxiety / no-show</span>
+          <div class="reason-row">
+            <span class="reason-pct">15%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 15%"></div>
+              <span class="reason-name">Anxiety or no-show</span>
+            </div>
           </div>
-          <div class="missed-reason-row">
-            <span class="missed-reason-pct">10%</span>
-            <span class="missed-reason-name">Financial / access</span>
+          <div class="reason-row">
+            <span class="reason-pct">10%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 10%"></div>
+              <span class="reason-name">Financial or access</span>
+            </div>
           </div>
-          <div class="missed-reason-row">
-            <span class="missed-reason-pct">5%</span>
-            <span class="missed-reason-name">Other</span>
+          <div class="reason-row">
+            <span class="reason-pct">5%</span>
+            <div class="reason-bar-wrap">
+              <div class="reason-bar" style="width: 5%"></div>
+              <span class="reason-name">Other</span>
+            </div>
           </div>
-          <div class="missed-reasons-source">Source: published cohort studies of GI endoscopy units.</div>
+
+          <div class="reasons-source">Source: published cohort studies of gastroenterology endoscopy units.</div>
         </div>
       </div>
     </div>
 
     <div class="callout">
-      Most centers' pre-procedure call happens 3–7 days before the procedure. The published RCT shows the call that actually moves prep adequacy is the one made the night before — but staffing it across a high-volume center would require approximately 9 dedicated evening nurses.
-    </div>
-
-    <div class="proof-grid" aria-label="Business case proof points">
-      <div class="proof-card">
-        <strong>20–25%</strong>
-        <span>of colonoscopies have inadequate bowel prep.</span>
-      </div>
-      <div class="proof-card">
-        <strong>8%</strong>
-        <span>same-day cancellation or aborted procedure rate.</span>
-      </div>
-      <div class="proof-card">
-        <strong>+11pp</strong>
-        <span>prep adequacy lift from Day -1 telephone education in the RCT.</span>
-      </div>
-      <div class="proof-card">
-        <strong>9 nurses</strong>
-        <span>needed to staff the evening workflow at one high-volume center.</span>
-      </div>
+      Day-1 evening calls work. But staffing them at scale would cost 9 dedicated evening nurses, a position no GI service line wants to add.
     </div>
 
     <div class="citation-wrap" id="citation-wrap-1">
