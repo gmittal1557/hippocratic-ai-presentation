@@ -387,6 +387,115 @@
     .collapsible-row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .collapsible-row details { flex: 1; min-width: 240px; margin: 0; }
 
+    /* ─── MISSED-REASONS BREAKDOWN ─── */
+    .missed-reasons {
+      display: flex;
+      flex-direction: column;
+    }
+    .missed-reasons-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .missed-reason-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.875rem;
+      padding: 0.6rem 0.5rem;
+      border-radius: 5px;
+      transition: background 0.1s;
+    }
+    .missed-reason-row:hover { background: rgba(0,0,0,0.025); }
+    .missed-reason-row.emphasized {
+      background: var(--accent-bg);
+      border-left: 2px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+    .missed-reason-pct {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      width: 3rem;
+      text-align: right;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+    .missed-reason-row.emphasized .missed-reason-pct { color: var(--accent); }
+    .missed-reason-name {
+      font-family: var(--sans);
+      font-size: 15.5px;
+      color: var(--text);
+    }
+    .missed-reasons-source {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted-light);
+      margin-top: 0.875rem;
+      padding-left: 0.5rem;
+    }
+
+    /* ─── CITATION CHIP + PANEL ─── */
+    .citation-wrap { position: relative; display: inline-block; margin-top: 1.25rem; }
+    .citation-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: var(--accent-bg);
+      border: 1px solid rgba(47,93,80,0.2);
+      border-radius: 99px;
+      padding: 0.35rem 0.85rem;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--accent);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      user-select: none;
+    }
+    .citation-chip:hover { background: var(--accent-bg-strong); border-color: rgba(47,93,80,0.4); }
+    .citation-panel {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      max-width: 420px;
+      width: max-content;
+      background: rgba(250,250,250,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.05);
+      z-index: 300;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    .citation-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .citation-panel ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .citation-panel li {
+      font-family: var(--sans);
+      font-size: 13px;
+      line-height: 1.5;
+      color: #444440;
+    }
+    .citation-panel li strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
     /* ─── DEMO PLACEHOLDER ─── */
     .demo-placeholder {
       aspect-ratio: 16/9;
@@ -756,53 +865,40 @@
 
       <!-- Left: text -->
       <div>
-        <p class="lead">Most colonoscopies don't fail because of the procedure. They fail before the procedure ever starts.</p>
-        <p>Twenty to twenty-five percent of colonoscopies have inadequate bowel prep. About eight percent are cancelled or aborted same-day. At a high-volume GI service line doing 30,000 procedures a year, that's three million dollars or more in preventable annual revenue loss — plus the downstream cost of repeat procedures within 12 months.</p>
-        <p>But the cost isn't only financial. A colonoscopy that fails because of prep is a patient who took the day off work, drank a gallon of laxative, found a ride to the hospital — and now has to do it all again. Most of these failures are preventable.</p>
+        <p class="lead">Most colonoscopies don't fail because of the procedure. They fail before it starts.</p>
+        <p>Twenty to twenty-five percent have inadequate bowel prep. Eight percent are cancelled or aborted same-day. At a 30,000-procedure GI service line, that's $3M+ in preventable revenue annually — and a patient who took the day off, drank a gallon of laxative, and now has to do it again.</p>
       </div>
 
-      <!-- Right: stacked bar chart -->
+      <!-- Right: missed-reasons breakdown -->
       <div>
-        <svg viewBox="0 0 500 190" role="img" aria-label="Stacked bar chart: reasons colonoscopies are missed">
-          <!-- Bar: x=0..460, y=30, h=52 -->
-          <!-- Prep 30% = 138 -->
-          <rect x="0" y="30" width="138" height="52" fill="#2F5D50"/>
-          <!-- Logistical 25% = 115 -->
-          <rect x="138" y="30" width="115" height="52" fill="#BBBBB7"/>
-          <!-- Illness 15% = 69 -->
-          <rect x="253" y="30" width="69" height="52" fill="#CECECA"/>
-          <!-- Anxiety 15% = 69 -->
-          <rect x="322" y="30" width="69" height="52" fill="#D8D8D4"/>
-          <!-- Financial 10% = 46 -->
-          <rect x="391" y="30" width="46" height="52" fill="#E4E4E0"/>
-          <!-- Other 5% = 23 -->
-          <rect x="437" y="30" width="23" height="52" fill="#EDEDEA"/>
-
-          <!-- % labels inside bars -->
-          <text x="69" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="13" fill="white" font-weight="500">30%</text>
-          <text x="195" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#555552">25%</text>
-          <text x="287" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#666662">15%</text>
-          <text x="356" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#666662">15%</text>
-          <text x="414" y="61" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">10%</text>
-          <!-- Other 5% too narrow, skip label -->
-
-          <!-- Legend row 1 -->
-          <rect x="0"   y="102" width="11" height="11" fill="#2F5D50"/>
-          <text x="16"  y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Prep-related</text>
-          <rect x="110" y="102" width="11" height="11" fill="#BBBBB7"/>
-          <text x="126" y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Logistical</text>
-          <rect x="210" y="102" width="11" height="11" fill="#CECECA"/>
-          <text x="226" y="112" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Patient illness</text>
-
-          <!-- Legend row 2 -->
-          <rect x="0"   y="126" width="11" height="11" fill="#D8D8D4"/>
-          <text x="16"  y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Anxiety / no-show</text>
-          <rect x="145" y="126" width="11" height="11" fill="#E4E4E0"/>
-          <text x="161" y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Financial / access</text>
-          <rect x="290" y="126" width="11" height="11" fill="#EDEDEA"/>
-          <text x="306" y="136" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#444440">Other</text>
-        </svg>
-        <p class="caption" style="margin-top:0.5rem;">Source: published cohort studies of GI endoscopy units.</p>
+        <div class="missed-reasons">
+          <div class="missed-reasons-label">Why colonoscopies get missed</div>
+          <div class="missed-reason-row emphasized">
+            <span class="missed-reason-pct">30%</span>
+            <span class="missed-reason-name">Prep-related</span>
+          </div>
+          <div class="missed-reason-row">
+            <span class="missed-reason-pct">25%</span>
+            <span class="missed-reason-name">Logistical (transport, work, weather)</span>
+          </div>
+          <div class="missed-reason-row">
+            <span class="missed-reason-pct">15%</span>
+            <span class="missed-reason-name">Patient illness</span>
+          </div>
+          <div class="missed-reason-row">
+            <span class="missed-reason-pct">15%</span>
+            <span class="missed-reason-name">Anxiety / no-show</span>
+          </div>
+          <div class="missed-reason-row">
+            <span class="missed-reason-pct">10%</span>
+            <span class="missed-reason-name">Financial / access</span>
+          </div>
+          <div class="missed-reason-row">
+            <span class="missed-reason-pct">5%</span>
+            <span class="missed-reason-name">Other</span>
+          </div>
+          <div class="missed-reasons-source">Source: published cohort studies of GI endoscopy units.</div>
+        </div>
       </div>
     </div>
 
@@ -810,16 +906,18 @@
       Most centers' pre-procedure call happens 3–7 days before the procedure. The published RCT shows the call that actually moves prep adequacy is the one made the night before — but staffing it across a high-volume center would require approximately 9 dedicated evening nurses.
     </div>
 
-    <details>
-      <summary>See the published evidence</summary>
-      <div class="details-body">
+    <div class="citation-wrap" id="citation-wrap-1">
+      <button class="citation-chip" id="citation-btn-1" aria-expanded="false" aria-controls="citation-panel-1">
+        Published evidence ↗
+      </button>
+      <div class="citation-panel" id="citation-panel-1" role="listbox">
         <ul>
           <li><strong>Liu et al., 2021</strong> — RCT showing Day -1 telephone education improved adequate prep from 70.3% to 81.6% (n=470)</li>
           <li><strong>Kohli et al., 2018</strong> — multi-site retrospective cohort (n=4,016) showing scheduled Day -5 nurse calls had no measurable effect on prep adequacy</li>
           <li><strong>ASGE GI Operations Benchmarking Survey, 2019</strong> — same-day cancellation rates of 5.6–8.45% across U.S. endoscopy units</li>
         </ul>
       </div>
-    </details>
+    </div>
   </div>
 </section>
 
@@ -1446,6 +1544,20 @@ Recorded from the SafetyPortal.</pre>
     sectionsBtn.setAttribute('aria-expanded', 'false');
   });
   sectionsMenu.addEventListener('click', e => e.stopPropagation());
+
+  // ── Citation chip ──
+  const citationBtn   = document.getElementById('citation-btn-1');
+  const citationPanel = document.getElementById('citation-panel-1');
+  citationBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = citationPanel.classList.toggle('open');
+    citationBtn.setAttribute('aria-expanded', isOpen);
+  });
+  citationPanel.addEventListener('click', e => e.stopPropagation());
+  document.addEventListener('click', () => {
+    citationPanel.classList.remove('open');
+    citationBtn.setAttribute('aria-expanded', 'false');
+  });
 
   // ── Smooth scroll ──
   const smoothScrollTo = href => {
