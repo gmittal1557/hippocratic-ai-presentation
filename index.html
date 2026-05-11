@@ -631,6 +631,70 @@
     .math-sum-eq { font-family: var(--mono); font-size: 13px; color: var(--muted); }
     .math-sum-total { font-family: var(--serif); font-size: 26px; color: var(--accent); line-height: 1; }
     .math-sum-label { font-size: 12px; color: var(--accent); }
+
+    /* ─── CONVERSATION FLOW ─── */
+    .conv-flow-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1.25rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .conv-flow-title { font-size: 14.5px; font-weight: 500; color: var(--text); }
+    .conv-flow-meta {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .conv-step {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 0.5px solid #F0F0ED;
+      align-items: baseline;
+    }
+    .conv-step:last-of-type { border-bottom: none; }
+    .conv-step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted-light);
+      font-weight: 500;
+    }
+    .conv-step.accent .conv-step-num { color: var(--accent); }
+    .conv-step-line { font-size: 14px; line-height: 1.5; color: #2A2A2A; }
+    .conv-step-line strong { color: var(--text); font-weight: 500; margin-right: 0.4rem; }
+    .conv-step.accent .conv-step-line strong { color: var(--accent); }
+    .conv-step-dur {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--muted-light);
+      white-space: nowrap;
+    }
+    .conv-flow-footer {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .conv-escalations-label {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
+    .conv-escalations-line {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.7;
+      color: #555550;
+    }
+    .conv-escalations-line .esc-cond { color: var(--muted); }
+    .conv-escalations-line .esc-action { color: var(--risk); }
     /* ─── TABLES ─── */
     .data-table {
       width: 100%;
@@ -1537,63 +1601,58 @@
     <details style="margin-top:2.5rem;">
       <summary>See the conversation flow</summary>
       <div class="details-body">
-        <svg viewBox="0 0 560 540" role="img" aria-label="Conversation flow decision tree" style="max-width:480px; display:block; margin:0 auto;">
-          <!-- Step 1 -->
-          <rect x="160" y="8" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
-          <text x="280" y="29" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Greeting and ID verify</text>
-          <text x="280" y="47" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">DOB + last 4 of phone</text>
-          <line x1="280" y1="58" x2="280" y2="86" stroke="#E8E8E5" stroke-width="1.5"/>
-          <polygon points="275,80 280,90 285,80" fill="#E8E8E5"/>
+        <div class="conv-flow">
+          <div class="conv-flow-header">
+            <span class="conv-flow-title">The call, step by step</span>
+            <span class="conv-flow-meta">~4 minutes · 6 steps</span>
+          </div>
 
-          <!-- Step 2 -->
-          <rect x="160" y="90" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
-          <text x="280" y="111" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Frame the call</text>
-          <text x="280" y="129" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">establish purpose, set expectations</text>
-          <!-- Branch -->
-          <line x1="400" y1="115" x2="430" y2="115" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
-          <text x="432" y="111" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if refuses →</text>
-          <text x="432" y="123" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">document + end</text>
-          <line x1="280" y1="140" x2="280" y2="168" stroke="#E8E8E5" stroke-width="1.5"/>
-          <polygon points="275,162 280,172 285,162" fill="#E8E8E5"/>
+          <div class="conv-step">
+            <div class="conv-step-num">01</div>
+            <div class="conv-step-line"><strong>Greeting &amp; ID verify.</strong> Confirm DOB and last 4 of phone.</div>
+            <div class="conv-step-dur">~15s</div>
+          </div>
 
-          <!-- Step 3 — accent -->
-          <rect x="150" y="172" width="260" height="52" rx="6" fill="#EBF2EF" stroke="#2F5D50" stroke-width="1.5"/>
-          <text x="280" y="194" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#2F5D50" font-weight="600">Prep status check</text>
-          <text x="280" y="213" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#2F5D50">the longest moment</text>
-          <!-- Branch -->
-          <line x1="410" y1="198" x2="432" y2="198" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
-          <text x="434" y="194" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if prep failing →</text>
-          <text x="434" y="206" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">escalate to nurse</text>
-          <line x1="280" y1="224" x2="280" y2="252" stroke="#E8E8E5" stroke-width="1.5"/>
-          <polygon points="275,246 280,256 285,246" fill="#E8E8E5"/>
+          <div class="conv-step">
+            <div class="conv-step-num">02</div>
+            <div class="conv-step-line"><strong>Frame the call.</strong> State purpose, set expectations, confirm consent.</div>
+            <div class="conv-step-dur">~20s</div>
+          </div>
 
-          <!-- Step 4 -->
-          <rect x="160" y="256" width="240" height="52" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
-          <text x="280" y="277" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Medication confirmations</text>
-          <text x="280" y="296" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">filtered to relevant meds only</text>
-          <!-- Branch -->
-          <line x1="400" y1="282" x2="432" y2="282" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
-          <text x="434" y="278" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if hold violated →</text>
-          <text x="434" y="290" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">escalate to nurse</text>
-          <line x1="280" y1="308" x2="280" y2="336" stroke="#E8E8E5" stroke-width="1.5"/>
-          <polygon points="275,330 280,340 285,330" fill="#E8E8E5"/>
+          <div class="conv-step accent">
+            <div class="conv-step-num">03</div>
+            <div class="conv-step-line"><strong>Prep status check.</strong> Walk through the physician's regimen, branching on every substep.</div>
+            <div class="conv-step-dur">~90s</div>
+          </div>
 
-          <!-- Step 5 -->
-          <rect x="160" y="340" width="240" height="52" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
-          <text x="280" y="361" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Logistics confirmation</text>
-          <text x="280" y="380" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">escort, arrival time</text>
-          <!-- Branch -->
-          <line x1="400" y1="366" x2="432" y2="366" stroke="#D8D8D4" stroke-width="1" stroke-dasharray="4,2"/>
-          <text x="434" y="362" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">if no escort →</text>
-          <text x="434" y="374" font-family="'JetBrains Mono',monospace" font-size="10" fill="#A04040">flag + alert nurse</text>
-          <line x1="280" y1="392" x2="280" y2="420" stroke="#E8E8E5" stroke-width="1.5"/>
-          <polygon points="275,414 280,424 285,414" fill="#E8E8E5"/>
+          <div class="conv-step">
+            <div class="conv-step-num">04</div>
+            <div class="conv-step-line"><strong>Medication confirmations.</strong> Anticoagulant holds, insulin, GLP-1 timing.</div>
+            <div class="conv-step-dur">~45s</div>
+          </div>
 
-          <!-- Step 6 -->
-          <rect x="160" y="424" width="240" height="50" rx="6" fill="#F5F5F2" stroke="#E8E8E5" stroke-width="1.5"/>
-          <text x="280" y="445" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">Wrap-up with reminder</text>
-          <text x="280" y="463" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="11" fill="#888884">arrival time, nothing by mouth cutoff</text>
-        </svg>
+          <div class="conv-step">
+            <div class="conv-step-num">05</div>
+            <div class="conv-step-line"><strong>Logistics.</strong> Escort, arrival time, nothing-by-mouth cutoff.</div>
+            <div class="conv-step-dur">~30s</div>
+          </div>
+
+          <div class="conv-step">
+            <div class="conv-step-num">06</div>
+            <div class="conv-step-line"><strong>Wrap-up.</strong> Confirm arrival, give the nurse-line callback number.</div>
+            <div class="conv-step-dur">~20s</div>
+          </div>
+
+          <div class="conv-flow-footer">
+            <div class="conv-escalations-label">Escalation paths</div>
+            <div class="conv-escalations-line">
+              <span class="esc-cond">patient refuses</span> → <span class="esc-action">document &amp; end</span> &nbsp;·&nbsp;
+              <span class="esc-cond">prep failing</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
+              <span class="esc-cond">hold violated</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
+              <span class="esc-cond">no escort</span> → <span class="esc-action">flag &amp; alert nurse</span>
+            </div>
+          </div>
+        </div>
       </div>
     </details>
   </div>
