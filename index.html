@@ -959,54 +959,142 @@
     .stat-block { text-align: center; padding: 4rem 0 1.5rem; }
     .stat-label { font-size: 16px; color: var(--muted); margin-top: 0.75rem; }
 
-    /* ─── SECTION 3 COLUMNS ─── */
-    .agent-does {
-      border-left: 3px solid var(--accent);
-      padding-left: 1.75rem;
-    }
-    .agent-does h3 {
-      font-family: var(--sans);
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 1.1rem;
-    }
-    .agent-does ul { list-style: none; padding: 0; }
-    .agent-does li {
-      padding: 0.45rem 0;
-      font-size: 17px;
-      display: flex;
-      gap: 0.65rem;
-    }
-    .agent-does li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
-
-    .agent-doesnt { color: #555550; }
-    .agent-doesnt h3 {
-      font-family: var(--sans);
-      font-size: 17px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 1.1rem;
-    }
-    .agent-doesnt ul { list-style: none; padding: 0; }
-    .agent-doesnt li {
-      padding: 0.35rem 0;
-      font-size: 15.5px;
-      display: flex;
-      gap: 0.65rem;
-    }
-    .agent-doesnt li::before { content: '×'; color: var(--muted-light); flex-shrink: 0; }
-
     /* ─── SECTION 3 ANCHOR ─── */
     .s3-anchor {
       font-family: var(--serif);
-      font-size: clamp(24px, 3vw, 36px);
+      font-size: 19px;
       font-weight: 400;
+      line-height: 1.45;
+      color: #2A2A2A;
+      max-width: 38rem;
+      margin: 0 0 3rem;
+      text-wrap: balance;
+    }
+
+    /* ─── SECTION 3 TIMELINE ─── */
+    .s3-flow {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 3.5rem;
+      padding: 1.5rem 0;
+    }
+    .s3-node {
       text-align: center;
-      max-width: 820px;
-      margin: 0 auto 3.5rem;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .s3-circle {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: #F5F5F2;
+      border: 1px solid #D8D8D4;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .s3-circle.call {
+      width: 64px; height: 64px;
+      background: rgba(47,93,80,0.1);
+      border: 1px solid rgba(47,93,80,0.35);
+    }
+    .s3-circle.call::before,
+    .s3-circle.call::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(47,93,80,0.45);
+      animation: s3ring 3.2s ease-out infinite;
+    }
+    .s3-circle.call::after { animation-delay: 1.6s; }
+    @keyframes s3ring {
+      0%   { transform: scale(1);    opacity: 0.5; }
+      100% { transform: scale(1.65); opacity: 0; }
+    }
+    .s3-icon { font-size: 20px; color: var(--muted); line-height: 1; }
+    .s3-circle.call .s3-icon { color: var(--accent); }
+    .s3-time {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .s3-node.live .s3-time { color: var(--accent); }
+    .s3-name { font-size: 13.5px; color: #444440; line-height: 1.35; }
+    .s3-node.live .s3-name { color: var(--text); font-weight: 500; font-size: 14px; }
+    .s3-tag {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted-light);
+    }
+    .s3-node.live .s3-tag { color: var(--accent); }
+
+    /* ─── SECTION 3 DOES/DOESN'T ─── */
+    .does-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .does-col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin: 0 0 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .does-col.does h4 { color: var(--accent); }
+    .does-col.doesnt h4 { color: var(--muted); }
+    .does-col ul { list-style: none; padding: 0; margin: 0; }
+    .does-col li {
+      font-size: 14px;
+      line-height: 1.55;
+      padding: 0.55rem 0;
+      display: flex;
+      gap: 0.65rem;
+    }
+    .does-col.does li::before  { content: '+'; color: var(--accent); flex-shrink: 0; font-weight: 500; }
+    .does-col.doesnt li        { color: #555550; }
+    .does-col.doesnt li::before { content: '×'; color: var(--muted-light); flex-shrink: 0; }
+
+    /* ─── SECTION 3 DEMO BOX ─── */
+    .demo-box {
+      border: 1px dashed #C8C8C4;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      background: #F7F7F3;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1.1rem;
+      align-items: center;
+    }
+    .demo-icon {
+      flex-shrink: 0;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(47,93,80,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 16px;
+    }
+    .demo-text { font-size: 13px; line-height: 1.55; color: #444440; }
+    .demo-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
     }
 
     /* ─── SECTION 5 FHIR COLS ─── */
@@ -1533,124 +1621,113 @@
       <div class="section-divider-line"></div>
       <span class="section-divider-label">The Agent</span>
     </div>
-    <h2 class="section-heading" id="h-agent">What the agent does</h2>
+    <h2 class="section-heading" id="h-agent">What the agent does.</h2>
 
-    <p class="s3-anchor">A voice agent that calls every patient scheduled for colonoscopy at approximately 6&nbsp;PM the evening before — coaches them through bowel prep, catches errors in real time, and escalates to a GI nurse when prep is failing.</p>
+    <p class="s3-anchor">A 6 PM call that coaches prep and escalates when it fails.</p>
 
-    <!-- Timeline SVG -->
-    <div class="diagram-wrap">
-      <svg viewBox="0 0 800 190" role="img" aria-label="Three-step timeline: pre-call data pull at 3 PM, the call at 6 PM, outcome pairing at 7 AM">
-        <!-- Connector -->
-        <line x1="148" y1="82" x2="356" y2="82" stroke="#E8E8E5" stroke-width="2"/>
-        <line x1="444" y1="82" x2="652" y2="82" stroke="#E8E8E5" stroke-width="2"/>
-        <polygon points="349,77 361,82 349,87" fill="#E8E8E5"/>
-        <polygon points="645,77 657,82 645,87" fill="#E8E8E5"/>
-
-        <!-- Node 1 -->
-        <circle cx="110" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
-        <circle cx="110" cy="82" r="22" fill="#2F5D50"/>
-        <text x="110" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">1</text>
-        <text x="110" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">3 PM · Day -1</text>
-        <text x="110" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">Pre-call data pull</text>
-        <text x="110" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Roster + clinical context</text>
-        <text x="110" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">loaded for tomorrow's patients</text>
-
-        <!-- Node 2 -->
-        <circle cx="400" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
-        <circle cx="400" cy="82" r="22" fill="#2F5D50"/>
-        <text x="400" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">2</text>
-        <text x="400" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">6 PM · Day -1</text>
-        <text x="400" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">The call (~4 min)</text>
-        <text x="400" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Prep coaching, medication</text>
-        <text x="400" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">confirmations, escalation if needed</text>
-
-        <!-- Node 3 -->
-        <circle cx="690" cy="82" r="32" fill="#2F5D50" fill-opacity="0.1"/>
-        <circle cx="690" cy="82" r="22" fill="#2F5D50"/>
-        <text x="690" y="87" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="white" font-weight="600">3</text>
-        <text x="690" y="134" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#2F5D50">Day 0 · 7 AM</text>
-        <text x="690" y="153" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#333330" font-weight="600">Outcome paired back</text>
-        <text x="690" y="170" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">BBPS, abort flags,</text>
-        <text x="690" y="185" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">eval data</text>
-      </svg>
+    <!-- Three-circle timeline -->
+    <div class="s3-flow">
+      <div class="s3-node">
+        <div class="s3-tag">Backstage</div>
+        <div class="s3-circle"><span class="s3-icon">⌘</span></div>
+        <div class="s3-time">3 PM</div>
+        <div class="s3-name">Load patient context for tomorrow's calls</div>
+      </div>
+      <div class="s3-node live">
+        <div class="s3-tag">Live with patient</div>
+        <div class="s3-circle call"><span class="s3-icon">📞</span></div>
+        <div class="s3-time">6 PM · ~4 min</div>
+        <div class="s3-name">The coaching call</div>
+      </div>
+      <div class="s3-node">
+        <div class="s3-tag">Backstage</div>
+        <div class="s3-circle"><span class="s3-icon">↪</span></div>
+        <div class="s3-time">6:05 PM</div>
+        <div class="s3-name">Document the call in the EHR</div>
+      </div>
     </div>
 
-    <div class="two-col" style="margin-top:3.5rem;">
-      <div class="agent-does">
-        <h3>What it does</h3>
+    <!-- Does / doesn't -->
+    <div class="does-grid">
+      <div class="does-col does">
+        <h4>What it does</h4>
         <ul>
-          <li>Coaches bowel prep at the moment of action</li>
-          <li>Confirms perioperative medications</li>
-          <li>Triages symptoms; escalates to nurse on red flags</li>
-          <li>Confirms transportation and arrival logistics</li>
-          <li>Documents the call in Epic (note + flag + observations + In-Basket)</li>
+          <li>Coaches prep, confirms meds, triages symptoms</li>
+          <li>Confirms logistics: nothing by mouth, escort, arrival</li>
+          <li>Writes back to Epic: note, Flag, Observation, In-Basket</li>
         </ul>
       </div>
-      <div class="agent-doesnt">
-        <h3>What it deliberately does not do</h3>
+      <div class="does-col doesnt">
+        <h4>What it deliberately does not do</h4>
         <ul>
-          <li>Schedule colonoscopies (Hippocratic's existing COL agent already does this)</li>
-          <li>Diagnose conditions or make clinical decisions</li>
-          <li>Address transportation barriers (Phase 2 — separate agent)</li>
-          <li>Handle financial counseling (Phase 2 — separate agent)</li>
-          <li>Replace the GI nurse — escalates to one when needed</li>
+          <li>Make clinical decisions or interpret labs</li>
+          <li>Address transport or financial barriers (Phase 2 agents)</li>
+          <li>Replace the GI nurse; escalates to one when criteria are met</li>
         </ul>
       </div>
     </div>
 
-    <details style="margin-top:2.5rem;">
-      <summary>See the conversation flow</summary>
+    <!-- Demo placeholder -->
+    <div class="demo-box">
+      <div class="demo-icon">▶</div>
+      <div class="demo-text">
+        <div class="demo-label">SafetyPortal demo · to be added</div>
+        A 2–3 minute walkthrough. Happy path with Mrs. Chen, then a failure case at 1:45 where the patient vomits the prep and the agent escalates with warm transfer.
+      </div>
+    </div>
+
+    <!-- Conversation flow collapsible -->
+    <details style="margin-top:1.5rem;">
+      <summary>See the call, step by step</summary>
       <div class="details-body">
-        <div class="conv-flow">
-          <div class="conv-flow-header">
-            <span class="conv-flow-title">The call, step by step</span>
-            <span class="conv-flow-meta">~4 minutes · 6 steps</span>
-          </div>
+        <div class="conv-flow-header">
+          <span class="conv-flow-title">The call, step by step</span>
+          <span class="conv-flow-meta">~4 minutes · 6 steps</span>
+        </div>
 
-          <div class="conv-step">
-            <div class="conv-step-num">01</div>
-            <div class="conv-step-line"><strong>Greeting &amp; ID verify.</strong> Confirm DOB and last 4 of phone.</div>
-            <div class="conv-step-dur">~15s</div>
-          </div>
+        <div class="conv-step">
+          <div class="conv-step-num">01</div>
+          <div class="conv-step-line"><strong>Greeting &amp; ID verify.</strong> Confirm DOB and last 4 of phone.</div>
+          <div class="conv-step-dur">~15s</div>
+        </div>
 
-          <div class="conv-step">
-            <div class="conv-step-num">02</div>
-            <div class="conv-step-line"><strong>Frame the call.</strong> State purpose, set expectations, confirm consent.</div>
-            <div class="conv-step-dur">~20s</div>
-          </div>
+        <div class="conv-step">
+          <div class="conv-step-num">02</div>
+          <div class="conv-step-line"><strong>Frame the call.</strong> State purpose, set expectations, confirm consent.</div>
+          <div class="conv-step-dur">~20s</div>
+        </div>
 
-          <div class="conv-step accent">
-            <div class="conv-step-num">03</div>
-            <div class="conv-step-line"><strong>Prep status check.</strong> Walk through the physician's regimen, branching on every substep.</div>
-            <div class="conv-step-dur">~90s</div>
-          </div>
+        <div class="conv-step accent">
+          <div class="conv-step-num">03</div>
+          <div class="conv-step-line"><strong>Prep status check.</strong> Walk through the physician's regimen, branching on every substep.</div>
+          <div class="conv-step-dur">~90s</div>
+        </div>
 
-          <div class="conv-step">
-            <div class="conv-step-num">04</div>
-            <div class="conv-step-line"><strong>Medication confirmations.</strong> Anticoagulant holds, insulin, GLP-1 timing.</div>
-            <div class="conv-step-dur">~45s</div>
-          </div>
+        <div class="conv-step">
+          <div class="conv-step-num">04</div>
+          <div class="conv-step-line"><strong>Medication confirmations.</strong> Anticoagulant holds, insulin, GLP-1 timing.</div>
+          <div class="conv-step-dur">~45s</div>
+        </div>
 
-          <div class="conv-step">
-            <div class="conv-step-num">05</div>
-            <div class="conv-step-line"><strong>Logistics.</strong> Escort, arrival time, nothing-by-mouth cutoff.</div>
-            <div class="conv-step-dur">~30s</div>
-          </div>
+        <div class="conv-step">
+          <div class="conv-step-num">05</div>
+          <div class="conv-step-line"><strong>Logistics.</strong> Escort, arrival time, nothing-by-mouth cutoff.</div>
+          <div class="conv-step-dur">~30s</div>
+        </div>
 
-          <div class="conv-step">
-            <div class="conv-step-num">06</div>
-            <div class="conv-step-line"><strong>Wrap-up.</strong> Confirm arrival, give the nurse-line callback number.</div>
-            <div class="conv-step-dur">~20s</div>
-          </div>
+        <div class="conv-step">
+          <div class="conv-step-num">06</div>
+          <div class="conv-step-line"><strong>Wrap-up.</strong> Confirm arrival, give the nurse-line callback number.</div>
+          <div class="conv-step-dur">~20s</div>
+        </div>
 
-          <div class="conv-flow-footer">
-            <div class="conv-escalations-label">Escalation paths</div>
-            <div class="conv-escalations-line">
-              <span class="esc-cond">patient refuses</span> → <span class="esc-action">document &amp; end</span> &nbsp;·&nbsp;
-              <span class="esc-cond">prep failing</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
-              <span class="esc-cond">hold violated</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
-              <span class="esc-cond">no escort</span> → <span class="esc-action">flag &amp; alert nurse</span>
-            </div>
+        <div class="conv-flow-footer">
+          <div class="conv-escalations-label">Escalation paths</div>
+          <div class="conv-escalations-line">
+            <span class="esc-cond">patient refuses</span> → <span class="esc-action">document &amp; end</span> &nbsp;·&nbsp;
+            <span class="esc-cond">prep failing</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
+            <span class="esc-cond">hold violated</span> → <span class="esc-action">escalate to nurse</span> &nbsp;·&nbsp;
+            <span class="esc-cond">no escort</span> → <span class="esc-action">flag &amp; alert nurse</span>
           </div>
         </div>
       </div>
