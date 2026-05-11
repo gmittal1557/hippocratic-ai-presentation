@@ -24,6 +24,7 @@
       --sans: 'Source Sans 3', sans-serif;
       --mono: 'JetBrains Mono', 'Courier New', monospace;
       --nav-h: 60px;
+      --bar-h: 2px;
     }
 
     html { scroll-behavior: smooth; }
@@ -41,34 +42,146 @@
     /* ─── NAV ─── */
     #site-nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: var(--bar-h); left: 0; right: 0;
       height: var(--nav-h);
       background: rgba(250, 250, 250, 0.93);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid transparent;
       display: flex;
       align-items: center;
-      justify-content: center;
       z-index: 200;
-      transform: translateY(-100%);
-      transition: transform 0.2s ease;
+      transition: border-color 0.2s ease;
     }
-    #site-nav.visible { transform: translateY(0); }
-    #site-nav ul { display: flex; gap: 2.25rem; list-style: none; }
-    #site-nav a {
+    #site-nav.scrolled { border-bottom-color: var(--border); }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 2.75rem;
+    }
+    /* ── Sections dropdown (right) ── */
+    .nav-sections-wrap { position: relative; }
+    .sections-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      background: rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      cursor: pointer;
+      padding: 0.4rem 0.9rem 0.4rem 1rem;
+      font-family: var(--sans);
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .sections-btn:hover { background: var(--accent-bg); border-color: rgba(47,93,80,0.25); }
+    .sections-btn-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .sections-btn-label {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .sections-btn-chevron {
+      color: var(--muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+    .sections-btn[aria-expanded="true"] .sections-btn-chevron { transform: rotate(180deg); }
+    .sections-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      left: auto;
+      background: rgba(250,250,250,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.4rem;
+      min-width: 240px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.05);
+      z-index: 300;
+      opacity: 0;
+      transform: translateY(-6px) scale(0.98);
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+    .sections-menu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .sections-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.55rem 0.875rem;
+      border-radius: 7px;
+      text-decoration: none;
+      color: var(--muted);
       font-family: var(--sans);
       font-size: 13.5px;
       font-weight: 500;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.025em;
-      padding-bottom: 3px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
+      transition: background 0.12s, color 0.12s;
+      position: relative;
     }
-    #site-nav a:hover { color: var(--text); }
-    #site-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .sections-item:hover { background: var(--accent-bg); color: var(--text); }
+    .sections-item.active { color: var(--accent); background: var(--accent-bg); }
+    .sections-item-num {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted-light);
+      min-width: 1.4rem;
+      text-align: right;
+    }
+    .sections-item.active .sections-item-num { color: var(--accent); }
+    .sections-item-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-left: auto;
+      flex-shrink: 0;
+      display: none;
+    }
+    .sections-item.active .sections-item-dot { display: block; }
+
+    /* ── Identity block (left) ── */
+    .hero-identity {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-shrink: 0;
+    }
+    .hero-identity-name {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .hero-identity-icons {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-identity-icons a {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+    .hero-identity-icons a:hover { color: var(--accent); }
 
     /* ─── HERO ─── */
     #hero {
@@ -78,7 +191,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 5rem 2rem 6rem;
+      padding: calc(var(--bar-h) + var(--nav-h) + 3rem) 2rem 4rem;
       position: relative;
     }
     .hero-headline {
@@ -88,7 +201,7 @@
       line-height: 1.1;
       max-width: 840px;
       margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     .hero-subhead {
       font-family: var(--sans);
@@ -96,32 +209,30 @@
       font-weight: 300;
       color: #505050;
       max-width: 580px;
-      margin-bottom: 2rem;
+      margin-bottom: 0;
       line-height: 1.5;
     }
-    .hero-byline {
-      font-family: var(--mono);
-      font-size: 12.5px;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-    }
-    .hero-chevron {
+    .scroll-cue {
       position: absolute;
       bottom: 7vh;
       left: 50%;
       transform: translateX(-50%);
-      animation: bob 2.2s ease-in-out infinite;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      padding: 0.5rem 0.75rem;
+      white-space: nowrap;
+      transition: color 0.15s;
     }
-    @keyframes bob {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(7px); }
-    }
+    .scroll-cue:hover { color: var(--accent); }
 
     /* ─── LAYOUT ─── */
     section {
       padding: 100px 0;
       border-top: 1px solid var(--border);
-      scroll-margin-top: calc(var(--nav-h) + 12px);
+      scroll-margin-top: calc(var(--bar-h) + var(--nav-h) + 12px);
     }
     .container {
       max-width: 1120px;
@@ -226,40 +337,44 @@
     /* ─── COLLAPSIBLES ─── */
     details {
       border: 1px solid var(--border);
-      border-radius: 5px;
+      border-radius: 1rem;
       margin: 1.5rem 0;
+      background: var(--bg);
       overflow: hidden;
     }
-    details + details { margin-top: 1rem; }
+    details + details { margin-top: 0.75rem; }
     summary {
       font-family: var(--sans);
-      font-size: 14.5px;
-      font-weight: 500;
-      color: var(--accent);
-      padding: 0.9rem 1.25rem;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      padding: 1.25rem 1.5rem;
       cursor: pointer;
       list-style: none;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
       user-select: none;
       outline: none;
+      letter-spacing: -0.01em;
     }
     summary::-webkit-details-marker { display: none; }
-    summary::before {
-      content: '▸';
-      font-size: 11px;
-      display: inline-block;
-      transition: transform 0.22s ease;
+    summary::after {
+      content: '';
+      width: 16px;
+      height: 16px;
       flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888884' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.25s ease;
     }
-    details[open] > summary::before { transform: rotate(90deg); }
+    details[open] > summary::after { transform: rotate(90deg); }
     summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
     .details-body {
-      padding: 1.25rem 1.5rem;
+      padding: 1.5rem;
       border-top: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
       font-size: 15px;
       line-height: 1.65;
       overflow: hidden;
@@ -269,7 +384,7 @@
     .details-body li { margin-bottom: 0.5rem; }
     .details-body .data-table { font-size: 13.5px; }
 
-    .collapsible-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .collapsible-row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .collapsible-row details { flex: 1; min-width: 240px; margin: 0; }
 
     /* ─── DEMO PLACEHOLDER ─── */
@@ -292,6 +407,37 @@
       line-height: 1.9;
       white-space: pre-wrap;
     }
+
+    /* ─── TABS ─── */
+    .tabs { margin-top: 2rem; }
+    .tabs-nav {
+      display: flex;
+      gap: 0.25rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.625rem 1.125rem;
+      margin-bottom: -1px;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
 
     /* ─── DEFINITION LIST ─── */
     dl.config-list dt {
@@ -466,43 +612,146 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
+      .nav-inner { padding: 0 1.5rem; }
       #site-nav ul { gap: 1rem; }
-      #site-nav a { font-size: 12px; }
+      #site-nav ul a { font-size: 12px; }
       .container { padding: 0 1.5rem; }
       section { padding: 72px 0; }
+    }
+    @media (max-width: 540px) {
+      #site-nav ul { display: none; }
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: var(--bar-h);
+      width: 0%;
+      background: var(--accent);
+      z-index: 300;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    #progress-bar.visible { opacity: 1; }
+
+    /* ─── SECTION ANATOMY ─── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-divider-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .section-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-divider-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      flex-shrink: 0;
+    }
+    .section-heading {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.5vw, 58px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 52rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-subtitle {
+      font-size: clamp(16px, 1.5vw, 18px);
+      line-height: 1.72;
+      color: var(--muted);
+      max-width: 48rem;
+      margin-bottom: 2.5rem;
     }
   </style>
 </head>
 <body>
 
-<!-- STICKY NAV -->
-<nav id="site-nav" aria-label="Section navigation">
-  <ul>
-    <li><a href="#problem">Problem</a></li>
-    <li><a href="#why-agentic">Why agentic</a></li>
-    <li><a href="#the-agent">The agent</a></li>
-    <li><a href="#configuration">Configuration</a></li>
-    <li><a href="#integration">Integration</a></li>
-    <li><a href="#tradeoffs">Tradeoffs</a></li>
-  </ul>
+<div id="progress-bar" aria-hidden="true"></div>
+
+<!-- PERSISTENT TOP BAR -->
+<nav id="site-nav" aria-label="Primary navigation">
+  <div class="nav-inner">
+    <!-- Left: identity -->
+    <div class="hero-identity">
+      <span class="hero-identity-name">Gaurav Mittal</span>
+      <div class="hero-identity-icons">
+        <a href="https://github.com/gmittal1557" aria-label="GitHub profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/iamgauravmittal/" aria-label="LinkedIn profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="mailto:gmittal1557@gmail.com" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <!-- Right: sections dropdown -->
+    <div class="nav-sections-wrap">
+      <button class="sections-btn" id="sections-btn" aria-expanded="false" aria-controls="sections-menu" aria-haspopup="listbox">
+        <span class="sections-btn-num" id="sections-btn-num">01</span>
+        <span class="sections-btn-label" id="sections-btn-label">Problem</span>
+        <svg class="sections-btn-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="sections-menu" id="sections-menu" role="listbox" aria-label="Page sections">
+        <a href="#problem"       class="sections-item active" role="option"><span class="sections-item-num">01</span>Problem<span class="sections-item-dot"></span></a>
+        <a href="#why-agentic"   class="sections-item"        role="option"><span class="sections-item-num">02</span>How agent solves<span class="sections-item-dot"></span></a>
+        <a href="#the-agent"     class="sections-item"        role="option"><span class="sections-item-num">03</span>The agent<span class="sections-item-dot"></span></a>
+        <a href="#configuration" class="sections-item"        role="option"><span class="sections-item-num">04</span>Configuration<span class="sections-item-dot"></span></a>
+        <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">05</span>Integration<span class="sections-item-dot"></span></a>
+        <a href="#tradeoffs"     class="sections-item"        role="option"><span class="sections-item-num">06</span>Tradeoffs<span class="sections-item-dot"></span></a>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
 <section id="hero" aria-label="Introduction">
-  <h1 class="hero-headline">The colonoscopy call that nobody makes.</h1>
-  <p class="hero-subhead">A Day&#8209;before prep coaching agent — built for high&#8209;volume GI service lines.</p>
-  <p class="hero-byline">[YOUR NAME]&nbsp;&middot;&nbsp;For Hippocratic AI&nbsp;&middot;&nbsp;Agent Deployment Architect Onsite</p>
-  <div class="hero-chevron" aria-hidden="true">
-    <svg width="30" height="19" viewBox="0 0 30 19" fill="none">
-      <path d="M2 2L15 15L28 2" stroke="#2F5D50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
+  <h1 class="hero-headline">The check-in call the night before colonoscopy.</h1>
+  <p class="hero-subhead">Prevents costly same-day colonoscopy cancellations across the schedule.</p>
+  <a href="#problem" class="scroll-cue" aria-label="Scroll to the problem section">Scroll to the problem ↓</a>
 </section>
 
 <!-- ═══════════════════════════ SECTION 1: PROBLEM ═══════════════════════════ -->
 <section id="problem" aria-labelledby="h-problem">
   <div class="container">
-    <h2 class="section-header" id="h-problem">The problem</h2>
+    <div class="section-divider">
+      <span class="section-divider-num">01</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">The Problem</span>
+    </div>
+    <h2 class="section-heading" id="h-problem">The problem</h2>
     <div class="two-col">
 
       <!-- Left: text -->
@@ -577,8 +826,13 @@
 <!-- ═══════════════════════ SECTION 2: WHY AN AGENT ═══════════════════════ -->
 <section id="why-agentic" aria-labelledby="h-why">
   <div class="container">
-    <h2 class="section-header" id="h-why">Why an agent fixes it</h2>
-    <p class="lead">The Day-before evening call is the highest-leverage intervention published in the literature. Hospitals haven't deployed it because it doesn't scale on human labor. A voice agent makes the unstaffable workflow possible.</p>
+    <div class="section-divider">
+      <span class="section-divider-num">02</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">How the Agent Solves It</span>
+    </div>
+    <h2 class="section-heading" id="h-why">Why an agent fixes it</h2>
+    <p class="section-subtitle">The Day-before evening call is the highest-leverage intervention published in the literature. Hospitals haven't deployed it because it doesn't scale on human labor. A voice agent makes the unstaffable workflow possible.</p>
 
     <table class="data-table" aria-label="Comparison of prep coaching approaches">
       <thead>
@@ -661,7 +915,12 @@
 <!-- ══════════════════════ SECTION 3: WHAT THE AGENT DOES ══════════════════════ -->
 <section id="the-agent" aria-labelledby="h-agent">
   <div class="container">
-    <h2 class="section-header" id="h-agent">What the agent does</h2>
+    <div class="section-divider">
+      <span class="section-divider-num">03</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">The Agent</span>
+    </div>
+    <h2 class="section-heading" id="h-agent">What the agent does</h2>
 
     <p class="s3-anchor">A voice agent that calls every patient scheduled for colonoscopy at approximately 6&nbsp;PM the evening before — coaches them through bowel prep, catches errors in real time, and escalates to a GI nurse when prep is failing.</p>
 
@@ -794,53 +1053,78 @@
 <!-- ══════════════════════ SECTION 4: CONFIGURATION ══════════════════════ -->
 <section id="configuration" aria-labelledby="h-config">
   <div class="container">
-    <h2 class="section-header" id="h-config">How it's configured</h2>
-    <p class="lead" style="max-width:760px;">I built this in the Hippocratic SafetyPortal. Per-customer configuration goes here — practitioner prep templates, code maps, escalation routing. The portal is where deployment-week-one work happens.</p>
+    <div class="section-divider">
+      <span class="section-divider-num">04</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Configuration</span>
+    </div>
+    <h2 class="section-heading" id="h-config">How it's configured</h2>
 
-    <div class="demo-placeholder" aria-label="Demo video placeholder — to be recorded from SafetyPortal">
-      <pre>[DEMO PLACEHOLDER]
+    <div class="tabs" data-tabs>
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true">Per-customer</button>
+        <button class="tab-btn" role="tab" aria-selected="false">Per-physician</button>
+        <button class="tab-btn" role="tab" aria-selected="false">Demo walkthrough</button>
+      </div>
+
+      <div class="tab-panel active">
+        <dl class="config-list">
+          <dt>Service-type codes</dt>
+          <dd>Your local codes for colonoscopy. Varies per site. Could be SNOMED, Epic-internal, or local.</dd>
+
+          <dt>In-Basket pool routing</dt>
+          <dd>Which nurse pool gets escalations. Different sites route differently.</dd>
+
+          <dt>Note type for write-back</dt>
+          <dd>Which Epic note type our structured notes file under. Must match an existing template the GI nurses already review.</dd>
+
+          <dt>Escalation triggers</dt>
+          <dd>Site-specific risk thresholds. Vomiting count, prep timing slippage, missing escort.</dd>
+        </dl>
+      </div>
+
+      <div class="tab-panel">
+        <dl class="config-list">
+          <dt>Prep regimens by physician</dt>
+          <dd>Each GI doc has standing preferences. Dr. Smith uses split-dose SUPREP. Dr. Patel uses MoviPrep. Captured in deployment week one.</dd>
+
+          <dt>Perioperative protocol per physician</dt>
+          <dd>Anticoagulant hold rules, insulin adjustments. Per-site, sometimes per-physician within a site.</dd>
+        </dl>
+      </div>
+
+      <div class="tab-panel">
+        <div class="demo-placeholder" aria-label="Demo video placeholder — to be recorded from SafetyPortal">
+          <pre>[DEMO PLACEHOLDER]
 A 2–3 minute video walkthrough of the agent will be placed here.
 Will show: happy path (90 seconds) followed by failure case
 (patient throwing up the prep, agent escalating to nurse).
 Recorded from the SafetyPortal.</pre>
-    </div>
-
-    <p style="max-width:760px; margin-bottom:3rem;">The Day -1 call for Mrs. Chen (composite patient): 58 years old, screening colonoscopy tomorrow, type 2 diabetic on Ozempic, on Eliquis. The first 90 seconds show the happy path. At 1:45 we walk through the failure case — patient throwing up the prep — and the warm-transfer escalation.</p>
-
-    <dl class="config-list">
-      <dt>Service-type codes</dt>
-      <dd>Your local codes for colonoscopy. Varies per site. Could be SNOMED, Epic-internal, or local.</dd>
-
-      <dt>Prep regimens by physician</dt>
-      <dd>Each GI doc has standing preferences. Dr. Smith uses split-dose SUPREP. Dr. Patel uses MoviPrep. Captured in deployment week one.</dd>
-
-      <dt>In-Basket pool routing</dt>
-      <dd>Which nurse pool gets escalations. Different sites route differently.</dd>
-
-      <dt>Note type for write-back</dt>
-      <dd>Which Epic note type our structured notes file under. Must match an existing template the GI nurses already review.</dd>
-
-      <dt>Perioperative protocol per physician</dt>
-      <dd>Anticoagulant hold rules, insulin adjustments. Per-site, sometimes per-physician within a site.</dd>
-
-      <dt>Escalation triggers</dt>
-      <dd>Site-specific risk thresholds. Vomiting count, prep timing slippage, missing escort.</dd>
-    </dl>
-
-    <details>
-      <summary>See the SafetyPortal configuration walkthrough</summary>
-      <div class="details-body">
-        <p>[PLACEHOLDER: SafetyPortal screenshots with annotations — to be added once the demo agent is built in the portal.]</p>
+        </div>
+        <p style="max-width:760px; margin-top:1.5rem;">The Day -1 call for Mrs. Chen (composite patient): 58 years old, screening colonoscopy tomorrow, type 2 diabetic on Ozempic, on Eliquis. The first 90 seconds show the happy path. At 1:45 we walk through the failure case — patient throwing up the prep — and the warm-transfer escalation.</p>
       </div>
-    </details>
+    </div>
   </div>
 </section>
 
 <!-- ══════════════════════ SECTION 5: INTEGRATION ══════════════════════ -->
 <section id="integration" aria-labelledby="h-integration">
   <div class="container">
-    <h2 class="section-header" id="h-integration">How it integrates</h2>
+    <div class="section-divider">
+      <span class="section-divider-num">05</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Integration</span>
+    </div>
+    <h2 class="section-heading" id="h-integration">How it integrates</h2>
 
+    <div class="tabs" data-tabs>
+      <div class="tabs-nav" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true">Architecture</button>
+        <button class="tab-btn" role="tab" aria-selected="false">Data flow</button>
+        <button class="tab-btn" role="tab" aria-selected="false">Auth &amp; deployment</button>
+      </div>
+
+      <div class="tab-panel active">
     <!-- Architecture diagram -->
     <div class="diagram-wrap">
       <svg viewBox="0 0 720 420" role="img" aria-label="Architecture diagram: Agent at center connected to Epic EHR above, Twilio voice stack to the right, Patient below, and GI Nurse on-call lower-right via dashed escalation arrow">
@@ -893,131 +1177,138 @@ Recorded from the SafetyPortal.</pre>
       </svg>
     </div>
     <p class="caption diagram-caption">Five components, four connections. Everything else is detail.</p>
+      </div><!-- /tab-panel architecture -->
 
-    <!-- FHIR three columns -->
-    <div class="three-col" style="margin-top:3.5rem;">
-      <div class="fhir-col">
-        <h3>3 PM — pre-call pull</h3>
-        <ul>
-          <li>Appointment</li>
-          <li>Patient</li>
-          <li>ServiceRequest</li>
-          <li>Practitioner, Location</li>
-          <li>Condition (filtered)</li>
-          <li>MedicationStatement (filtered)</li>
-          <li>Observation (recent labs)</li>
-          <li>AllergyIntolerance</li>
-          <li>DocumentReference (prep templates)</li>
-        </ul>
-      </div>
-      <div class="fhir-col voice">
-        <h3>6 PM — the call</h3>
-        <ul>
-          <li>Voice over Twilio SIP</li>
-          <li>Polaris LLM reasoning</li>
-          <li>Real-time turn-taking</li>
-          <li>Warm transfer on escalation</li>
-          <li style="font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:0.75rem; line-height:1.6;">Pre-loaded data drives conversation; no live FHIR calls during the call</li>
-        </ul>
-      </div>
-      <div class="fhir-col">
-        <h3>6:05 PM — write-back</h3>
-        <ul>
-          <li>DocumentReference (structured note)</li>
-          <li>Communication (call disposition)</li>
-          <li>Flag (if risk identified)</li>
-          <li>Observation (patient-reported data)</li>
-          <li>In-Basket message (if escalation needed)</li>
-        </ul>
-      </div>
-    </div>
-
-    <p style="text-align:center; color:#444440; margin-top:1.5rem;">All reads happen at 3 PM. Pre-loaded data drives the call. Writes fire after the call ends, within seconds.</p>
-
-    <!-- Honest statements -->
-    <div class="three-col" style="margin-top:3.5rem; padding-top:2.25rem; border-top:1px solid var(--border);">
-      <div class="honest-col">
-        <h3>FHIR-first, hybrid in reality.</h3>
-        <p>The primary path is FHIR R4 for reads and most writes. HL7 v2 fallback for sites not yet FHIR-current. Epic-specific operations such as <code>Communication.$send-in-basket</code> for In-Basket messaging where standard FHIR doesn't cover the workflow.</p>
-      </div>
-      <div class="honest-col">
-        <h3>Pre-load discipline.</h3>
-        <p>The agent doesn't fetch data live during conversations. Comprehensive pre-load at 3 PM means zero EHR-dependent latency during patient calls. Voice doesn't tolerate the silence of a mid-conversation tool call. This is a deliberate safety and UX choice.</p>
-      </div>
-      <div class="honest-col">
-        <h3>The hardest deployment problem.</h3>
-        <p>Bowel prep regimen choice doesn't live in a standard FHIR field. It's a 30-minute working session per customer in deployment week one. Not a code problem — a configuration problem.</p>
-      </div>
-    </div>
-
-    <!-- Three collapsibles -->
-    <div class="collapsible-row" style="margin-top:2rem;">
-      <details>
-        <summary>Full FHIR resource map</summary>
-        <div class="details-body">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Resource</th>
-                <th>What we read</th>
-                <th>Why we read it</th>
-                <th>Variability</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td class="mono-cell">Appointment</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">ServiceRequest</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Patient</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Practitioner</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Location</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Condition</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">MedicationStatement</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Observation</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">AllergyIntolerance</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
-              <tr><td class="mono-cell">Procedure</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
-              <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
-            </tbody>
-          </table>
+      <div class="tab-panel">
+        <!-- FHIR three columns -->
+        <div class="three-col" style="margin-top:0.5rem;">
+          <div class="fhir-col">
+            <h3>3 PM — pre-call pull</h3>
+            <ul>
+              <li>Appointment</li>
+              <li>Patient</li>
+              <li>ServiceRequest</li>
+              <li>Practitioner, Location</li>
+              <li>Condition (filtered)</li>
+              <li>MedicationStatement (filtered)</li>
+              <li>Observation (recent labs)</li>
+              <li>AllergyIntolerance</li>
+              <li>DocumentReference (prep templates)</li>
+            </ul>
+          </div>
+          <div class="fhir-col voice">
+            <h3>6 PM — the call</h3>
+            <ul>
+              <li>Voice over Twilio SIP</li>
+              <li>Polaris LLM reasoning</li>
+              <li>Real-time turn-taking</li>
+              <li>Warm transfer on escalation</li>
+              <li style="font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:0.75rem; line-height:1.6;">Pre-loaded data drives conversation; no live FHIR calls during the call</li>
+            </ul>
+          </div>
+          <div class="fhir-col">
+            <h3>6:05 PM — write-back</h3>
+            <ul>
+              <li>DocumentReference (structured note)</li>
+              <li>Communication (call disposition)</li>
+              <li>Flag (if risk identified)</li>
+              <li>Observation (patient-reported data)</li>
+              <li>In-Basket message (if escalation needed)</li>
+            </ul>
+          </div>
         </div>
-      </details>
+        <p style="text-align:center; color:#444440; margin-top:1.5rem;">All reads happen at 3 PM. Pre-loaded data drives the call. Writes fire after the call ends, within seconds.</p>
 
-      <details>
-        <summary>Auth, security, and HIPAA posture</summary>
-        <div class="details-body">
-          <ul>
-            <li>OAuth 2.0 + SMART-on-FHIR Backend Services profile</li>
-            <li>JWT-signed assertions, system-level scopes registered through Epic Vendor Services</li>
-            <li>TLS 1.3 in transit, audit logging at every PHI access point</li>
-            <li>HIPAA + HITRUST certified pipeline (Hippocratic-side)</li>
-            <li>PHI never logged to LLM provider; minimum-necessary in agent prompt</li>
-            <li>Identity verification (DOB + last 4 of phone) before any clinical content</li>
-          </ul>
-        </div>
-      </details>
+        <details style="margin-top:2rem;">
+          <summary>Full FHIR resource map</summary>
+          <div class="details-body">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Resource</th>
+                  <th>What we read</th>
+                  <th>Why we read it</th>
+                  <th>Variability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono-cell">Appointment</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">ServiceRequest</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Patient</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Practitioner</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Location</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Condition</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">MedicationStatement</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Observation</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">AllergyIntolerance</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td></tr>
+                <tr><td class="mono-cell">Procedure</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
+                <tr><td class="mono-cell">DocumentReference</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER]</td><td>[PLACEHOLDER] (eval loop)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div><!-- /tab-panel data flow -->
 
-      <details>
-        <summary>Deployment timeline</summary>
-        <div class="details-body">
-          <ul>
-            <li><strong>Week 1:</strong> Discovery — service-type codes, In-Basket pool, note type mapping, prep regimen capture per physician</li>
-            <li><strong>Weeks 2–4:</strong> Integration build — FHIR/HL7 channel setup with customer's interface engine team, security review, scope provisioning</li>
-            <li><strong>Weeks 5–8:</strong> Configuration and shadow mode — agent runs in shadow, no actual calls placed; outputs reviewed by GI nurses</li>
-            <li><strong>Weeks 9–12:</strong> Pilot — limited patient cohort with explicit consent and nurse oversight on every call</li>
-            <li><strong>Weeks 13–16:</strong> Production rollout — full volume, weekly performance review for first quarter</li>
-            <li><strong>Subsequent sites on the same Epic instance:</strong> 2–3 weeks (configuration only, no integration build)</li>
-          </ul>
+      <div class="tab-panel">
+        <!-- Honest statements -->
+        <div class="three-col" style="margin-bottom:2rem;">
+          <div class="honest-col">
+            <h3>FHIR-first, hybrid in reality.</h3>
+            <p>The primary path is FHIR R4 for reads and most writes. HL7 v2 fallback for sites not yet FHIR-current. Epic-specific operations such as <code>Communication.$send-in-basket</code> for In-Basket messaging where standard FHIR doesn't cover the workflow.</p>
+          </div>
+          <div class="honest-col">
+            <h3>Pre-load discipline.</h3>
+            <p>The agent doesn't fetch data live during conversations. Comprehensive pre-load at 3 PM means zero EHR-dependent latency during patient calls. Voice doesn't tolerate the silence of a mid-conversation tool call. This is a deliberate safety and UX choice.</p>
+          </div>
+          <div class="honest-col">
+            <h3>The hardest deployment problem.</h3>
+            <p>Bowel prep regimen choice doesn't live in a standard FHIR field. It's a 30-minute working session per customer in deployment week one. Not a code problem — a configuration problem.</p>
+          </div>
         </div>
-      </details>
-    </div>
+
+        <details>
+          <summary>Auth, security, and HIPAA posture</summary>
+          <div class="details-body">
+            <ul>
+              <li>OAuth 2.0 + SMART-on-FHIR Backend Services profile</li>
+              <li>JWT-signed assertions, system-level scopes registered through Epic Vendor Services</li>
+              <li>TLS 1.3 in transit, audit logging at every PHI access point</li>
+              <li>HIPAA + HITRUST certified pipeline (Hippocratic-side)</li>
+              <li>PHI never logged to LLM provider; minimum-necessary in agent prompt</li>
+              <li>Identity verification (DOB + last 4 of phone) before any clinical content</li>
+            </ul>
+          </div>
+        </details>
+
+        <details style="margin-top:1rem;">
+          <summary>Deployment timeline</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Week 1:</strong> Discovery — service-type codes, In-Basket pool, note type mapping, prep regimen capture per physician</li>
+              <li><strong>Weeks 2–4:</strong> Integration build — FHIR/HL7 channel setup with customer's interface engine team, security review, scope provisioning</li>
+              <li><strong>Weeks 5–8:</strong> Configuration and shadow mode — agent runs in shadow, no actual calls placed; outputs reviewed by GI nurses</li>
+              <li><strong>Weeks 9–12:</strong> Pilot — limited patient cohort with explicit consent and nurse oversight on every call</li>
+              <li><strong>Weeks 13–16:</strong> Production rollout — full volume, weekly performance review for first quarter</li>
+              <li><strong>Subsequent sites on the same Epic instance:</strong> 2–3 weeks (configuration only, no integration build)</li>
+            </ul>
+          </div>
+        </details>
+      </div><!-- /tab-panel auth & deployment -->
+    </div><!-- /tabs -->
   </div>
 </section>
 
 <!-- ══════════════════════ SECTION 6: TRADEOFFS ══════════════════════ -->
 <section id="tradeoffs" aria-labelledby="h-tradeoffs">
   <div class="container">
-    <h2 class="section-header" id="h-tradeoffs">Tradeoffs and roadmap</h2>
-    <p class="lead" style="max-width:720px; margin-bottom:3rem;">Three things will be hard. Here's how I'd handle each.</p>
+    <div class="section-divider">
+      <span class="section-divider-num">06</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Tradeoffs &amp; Roadmap</span>
+    </div>
+    <h2 class="section-heading" id="h-tradeoffs">Tradeoffs and roadmap</h2>
+    <p class="section-subtitle" style="margin-bottom:3rem;">Three things will be hard. Here's how I'd handle each.</p>
 
     <div class="risk-block">
       <h3>Risk 1: GI nurse adoption.</h3>
@@ -1097,7 +1388,7 @@ Recorded from the SafetyPortal.</pre>
   <div style="max-width:580px; margin:0 auto;">
     <p>Built for the Hippocratic AI Agent Deployment Architect onsite.</p>
     <p>Questions? Happy to dig deeper into any section live or asynchronously.</p>
-    <p style="margin-top:0.5rem;">[YOUR NAME]&nbsp;&middot;&nbsp;[YOUR EMAIL]&nbsp;&middot;&nbsp;[YOUR LINKEDIN URL]</p>
+    <p style="margin-top:0.5rem;">Gaurav Mittal&nbsp;&middot;&nbsp;<a href="mailto:gmittal1557@gmail.com" style="color:inherit;">gmittal1557@gmail.com</a>&nbsp;&middot;&nbsp;<a href="https://www.linkedin.com/in/iamgauravmittal/" style="color:inherit;">linkedin.com/in/iamgauravmittal</a></p>
   </div>
 </footer>
 
@@ -1114,32 +1405,79 @@ Recorded from the SafetyPortal.</pre>
   const hero    = document.getElementById('hero');
   const bttBtn  = document.getElementById('back-to-top');
   const section2 = document.getElementById('why-agentic');
-  const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
-  const sections = Array.from(document.querySelectorAll('section[id]:not(#hero)'));
+  const sections    = Array.from(document.querySelectorAll('section[id]:not(#hero)'));
+  const sectionItems = Array.from(document.querySelectorAll('.sections-item'));
+  const sectionsBtn  = document.getElementById('sections-btn');
+  const sectionsMenu = document.getElementById('sections-menu');
+  const btnNum       = document.getElementById('sections-btn-num');
+  const btnLabel     = document.getElementById('sections-btn-label');
 
-  new IntersectionObserver(([e]) => nav.classList.toggle('visible', !e.isIntersecting), { threshold: 0.05 })
-    .observe(hero);
+  // Section metadata for button label updates
+  const sectionMeta = {
+    'problem':       { num: '01', label: 'Problem' },
+    'why-agentic':   { num: '02', label: 'How agent solves' },
+    'the-agent':     { num: '03', label: 'The agent' },
+    'configuration': { num: '04', label: 'Configuration' },
+    'integration':   { num: '05', label: 'Integration' },
+    'tradeoffs':     { num: '06', label: 'Tradeoffs' },
+  };
 
-  // ── Active section highlight ──
+  const progressBar = document.getElementById('progress-bar');
+
+  new IntersectionObserver(([e]) => {
+    const past = !e.isIntersecting;
+    nav.classList.toggle('scrolled', past);
+    progressBar.classList.toggle('visible', past);
+  }, { threshold: 0.05 }).observe(hero);
+
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (total > 0 ? scrollY / total * 100 : 0) + '%';
+  }, { passive: true });
+
+  // ── Dropdown open / close ──
+  sectionsBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const isOpen = sectionsMenu.classList.toggle('open');
+    sectionsBtn.setAttribute('aria-expanded', isOpen);
+  });
+  document.addEventListener('click', () => {
+    sectionsMenu.classList.remove('open');
+    sectionsBtn.setAttribute('aria-expanded', 'false');
+  });
+  sectionsMenu.addEventListener('click', e => e.stopPropagation());
+
+  // ── Smooth scroll ──
+  const smoothScrollTo = href => {
+    const target = document.querySelector(href);
+    if (!target) return;
+    window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' });
+  };
+
+  sectionItems.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      smoothScrollTo(a.getAttribute('href'));
+      sectionsMenu.classList.remove('open');
+      sectionsBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const scrollCue = document.querySelector('.scroll-cue');
+  if (scrollCue) scrollCue.addEventListener('click', e => { e.preventDefault(); smoothScrollTo(scrollCue.getAttribute('href')); });
+
+  // ── Active section: highlight item + update button label ──
   const secObs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const id = e.target.id;
-        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        const id   = e.target.id;
+        const meta = sectionMeta[id];
+        sectionItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        if (meta) { btnNum.textContent = meta.num; btnLabel.textContent = meta.label; }
       }
     });
   }, { threshold: 0.3, rootMargin: '-60px 0px -55% 0px' });
   sections.forEach(s => secObs.observe(s));
-
-  // ── Smooth scroll with nav offset ──
-  navLinks.forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      const target = document.querySelector(a.getAttribute('href'));
-      if (!target) return;
-      window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' });
-    });
-  });
 
   // ── Back to top ──
   new IntersectionObserver(([e]) => bttBtn.classList.toggle('visible', !e.isIntersecting), { threshold: 0 })
@@ -1153,6 +1491,21 @@ Recorded from the SafetyPortal.</pre>
   }, { threshold: 0.08 });
   sections.forEach(s => fadeObs.observe(s));
 
+  // ── Tabs ──
+  document.querySelectorAll('[data-tabs]').forEach(tabs => {
+    const btns   = tabs.querySelectorAll('.tab-btn');
+    const panels = tabs.querySelectorAll('.tab-panel');
+    btns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        btns.forEach((b, j) => {
+          b.classList.toggle('active', j === i);
+          b.setAttribute('aria-selected', j === i);
+        });
+        panels.forEach((p, j) => p.classList.toggle('active', j === i));
+      });
+    });
+  });
+
   // ── Animated collapsible expand/collapse ──
   document.querySelectorAll('details').forEach(det => {
     const summary = det.querySelector('summary');
@@ -1164,7 +1517,7 @@ Recorded from the SafetyPortal.</pre>
         // Close
         body.style.height = body.scrollHeight + 'px';
         body.offsetHeight; // reflow
-        body.style.transition = 'height 0.22s ease-out';
+        body.style.transition = 'height 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
         body.style.height = '0';
         body.style.overflow = 'hidden';
         body.addEventListener('transitionend', () => {
@@ -1178,7 +1531,7 @@ Recorded from the SafetyPortal.</pre>
         body.style.height = '0';
         body.style.overflow = 'hidden';
         body.offsetHeight; // reflow
-        body.style.transition = 'height 0.22s ease-out';
+        body.style.transition = 'height 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
         body.style.height = h + 'px';
         body.addEventListener('transitionend', () => {
           body.style.cssText = '';
