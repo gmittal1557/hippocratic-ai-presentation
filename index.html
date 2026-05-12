@@ -1393,6 +1393,137 @@
       border-top: 0.5px solid #F0F0ED;
     }
 
+    /* ─── DEMO VIGNETTE ─── */
+    .demo-vignette {
+      background: rgba(47, 93, 80, 0.04);
+      border-left: 3px solid var(--accent, #2F5D50);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem 1.35rem;
+      margin-top: 1.5rem;
+    }
+    .vignette-tag {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent, #2F5D50);
+      margin-bottom: 0.65rem;
+      font-weight: 500;
+    }
+    .vignette-body {
+      font-family: var(--serif, 'Newsreader', Georgia, serif);
+      font-size: 15px;
+      line-height: 1.55;
+      color: #2A2A2A;
+      margin: 0 0 0.85rem;
+    }
+    .vignette-footer {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 11px;
+      color: var(--muted, #888884);
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── CITE FOOTNOTE ─── */
+    .cite-footnote {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 9.5px;
+      color: var(--muted, #888884);
+      letter-spacing: 0.03em;
+      margin-left: 0.4rem;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ─── RISKS BLOCK ─── */
+    .risks-block {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 0.5px solid var(--border, #E8E8E5);
+    }
+    .risks-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text, #0F0F0F);
+      margin: 0 0 1.1rem;
+      letter-spacing: -0.01em;
+    }
+    .risks-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .risk-item {
+      background: white;
+      border: 0.5px solid var(--border, #E8E8E5);
+      border-radius: 6px;
+      padding: 0.85rem 1.1rem 0.9rem;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .risk-label {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #A04040;
+      font-weight: 500;
+    }
+    .risk-body strong {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text, #0F0F0F);
+      display: block;
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.005em;
+    }
+    .risk-mit {
+      font-size: 12px;
+      color: #555550;
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ─── PAGE FOOTER ─── */
+    .page-footer {
+      padding: 4rem 2.5rem 3.5rem;
+      text-align: center;
+      border-top: 0.5px solid var(--border, #E8E8E5);
+      background: #FAFAFA;
+    }
+    .footer-thanks {
+      font-family: var(--serif, 'Newsreader', Georgia, serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--text, #0F0F0F);
+      margin: 0 0 0.5rem;
+      letter-spacing: -0.015em;
+    }
+    .footer-sig {
+      font-family: var(--serif, 'Newsreader', Georgia, serif);
+      font-size: 17px;
+      font-style: italic;
+      color: #555550;
+      margin: 0 0 1.5rem;
+    }
+    .footer-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+    .footer-link {
+      color: var(--text, #2A2A2A);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-link:hover { color: var(--accent, #2F5D50); }
+    .footer-divider { color: var(--muted, #888884); }
+
     /* ─── SECTION 6 ROADMAP ─── */
     .s6-anchor {
       font-family: var(--serif);
@@ -1583,7 +1714,7 @@
         <ul class="problem-bullets">
           <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
           <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
-          <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue per high-volume gastroenterology (GI) service line</li>
+          <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue loss per high-volume gastroenterology (GI) service line</li>
           <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
         </ul>
       </div>
@@ -1650,7 +1781,7 @@
       </button>
       <div class="citation-panel" id="citation-panel-1" role="listbox">
         <ul>
-          <li><strong>Liu et al., 2021</strong> — RCT showing Day -1 telephone education improved adequate prep from 70.3% to 81.6% (n=470)</li>
+          <li><strong>Liu et al., 2021</strong> — RCT showing Day-1 telephone education improved adequate prep from 70.3% to 81.6% (n=470)</li>
           <li><strong>Kohli et al., 2018</strong> — multi-site retrospective cohort (n=4,016) showing scheduled Day -5 nurse calls had no measurable effect on prep adequacy</li>
           <li><strong>ASGE GI Operations Benchmarking Survey, 2019</strong> — same-day cancellation rates of 5.6–8.45% across U.S. endoscopy units</li>
         </ul>
@@ -1676,7 +1807,7 @@
           <th>Metric</th>
           <th>Mailed instructions only</th>
           <th>Day -5 nurse call</th>
-          <th class="featured">Day -1 evening agent</th>
+          <th class="featured">Day-1 evening agent</th>
         </tr>
       </thead>
       <tbody>
@@ -1690,16 +1821,16 @@
           <td>Outcome impact</td>
           <td>Baseline</td>
           <td>No measurable improvement</td>
-          <td class="featured">+11pp prep adequacy</td>
+          <td class="featured">+11pp prep adequacy <span class="cite-footnote">per Liu et al.</span></td>
         </tr>
       </tbody>
     </table>
 
     <div class="stat-block">
       <div class="stat-large">$2.5M+</div>
-      <p class="stat-label">in avoided annual cost per high-volume GI service line</p>
+      <p class="stat-label">recoverable annual cost per high-volume GI service line</p>
     </div>
-    <p style="text-align:center; color:#444440; max-width:640px; margin:0 auto 2.5rem; font-size:16px;">Dominated by avoided repeat procedures.</p>
+    <p style="text-align:center; color:#444440; max-width:640px; margin:0 auto 2.5rem; font-size:16px;">Of the $3M+ preventable loss in Section 1, this agent recovers $2.5M+.</p>
 
     <details>
       <summary>See the scenario math</summary>
@@ -1840,13 +1971,13 @@
       </div>
     </div>
 
-    <!-- Demo placeholder -->
-    <div class="demo-box">
-      <div class="demo-icon">▶</div>
-      <div class="demo-text">
-        <div class="demo-label">SafetyPortal demo · to be added</div>
-        A 2–3 minute walkthrough. Happy path with Jaime Ortiz, then a failure case at 1:45 where the patient vomits the prep and the agent escalates with warm transfer.
-      </div>
+    <!-- Patient vignette -->
+    <div class="demo-vignette">
+      <div class="vignette-tag">A real patient · Jaime Ortiz</div>
+      <p class="vignette-body">
+        Jaime is 74, has hypertension and GERD, takes Lisinopril and Omeprazole. Tomorrow at 9 AM he has a colonoscopy at City Medical Center. He started the Golytely prep at 5 PM and is two hours in. He's tired, a little nauseated, and unsure if he's done it right. He's not going to call the office at 6 PM. The agent calls him instead.
+      </p>
+      <div class="vignette-footer">Live AI Agent Test follows in the SafetyPortal sandbox.</div>
     </div>
 
     <!-- Conversation flow collapsible -->
@@ -1905,80 +2036,6 @@
         </div>
       </div>
     </details>
-  </div>
-</section>
-
-<!-- ══════════════════════ SECTION 4: CONFIGURATION ══════════════════════ -->
-<section id="configuration" aria-labelledby="h-config">
-  <div class="container">
-    <div class="section-divider">
-      <span class="section-divider-num">04</span>
-      <div class="section-divider-line"></div>
-      <span class="section-divider-label">Configuration</span>
-    </div>
-    <h2 class="section-heading" id="h-config">How it's configured</h2>
-
-    <div class="tabs" data-tabs>
-      <div class="tabs-nav" role="tablist">
-        <button class="tab-btn active" role="tab" aria-selected="true">Per-customer</button>
-        <button class="tab-btn" role="tab" aria-selected="false">Per-physician</button>
-        <button class="tab-btn" role="tab" aria-selected="false">Demo walkthrough</button>
-      </div>
-
-      <div class="tab-panel active">
-        <dl class="config-list">
-          <dt>Service-type codes</dt>
-          <dd>Your local codes for colonoscopy. Varies per site. Could be SNOMED, Epic-internal, or local.</dd>
-
-          <dt>In-Basket pool routing</dt>
-          <dd>Which nurse pool gets escalations. Different sites route differently.</dd>
-
-          <dt>Note type for write-back</dt>
-          <dd>Which Epic note type our structured notes file under. Must match an existing template the GI nurses already review.</dd>
-
-          <dt>Escalation triggers</dt>
-          <dd>Site-specific risk thresholds. Vomiting count, prep timing slippage, missing escort.</dd>
-        </dl>
-      </div>
-
-      <div class="tab-panel">
-        <dl class="config-list">
-          <dt>Prep regimens by physician</dt>
-          <dd>Each GI doc has standing preferences. Dr. Smith uses split-dose SUPREP. Dr. Patel uses MoviPrep. Captured in deployment week one.</dd>
-
-          <dt>Perioperative protocol per physician</dt>
-          <dd>Anticoagulant hold rules, insulin adjustments. Per-site, sometimes per-physician within a site.</dd>
-        </dl>
-      </div>
-
-      <div class="tab-panel">
-        <div class="demo-card" aria-label="Demo walkthrough plan">
-          <div class="demo-card-media">
-            <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=82" alt="Clinician reviewing patient information on a tablet">
-          </div>
-          <div class="demo-script">
-            <h3>Demo arc: prove the agent can handle the real edge case.</h3>
-            <div class="script-row">
-              <span class="script-time">0:00</span>
-              <p>Cold open with Mrs. Chen: identity verification, clinic-branded caller ID, and consent framing.</p>
-            </div>
-            <div class="script-row">
-              <span class="script-time">0:45</span>
-              <p>Happy path: confirms split-dose prep, Ozempic hold, arrival time, and escort.</p>
-            </div>
-            <div class="script-row">
-              <span class="script-time">1:45</span>
-              <p>Failure case: patient vomited the prep. Agent stops coaching, escalates, and warm-transfers to GI nurse.</p>
-            </div>
-            <div class="script-row">
-              <span class="script-time">2:30</span>
-              <p>Post-call proof: structured Epic note, Communication disposition, Flag, and In-Basket escalation.</p>
-            </div>
-          </div>
-        </div>
-        <p style="max-width:760px; margin-top:1.5rem;">The Day -1 call for Mrs. Chen (composite patient): 58 years old, screening colonoscopy tomorrow, type 2 diabetic on Ozempic, on Eliquis. The first 90 seconds show the happy path. At 1:45 we walk through the failure case — patient throwing up the prep — and the warm-transfer escalation.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2182,6 +2239,33 @@
       </div>
 
     </div>
+
+    <div class="risks-block">
+      <h3 class="risks-title">Known risks, with mitigations.</h3>
+      <div class="risks-grid">
+        <div class="risk-item">
+          <div class="risk-label">Risk</div>
+          <div class="risk-body">
+            <strong>The agent says something clinically wrong.</strong>
+            <span class="risk-mit">Polaris guardrails + nurse override review of every flagged note.</span>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label">Risk</div>
+          <div class="risk-body">
+            <strong>Patient discloses an emergency during the call.</strong>
+            <span class="risk-mit">Live warm-transfer to on-call nurse with structured handoff context.</span>
+          </div>
+        </div>
+        <div class="risk-item">
+          <div class="risk-label">Risk</div>
+          <div class="risk-body">
+            <strong>Agent uses the wrong physician's protocol.</strong>
+            <span class="risk-mit">Pre-call validation against physician_protocol_id; mismatch blocks the call.</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2286,12 +2370,13 @@
   </div>
 </section>
 
-<!-- ══════════════════════ FOOTER ══════════════════════ -->
-<footer>
-  <div style="max-width:580px; margin:0 auto;">
-    <p>Built for the Hippocratic AI Agent Deployment Architect onsite.</p>
-    <p>Questions? Happy to dig deeper into any section live or asynchronously.</p>
-    <p style="margin-top:0.5rem;">Gaurav Mittal&nbsp;&middot;&nbsp;<a href="mailto:gmittal1557@gmail.com" style="color:inherit;">gmittal1557@gmail.com</a>&nbsp;&middot;&nbsp;<a href="https://www.linkedin.com/in/iamgauravmittal/" style="color:inherit;">linkedin.com/in/iamgauravmittal</a></p>
+<footer class="page-footer">
+  <p class="footer-thanks">Thanks for reading.</p>
+  <p class="footer-sig">— Gaurav Mittal</p>
+  <div class="footer-contact">
+    <a href="https://www.linkedin.com/in/iamgauravmittal" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+    <span class="footer-divider">·</span>
+    <a href="mailto:gmittal1557@gmail.com" class="footer-link">gmittal1557@gmail.com</a>
   </div>
 </footer>
 
