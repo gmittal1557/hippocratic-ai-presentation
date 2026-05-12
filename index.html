@@ -303,69 +303,78 @@
       color: var(--accent);
       margin-right: 0.6rem;
     }
-    .missed-reasons-chart { padding-top: 0.65rem; }
-    .missed-reasons-chart .missed-reasons-label {
-      font-family: var(--mono);
+    .chart-block {
+      background: white;
+      border: 0.5px solid var(--border, #E8E8E5);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0;
+    }
+    .chart-title {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
       font-size: 10px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--muted, #888884);
       margin-bottom: 1.25rem;
     }
     .reason-row {
-      display: flex;
-      align-items: center;
-      gap: 0.875rem;
-      padding: 0.25rem 0;
-    }
-    .reason-pct {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 400;
-      width: 2.5rem;
-      text-align: right;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-    .reason-bar-wrap {
-      flex: 1;
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 140px 1fr 50px;
       align-items: center;
-      gap: 0.875rem;
+      gap: 1.25rem;
+      padding: 0.55rem 0;
+      border-bottom: 0.5px solid #F4F4F0;
     }
-    .reason-bar-track {
-      width: 160px;
-      height: 12px;
-      background: transparent;
-    }
-    .reason-bar {
-      height: 12px;
-      background: #BBBBB7;
-      border-radius: 2px;
-      min-width: 8px;
-    }
+    .reason-row:last-of-type { border-bottom: none; }
     .reason-name {
       font-size: 13.5px;
-      color: #444440;
-    }
-    .prep-row .reason-pct {
-      color: var(--accent);
+      color: #2A2A2A;
       font-weight: 500;
+      text-align: right;
     }
-    .prep-row .reason-bar {
-      background: var(--accent);
+    .reason-row.prep-row .reason-name {
+      color: var(--accent, #2F5D50);
+      font-weight: 600;
+    }
+    .reason-bar-track {
       height: 14px;
+      background: rgba(15, 15, 15, 0.04);
+      border-radius: 3px;
+      overflow: hidden;
     }
-    .prep-row .reason-name {
-      color: var(--text);
+    .reason-bar-fill {
+      height: 100%;
+      background: #BBBBB7;
+      border-radius: 3px;
+    }
+    .reason-row.prep-row .reason-bar-fill {
+      background: var(--accent, #2F5D50);
+    }
+    .reason-pct {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 12.5px;
       font-weight: 500;
+      color: #2A2A2A;
+      text-align: right;
     }
-    .reasons-source {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--muted-light);
+    .reason-row.prep-row .reason-pct {
+      color: var(--accent, #2F5D50);
+    }
+    .chart-footer {
+      font-size: 11.5px;
+      color: var(--muted, #888884);
+      font-style: italic;
       margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 0.5px solid #F4F4F0;
+    }
+    @media (max-width: 640px) {
+      .reason-row {
+        grid-template-columns: 100px 1fr 40px;
+        gap: 0.75rem;
+      }
+      .reason-name { font-size: 12px; }
     }
 
     /* ─── SECTION 2 SCENARIO MATH ─── */
@@ -1709,66 +1718,53 @@
       <span class="section-divider-label">The Problem</span>
     </div>
     <h2 class="section-heading" id="h-problem">1 in 5 colonoscopies has inadequate prep.</h2>
-    <div class="two-col">
-      <div>
-        <ul class="problem-bullets">
-          <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
-          <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
-          <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue loss per high-volume gastroenterology (GI) service line</li>
-          <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
-        </ul>
+    <ul class="problem-bullets">
+      <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
+      <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
+      <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue loss per high-volume gastroenterology (GI) service line</li>
+      <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
+    </ul>
+
+    <div class="chart-block">
+      <div class="chart-title">Why colonoscopies get missed</div>
+
+      <div class="reason-row prep-row">
+        <span class="reason-name">Prep-related</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 100%;"></div></div>
+        <span class="reason-pct">30%</span>
       </div>
 
-      <div>
-        <div class="missed-reasons-chart">
-          <div class="missed-reasons-label">Why colonoscopies get missed</div>
-
-          <div class="reason-row prep-row">
-            <span class="reason-pct">30%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 30%;"></div></div>
-              <span class="reason-name">Prep-related</span>
-            </div>
-          </div>
-          <div class="reason-row">
-            <span class="reason-pct">25%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 25%;"></div></div>
-              <span class="reason-name">Logistical</span>
-            </div>
-          </div>
-          <div class="reason-row">
-            <span class="reason-pct">15%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 15%;"></div></div>
-              <span class="reason-name">Patient illness</span>
-            </div>
-          </div>
-          <div class="reason-row">
-            <span class="reason-pct">15%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 15%;"></div></div>
-              <span class="reason-name">Anxiety or no-show</span>
-            </div>
-          </div>
-          <div class="reason-row">
-            <span class="reason-pct">10%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 10%;"></div></div>
-              <span class="reason-name">Financial or access</span>
-            </div>
-          </div>
-          <div class="reason-row">
-            <span class="reason-pct">5%</span>
-            <div class="reason-bar-wrap">
-              <div class="reason-bar-track"><div class="reason-bar" style="width: 5%;"></div></div>
-              <span class="reason-name">Other</span>
-            </div>
-          </div>
-
-          <div class="reasons-source">Source: published cohort studies of gastroenterology endoscopy units.</div>
-        </div>
+      <div class="reason-row">
+        <span class="reason-name">Logistical</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 83.3%;"></div></div>
+        <span class="reason-pct">25%</span>
       </div>
+
+      <div class="reason-row">
+        <span class="reason-name">Patient illness</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 50%;"></div></div>
+        <span class="reason-pct">15%</span>
+      </div>
+
+      <div class="reason-row">
+        <span class="reason-name">Anxiety or no-show</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 50%;"></div></div>
+        <span class="reason-pct">15%</span>
+      </div>
+
+      <div class="reason-row">
+        <span class="reason-name">Financial or access</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 33.3%;"></div></div>
+        <span class="reason-pct">10%</span>
+      </div>
+
+      <div class="reason-row">
+        <span class="reason-name">Other</span>
+        <div class="reason-bar-track"><div class="reason-bar-fill" style="width: 16.7%;"></div></div>
+        <span class="reason-pct">5%</span>
+      </div>
+
+      <div class="chart-footer">Source: published cohort studies of GI endoscopy units.</div>
     </div>
 
     <div class="callout">
