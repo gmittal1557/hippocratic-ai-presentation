@@ -1536,6 +1536,134 @@
       padding-top: 0.8rem;
       border-top: 0.5px solid #F0F0ED;
     }
+
+    /* ─── SECTION 6 ROADMAP ─── */
+    .s6-anchor {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #2A2A2A;
+      max-width: 42rem;
+      margin: 0 0 2.5rem;
+      text-wrap: balance;
+    }
+    .s6-block { margin-bottom: 2.5rem; }
+    .s6-block:last-child { margin-bottom: 0; }
+    .block-title {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .metric-tier {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem 1.25rem;
+    }
+    .metric-tier-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.85rem;
+      letter-spacing: -0.01em;
+      padding-bottom: 0.65rem;
+      border-bottom: 0.5px solid #F0F0ED;
+    }
+    .metric-list { list-style: none; padding: 0; margin: 0; }
+    .metric-item {
+      padding: 0.7rem 0;
+      border-bottom: 0.5px solid #F4F4F0;
+    }
+    .metric-item:last-child { border-bottom: none; padding-bottom: 0.15rem; }
+    .metric-q {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .metric-how {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.45;
+      display: block;
+    }
+    .next-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      position: relative;
+    }
+    .next-card {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.15rem 1.3rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+    }
+    .next-card-head {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.2rem;
+    }
+    .next-step {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--muted-light);
+      font-weight: 500;
+    }
+    .next-when {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      background: rgba(47, 93, 80, 0.07);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .next-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .next-desc {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #555550;
+      margin: 0;
+    }
+    .next-grid::before,
+    .next-grid::after {
+      content: '→';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 14px;
+      color: #D4D4D0;
+      z-index: 1;
+    }
+    .next-grid::before { left: calc(33.33% - 4px); }
+    .next-grid::after  { left: calc(66.66% - 4px); }
   </style>
 </head>
 <body>
@@ -1585,6 +1713,7 @@
         <a href="#configuration" class="sections-item"        role="option"><span class="sections-item-num">04</span>Configuration<span class="sections-item-dot"></span></a>
         <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">04</span>Integration<span class="sections-item-dot"></span></a>
         <a href="#deployment"     class="sections-item"        role="option"><span class="sections-item-num">05</span>Deployment<span class="sections-item-dot"></span></a>
+        <a href="#roadmap"        class="sections-item"        role="option"><span class="sections-item-num">06</span>Roadmap<span class="sections-item-dot"></span></a>
       </div>
     </div>
   </div>
@@ -2239,6 +2368,107 @@
   </div>
 </section>
 
+<!-- ══════════════════════ SECTION 6: ROADMAP ══════════════════════ -->
+<section id="roadmap" aria-labelledby="h-roadmap">
+  <div class="container">
+    <div class="section-divider">
+      <span class="section-divider-num">06</span>
+      <div class="section-divider-line"></div>
+      <span class="section-divider-label">Roadmap</span>
+    </div>
+    <h2 class="section-heading" id="h-roadmap">Success and next steps.</h2>
+    <p class="s6-anchor">What we measure, and what we build next.</p>
+
+    <!-- Block 1: Success metrics -->
+    <div class="s6-block">
+      <h3 class="block-title">How we'd know it's working.</h3>
+
+      <div class="metrics-grid">
+
+        <div class="metric-tier">
+          <h4 class="metric-tier-name">Did it work?</h4>
+          <ul class="metric-list">
+            <li class="metric-item">
+              <span class="metric-q">Did patients arrive with clean preps?</span>
+              <span class="metric-how">Bowel-prep quality scored at the procedure.</span>
+            </li>
+            <li class="metric-item">
+              <span class="metric-q">Did fewer procedures get cancelled day-of?</span>
+              <span class="metric-how">Same-day cancellation rate vs. baseline.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="metric-tier">
+          <h4 class="metric-tier-name">Is the system running?</h4>
+          <ul class="metric-list">
+            <li class="metric-item">
+              <span class="metric-q">Are we reaching patients?</span>
+              <span class="metric-how">Connection rate on outbound calls.</span>
+            </li>
+            <li class="metric-item">
+              <span class="metric-q">Are they staying on the line?</span>
+              <span class="metric-how">Completion rate among connected calls.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="metric-tier">
+          <h4 class="metric-tier-name">Is it safe?</h4>
+          <ul class="metric-list">
+            <li class="metric-item">
+              <span class="metric-q">Are nurses correcting the agent's notes?</span>
+              <span class="metric-how">Override rate as a proxy for accuracy.</span>
+            </li>
+            <li class="metric-item">
+              <span class="metric-q">Any patient safety incidents?</span>
+              <span class="metric-how">Adverse-event count. Target: zero.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Block 2: What we'd build next -->
+    <div class="s6-block">
+      <h3 class="block-title">What we'd build next.</h3>
+
+      <div class="next-grid">
+
+        <div class="next-card">
+          <div class="next-card-head">
+            <span class="next-step">01</span>
+            <span class="next-when">Months 3–6</span>
+          </div>
+          <h4 class="next-title">Other GI prep procedures.</h4>
+          <p class="next-desc">EGD prep, capsule endoscopy prep. Same patient population, same FHIR integration. Fastest extension of the pilot.</p>
+        </div>
+
+        <div class="next-card">
+          <div class="next-card-head">
+            <span class="next-step">02</span>
+            <span class="next-when">Months 6–9</span>
+          </div>
+          <h4 class="next-title">Day-after follow-up call.</h4>
+          <p class="next-desc">Same patient, 24 hours later. Confirms recovery, captures symptoms, surfaces escalations. Closes the loop on the procedure.</p>
+        </div>
+
+        <div class="next-card">
+          <div class="next-card-head">
+            <span class="next-step">03</span>
+            <span class="next-when">Months 9–12</span>
+          </div>
+          <h4 class="next-title">Follow-up after positive at-home stool test.</h4>
+          <p class="next-desc">Different trigger — patient's at-home stool test came back positive and they need a diagnostic colonoscopy. Same site, same handoff pattern.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ══════════════════════ FOOTER ══════════════════════ -->
 <footer>
   <div style="max-width:580px; margin:0 auto;">
@@ -2276,6 +2506,7 @@
     'configuration': { num: '04', label: 'Configuration' },
     'integration':   { num: '04', label: 'Integration' },
     'deployment':    { num: '05', label: 'Deployment' },
+    'roadmap':       { num: '06', label: 'Roadmap' },
   };
 
   const progressBar = document.getElementById('progress-bar');
