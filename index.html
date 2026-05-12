@@ -1576,7 +1576,7 @@
   </div>
   <div class="section-dropdown" id="sectionDropdown">
     <button class="section-trigger" id="sectionTrigger" aria-haspopup="true" aria-expanded="false">
-      <span id="sectionTriggerLabel"><span class="section-trigger-num">01 ·</span> Problem</span>
+      <span id="sectionTriggerLabel">Sections</span>
       <span class="section-trigger-arrow">▼</span>
     </button>
     <div class="section-menu" role="menu">
@@ -2391,6 +2391,17 @@
       if (visible.length) setCurrentSection(visible[0].target.id);
     }, { rootMargin: '-30% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
     targets.forEach(t => obs.observe(t));
+
+    // Reset to "Sections" when hero is in view
+    const heroSection = document.getElementById('hero');
+    if (heroSection) {
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          triggerLabel.textContent = 'Sections';
+          dropdown.querySelectorAll('.section-option').forEach(opt => opt.classList.remove('current'));
+        }
+      }, { threshold: 0.1 }).observe(heroSection);
+    }
   }
 })();
 </script>
