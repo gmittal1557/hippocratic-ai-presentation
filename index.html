@@ -308,7 +308,7 @@
       border: 0.5px solid var(--border, #E8E8E5);
       border-radius: 8px;
       padding: 1.5rem 1.75rem;
-      margin: 1.5rem 0;
+      margin-top: 4.5rem;
     }
     .chart-title {
       font-family: var(--mono, 'JetBrains Mono', monospace);
@@ -1643,13 +1643,16 @@
       <span class="section-divider-label">The Problem</span>
     </div>
     <h2 class="section-heading" id="h-problem">1 in 5 colonoscopies has inadequate prep.</h2>
-    <ul class="problem-bullets">
-      <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
-      <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
-      <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue loss per high-volume gastroenterology (GI) service line</li>
-      <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
-    </ul>
-
+    <div class="two-col">
+      <div>
+        <ul class="problem-bullets">
+          <li><span class="bullet-marker">—</span> <strong>20 to 25%</strong> of colonoscopies have inadequate bowel prep</li>
+          <li><span class="bullet-marker">—</span> <strong>8%</strong> are cancelled or aborted same day</li>
+          <li><span class="bullet-marker">—</span> <strong>$3M+</strong> in preventable annual revenue loss per high-volume gastroenterology (GI) service line</li>
+          <li><span class="bullet-marker">—</span> Patients still pay the cost. A day off work, a gallon of laxative, and a repeat visit.</li>
+        </ul>
+      </div>
+      <div>
     <div class="chart-block">
       <div class="chart-title">Why colonoscopies get missed</div>
 
@@ -1691,6 +1694,8 @@
 
       <div class="chart-footer">Source: published cohort studies of GI endoscopy units.</div>
     </div>
+      </div><!-- end right col -->
+    </div><!-- end two-col -->
 
     <div class="callout">
       Day-1 evening calls work. But staffing them at scale would cost 9 dedicated evening nurses, a position no GI service line wants to add.
