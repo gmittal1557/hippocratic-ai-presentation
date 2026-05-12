@@ -708,23 +708,26 @@
 
     /* ─── DEMO PANEL ─── */
     .demo-placeholder {
-      aspect-ratio: 16/9;
-      border: 2px dashed var(--border);
+      background: rgba(15, 15, 15, 0.03);
+      border: 0.5px dashed rgba(15, 15, 15, 0.2);
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2.5rem;
-      margin: 2rem 0;
-      background: #F5F5F2;
+      padding: 1.25rem 1.5rem 1.35rem;
+      margin-top: 1.5rem;
     }
-    .demo-placeholder pre {
-      font-family: var(--mono);
+    .demo-tag {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent, #2F5D50);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+    .demo-desc {
       font-size: 13.5px;
-      color: var(--muted);
-      line-height: 1.9;
-      white-space: pre-wrap;
+      line-height: 1.55;
+      color: #555550;
+      margin: 0;
     }
     .demo-card {
       display: grid;
@@ -1403,36 +1406,6 @@
     }
 
     /* ─── DEMO VIGNETTE ─── */
-    .demo-vignette {
-      background: rgba(47, 93, 80, 0.04);
-      border-left: 3px solid var(--accent, #2F5D50);
-      border-radius: 0 8px 8px 0;
-      padding: 1.25rem 1.5rem 1.35rem;
-      margin-top: 1.5rem;
-    }
-    .vignette-tag {
-      font-family: var(--mono, 'JetBrains Mono', monospace);
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent, #2F5D50);
-      margin-bottom: 0.65rem;
-      font-weight: 500;
-    }
-    .vignette-body {
-      font-family: var(--serif, 'Newsreader', Georgia, serif);
-      font-size: 15px;
-      line-height: 1.55;
-      color: #2A2A2A;
-      margin: 0 0 0.85rem;
-    }
-    .vignette-footer {
-      font-family: var(--mono, 'JetBrains Mono', monospace);
-      font-size: 11px;
-      color: var(--muted, #888884);
-      letter-spacing: 0.03em;
-    }
-
     /* ─── CITE FOOTNOTE ─── */
     .cite-footnote {
       font-family: var(--mono, 'JetBrains Mono', monospace);
@@ -1967,13 +1940,10 @@
       </div>
     </div>
 
-    <!-- Patient vignette -->
-    <div class="demo-vignette">
-      <div class="vignette-tag">A real patient · Jaime Ortiz</div>
-      <p class="vignette-body">
-        Jaime is 74, has hypertension and GERD, takes Lisinopril and Omeprazole. Tomorrow at 9 AM he has a colonoscopy at City Medical Center. He started the Golytely prep at 5 PM and is two hours in. He's tired, a little nauseated, and unsure if he's done it right. He's not going to call the office at 6 PM. The agent calls him instead.
-      </p>
-      <div class="vignette-footer">Live AI Agent Test follows in the SafetyPortal sandbox.</div>
+    <!-- Demo placeholder -->
+    <div class="demo-placeholder">
+      <div class="demo-tag">▶ SafetyPortal demo · to be added</div>
+      <p class="demo-desc">A 2–3 minute walkthrough. Happy path with Jaime Ortiz, then a failure case at 1:45 where the patient vomits the prep and the agent escalates with warm transfer.</p>
     </div>
 
     <!-- Conversation flow collapsible -->
