@@ -1387,6 +1387,7 @@
       background: rgba(47,93,80,0.07);
       padding: 3px 8px;
       border-radius: 3px;
+      white-space: nowrap;
     }
     .q-title {
       font-size: 16px;
@@ -1418,55 +1419,6 @@
     }
 
     /* ─── RISKS BLOCK ─── */
-    .risks-block {
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 0.5px solid var(--border, #E8E8E5);
-    }
-    .risks-title {
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--text, #0F0F0F);
-      margin: 0 0 1.1rem;
-      letter-spacing: -0.01em;
-    }
-    .risks-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-    .risk-item {
-      background: white;
-      border: 0.5px solid var(--border, #E8E8E5);
-      border-radius: 6px;
-      padding: 0.85rem 1.1rem 0.9rem;
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 1rem;
-      align-items: baseline;
-    }
-    .risk-label {
-      font-family: var(--mono, 'JetBrains Mono', monospace);
-      font-size: 9.5px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #A04040;
-      font-weight: 500;
-    }
-    .risk-body strong {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text, #0F0F0F);
-      display: block;
-      margin-bottom: 0.2rem;
-      letter-spacing: -0.005em;
-    }
-    .risk-mit {
-      font-size: 12px;
-      color: #555550;
-      line-height: 1.5;
-      display: block;
-    }
 
     /* ─── PAGE FOOTER ─── */
     .page-footer {
@@ -2168,69 +2120,33 @@
 
     <div class="q-grid">
 
-      <!-- Card 1 -->
       <div class="q-card">
         <div class="q-top">
           <span class="q-num">01</span>
           <span class="q-week">Week 1</span>
-          <p class="q-title">Who owns escalation routing?</p>
         </div>
-        <div class="q-answer">
-          <p>The agent can detect a deviation and decide to escalate — but to whom, through what channel, and with what SLA? That decision belongs to the GI service line, not engineering. We need a named nurse or coordinator, an on-call fallback, and a documented response window before the first live call.</p>
-        </div>
+        <h3 class="q-title">What's each physician's prep protocol?</h3>
+        <p class="q-answer">Mapped with the GI ops lead. Per-physician profile.</p>
       </div>
 
-      <!-- Card 2 -->
       <div class="q-card">
         <div class="q-top">
           <span class="q-num">02</span>
           <span class="q-week">Week 1</span>
-          <p class="q-title">What is the right escalation threshold?</p>
         </div>
-        <div class="q-answer">
-          <p>A threshold set too low floods nurses with low-acuity flags and kills adoption. Too high and we miss real prep failures. The right setting depends on the nurse team's capacity and risk tolerance — not on a default we ship. I'd spend deployment week one pairing with the clinical team to calibrate this on historical data before going live.</p>
-        </div>
+        <h3 class="q-title">Who takes the escalation?</h3>
+        <p class="q-answer">Mapped with the informaticist. Tested end-to-end.</p>
       </div>
 
-      <!-- Card 3 -->
       <div class="q-card">
         <div class="q-top">
           <span class="q-num">03</span>
-          <span class="q-week">Week 2</span>
-          <p class="q-title">How do we measure success?</p>
+          <span class="q-week">Week 1</span>
         </div>
-        <div class="q-answer">
-          <p>Colonoscopy prep adequacy rate is the outcome that matters, but it takes weeks to accumulate. Leading indicators — call completion rate, escalation precision, patient-reported confidence score — let us tune the agent before the lagging metric arrives. We need agreement on the primary metric and a dashboard owner before launch, not after.</p>
-        </div>
+        <h3 class="q-title">Where does the note land?</h3>
+        <p class="q-answer">Mapped with the IT lead. Note type, routing, patient visibility.</p>
       </div>
 
-    </div>
-
-    <div class="risks-block">
-      <h3 class="risks-title">Known risks, with mitigations.</h3>
-      <div class="risks-grid">
-        <div class="risk-item">
-          <div class="risk-label">Risk</div>
-          <div class="risk-body">
-            <strong>The agent says something clinically wrong.</strong>
-            <span class="risk-mit">Polaris guardrails + nurse override review of every flagged note.</span>
-          </div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-label">Risk</div>
-          <div class="risk-body">
-            <strong>Patient discloses an emergency during the call.</strong>
-            <span class="risk-mit">Live warm-transfer to on-call nurse with structured handoff context.</span>
-          </div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-label">Risk</div>
-          <div class="risk-body">
-            <strong>Agent uses the wrong physician's protocol.</strong>
-            <span class="risk-mit">Pre-call validation against physician_protocol_id; mismatch blocks the call.</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
