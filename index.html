@@ -1097,6 +1097,162 @@
       margin-bottom: 0.2rem;
     }
 
+    /* ─── SECTION 4 INTEGRATION ─── */
+    .s4-anchor {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #2A2A2A;
+      max-width: 42rem;
+      margin: 0 0 2rem;
+      text-wrap: balance;
+    }
+    .block-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .zone-legend {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 0.5px solid #F0F0ED;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .zone-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      vertical-align: 1px;
+    }
+    .zone-dot.customer { background: #5B7A8C; }
+    .zone-dot.platform { background: var(--accent); }
+
+    .tl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .tl-card {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.4rem 1.35rem;
+    }
+    .tl-time {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+    }
+    .tl-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.95rem;
+      letter-spacing: -0.01em;
+    }
+    .tl-list { list-style: none; padding: 0; margin: 0; }
+    .tl-item {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: #444440;
+      padding: 0.42rem 0;
+      border-bottom: 0.5px solid #F4F4F0;
+      letter-spacing: 0.01em;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-item .resource { color: var(--accent); font-weight: 500; }
+    .tl-item .desc { color: var(--muted); font-family: var(--sans); font-size: 11.5px; }
+
+    .fhir-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+    .fhir-table thead th {
+      text-align: left;
+      font-family: var(--sans);
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      padding: 0.6rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .fhir-table tbody td {
+      padding: 0.65rem 0.5rem;
+      border-bottom: 0.5px solid #F0F0ED;
+      vertical-align: top;
+      line-height: 1.45;
+      color: #2A2A2A;
+    }
+    .fhir-table tbody tr:last-child td { border-bottom: none; }
+    .fhir-table .res-cell {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 11.5px;
+      white-space: nowrap;
+    }
+    .fhir-table .fb-cell {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 2rem 0 1.1rem;
+      letter-spacing: -0.01em;
+    }
+    .calls-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .call-card {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem 1.15rem;
+    }
+    .call-num {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--muted-light);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .call-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 0.4rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .call-desc {
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: #555550;
+      margin: 0;
+    }
+
     /* ─── SECTION 5 FHIR COLS ─── */
     .fhir-col h3 {
       font-family: var(--mono);
@@ -1189,8 +1345,14 @@
     }
 
     /* ─── DIAGRAM WRAP ─── */
-    .diagram-wrap { margin: 2.5rem 0; overflow: hidden; }
-    .diagram-wrap svg { width: 100%; height: auto; display: block; }
+    .diagram-wrap {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem 1.5rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .diagram-svg-wrap svg { width: 100%; height: auto; display: block; }
     .diagram-caption { text-align: center; margin-top: 0.75rem; }
 
     /* ─── BACK TO TOP ─── */
@@ -1356,8 +1518,8 @@
         <a href="#why-agentic"   class="sections-item"        role="option"><span class="sections-item-num">02</span>How agent solves<span class="sections-item-dot"></span></a>
         <a href="#the-agent"     class="sections-item"        role="option"><span class="sections-item-num">03</span>The agent<span class="sections-item-dot"></span></a>
         <a href="#configuration" class="sections-item"        role="option"><span class="sections-item-num">04</span>Configuration<span class="sections-item-dot"></span></a>
-        <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">05</span>Integration<span class="sections-item-dot"></span></a>
-        <a href="#tradeoffs"     class="sections-item"        role="option"><span class="sections-item-num">06</span>Tradeoffs<span class="sections-item-dot"></span></a>
+        <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">04</span>Integration<span class="sections-item-dot"></span></a>
+        <a href="#tradeoffs"     class="sections-item"        role="option"><span class="sections-item-num">05</span>Tradeoffs<span class="sections-item-dot"></span></a>
       </div>
     </div>
   </div>
@@ -1809,195 +1971,153 @@
   </div>
 </section>
 
-<!-- ══════════════════════ SECTION 5: INTEGRATION ══════════════════════ -->
+<!-- ══════════════════════ SECTION 4: INTEGRATION ══════════════════════ -->
 <section id="integration" aria-labelledby="h-integration">
   <div class="container">
     <div class="section-divider">
-      <span class="section-divider-num">05</span>
+      <span class="section-divider-num">04</span>
       <div class="section-divider-line"></div>
       <span class="section-divider-label">Integration</span>
     </div>
-    <h2 class="section-heading" id="h-integration">How it integrates</h2>
+    <h2 class="section-heading" id="h-integration">What flows in. What flows out.</h2>
+    <p class="s4-anchor">Pre-loaded from Epic at 3 PM. Written back at 6:05 PM. No live calls to the EHR during the conversation.</p>
 
-    <div class="tabs" data-tabs>
-      <div class="tabs-nav" role="tablist">
-        <button class="tab-btn active" role="tab" aria-selected="true">Architecture</button>
-        <button class="tab-btn" role="tab" aria-selected="false">Data flow</button>
-        <button class="tab-btn" role="tab" aria-selected="false">Auth &amp; deployment</button>
-      </div>
-
-      <div class="tab-panel active">
-    <!-- Architecture diagram -->
+    <!-- Block 1: Architecture diagram -->
     <div class="diagram-wrap">
-      <svg viewBox="0 0 720 420" role="img" aria-label="Architecture diagram: Agent at center connected to Epic EHR above, Twilio voice stack to the right, Patient below, and GI Nurse on-call lower-right via dashed escalation arrow">
+      <div class="block-label">Architecture · customer-system surface</div>
+      <div class="diagram-svg-wrap">
+        <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Customer health system on the left, Hippocratic platform on the right, four labeled data flows between them.">
 
-        <!-- Epic EHR (top center) -->
-        <rect x="280" y="18" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
-        <text x="360" y="41" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Epic EHR</text>
-        <text x="360" y="59" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">FHIR R4 / HL7 v2</text>
+          <rect x="20" y="20" width="280" height="340" rx="10" fill="#F4F7F9" stroke="#5B7A8C" stroke-width="1"/>
+          <text x="40" y="46" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="500" letter-spacing="1.2" fill="#5B7A8C">CUSTOMER HEALTH SYSTEM</text>
 
-        <!-- Agent (center) -->
-        <rect x="268" y="183" width="184" height="58" rx="8" fill="#2F5D50"/>
-        <text x="360" y="208" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="15" fill="white" font-weight="600">Agent</text>
-        <text x="360" y="228" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="rgba(255,255,255,0.65)">Polaris LLM</text>
+          <rect x="40" y="68" width="240" height="80" rx="6" fill="white" stroke="#5B7A8C" stroke-width="0.8"/>
+          <text x="56" y="94" font-family="'Source Sans 3', sans-serif" font-size="13" font-weight="600" fill="#1F3A4A">Epic EHR</text>
+          <text x="56" y="114" font-family="'JetBrains Mono', monospace" font-size="10" fill="#5B7A8C">FHIR R4 · HL7 v2 fallback</text>
+          <text x="56" y="132" font-family="'JetBrains Mono', monospace" font-size="10" fill="#5B7A8C">Source of truth</text>
 
-        <!-- Voice stack (right) -->
-        <rect x="530" y="183" width="160" height="58" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
-        <text x="610" y="208" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Voice stack</text>
-        <text x="610" y="226" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">Twilio SIP</text>
+          <rect x="40" y="178" width="240" height="56" rx="6" fill="white" stroke="#5B7A8C" stroke-width="0.8"/>
+          <text x="56" y="202" font-family="'Source Sans 3', sans-serif" font-size="13" font-weight="600" fill="#1F3A4A">In-Basket</text>
+          <text x="56" y="220" font-family="'JetBrains Mono', monospace" font-size="10" fill="#5B7A8C">Configured nurse pool</text>
 
-        <!-- Patient (bottom center) -->
-        <rect x="280" y="348" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5"/>
-        <text x="360" y="371" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="14" fill="#0F0F0F" font-weight="600">Patient</text>
-        <text x="360" y="389" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">mobile phone</text>
+          <rect x="40" y="264" width="240" height="56" rx="6" fill="white" stroke="#5B7A8C" stroke-width="0.8"/>
+          <text x="56" y="288" font-family="'Source Sans 3', sans-serif" font-size="13" font-weight="600" fill="#1F3A4A">GI nurse / call center</text>
+          <text x="56" y="306" font-family="'JetBrains Mono', monospace" font-size="10" fill="#5B7A8C">Warm-transfer destination</text>
 
-        <!-- GI Nurse (lower right, dashed) -->
-        <rect x="530" y="348" width="160" height="54" rx="6" fill="#F5F5F2" stroke="#C8C8C4" stroke-width="1.5" stroke-dasharray="6,3"/>
-        <text x="610" y="370" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">GI Nurse on-call</text>
-        <text x="610" y="388" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="11" fill="#888884">warm transfer</text>
+          <text x="40" y="345" font-family="'Source Sans 3', sans-serif" font-style="italic" font-size="10.5" fill="#7A8E9C">IT authorizes once. GI ops maps the protocols.</text>
 
-        <!-- Epic ↔ Agent (solid vertical) -->
-        <line x1="360" y1="72"  x2="360" y2="183" stroke="#2F5D50" stroke-width="1.5"/>
-        <polygon points="355,174 360,183 365,174" fill="#2F5D50"/>
-        <polygon points="355,81  360,72  365,81"  fill="#2F5D50"/>
+          <rect x="420" y="20" width="280" height="340" rx="10" fill="#F4F7F5" stroke="#2F5D50" stroke-width="1"/>
+          <text x="440" y="46" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="500" letter-spacing="1.2" fill="#2F5D50">HIPPOCRATIC PLATFORM</text>
 
-        <!-- Agent ↔ Voice (solid horizontal) -->
-        <line x1="452" y1="212" x2="530" y2="212" stroke="#2F5D50" stroke-width="1.5"/>
-        <polygon points="521,207 530,212 521,217" fill="#2F5D50"/>
-        <polygon points="461,207 452,212 461,217" fill="#2F5D50"/>
+          <rect x="440" y="120" width="240" height="140" rx="6" fill="white" stroke="#2F5D50" stroke-width="0.8"/>
+          <text x="560" y="180" text-anchor="middle" font-family="'Source Sans 3', sans-serif" font-size="14" font-weight="600" fill="#163A30">Agent + voice runtime</text>
+          <text x="560" y="205" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50">Polaris reasoning</text>
+          <text x="560" y="223" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50">Operated by Hippocratic</text>
 
-        <!-- Agent ↔ Patient (solid vertical) -->
-        <line x1="360" y1="241" x2="360" y2="348" stroke="#2F5D50" stroke-width="1.5"/>
-        <polygon points="355,339 360,348 365,339" fill="#2F5D50"/>
-        <polygon points="355,250 360,241 365,250" fill="#2F5D50"/>
+          <text x="440" y="345" font-family="'Source Sans 3', sans-serif" font-style="italic" font-size="10.5" fill="#5C7A6E">Authored in SafetyPortal. Operated by Hippocratic.</text>
 
-        <!-- Agent → GI Nurse (dashed diagonal) -->
-        <line x1="452" y1="237" x2="530" y2="348" stroke="#C8C8C4" stroke-width="1.5" stroke-dasharray="6,3"/>
-        <polygon points="525,341 530,348 523,344" fill="#C8C8C4"/>
-        <!-- escalate label -->
-        <text x="515" y="295" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#AAAAAA" transform="rotate(-56 515 295)">escalate</text>
-      </svg>
+          <text x="360" y="84" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">FHIR reads · 3 PM</text>
+          <line x1="300" y1="94" x2="420" y2="94" stroke="#2F5D50" stroke-width="1.4"/>
+          <polygon points="414,90 422,94 414,98" fill="#2F5D50"/>
+
+          <text x="360" y="124" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">FHIR writes · 6:05 PM</text>
+          <line x1="420" y1="134" x2="300" y2="134" stroke="#2F5D50" stroke-width="1.4"/>
+          <polygon points="306,130 298,134 306,138" fill="#2F5D50"/>
+
+          <text x="360" y="196" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#888884">In-Basket message</text>
+          <line x1="420" y1="206" x2="300" y2="206" stroke="#888884" stroke-width="1" stroke-dasharray="4,3"/>
+          <polygon points="306,202 298,206 306,210" fill="#888884"/>
+
+          <text x="360" y="282" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#A04040">Warm transfer</text>
+          <line x1="420" y1="292" x2="300" y2="292" stroke="#A04040" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <polygon points="306,288 298,292 306,296" fill="#A04040"/>
+        </svg>
+      </div>
+      <div class="zone-legend">
+        <span><span class="zone-dot customer"></span>Customer-side: IT and clinical ops configure once</span>
+        <span><span class="zone-dot platform"></span>Platform-side: Hippocratic operates</span>
+      </div>
     </div>
-    <p class="caption diagram-caption">Five components, four connections. Everything else is detail.</p>
-      </div><!-- /tab-panel architecture -->
 
-      <div class="tab-panel">
-        <!-- FHIR three columns -->
-        <div class="three-col" style="margin-top:0.5rem;">
-          <div class="fhir-col">
-            <h3>3 PM — pre-call pull</h3>
-            <ul>
-              <li>Appointment</li>
-              <li>Patient</li>
-              <li>ServiceRequest</li>
-              <li>Practitioner, Location</li>
-              <li>Condition (filtered)</li>
-              <li>MedicationStatement (filtered)</li>
-              <li>Observation (recent labs)</li>
-              <li>AllergyIntolerance</li>
-              <li>DocumentReference (prep templates)</li>
-            </ul>
-          </div>
-          <div class="fhir-col voice">
-            <h3>6 PM — the call</h3>
-            <ul>
-              <li>Voice over Twilio SIP</li>
-              <li>Polaris LLM reasoning</li>
-              <li>Real-time turn-taking</li>
-              <li>Warm transfer on escalation</li>
-              <li style="font-family:var(--mono); font-size:12px; color:var(--muted); margin-top:0.75rem; line-height:1.6;">Pre-loaded data drives conversation; no live FHIR calls during the call</li>
-            </ul>
-          </div>
-          <div class="fhir-col">
-            <h3>6:05 PM — write-back</h3>
-            <ul>
-              <li>DocumentReference (structured note)</li>
-              <li>Communication (call disposition)</li>
-              <li>Flag (if risk identified)</li>
-              <li>Observation (patient-reported data)</li>
-              <li>In-Basket message (if escalation needed)</li>
-            </ul>
-          </div>
-        </div>
-        <p style="text-align:center; color:#444440; margin-top:1.5rem;">All reads happen at 3 PM. Pre-loaded data drives the call. Writes fire after the call ends, within seconds.</p>
+    <!-- Block 2: Data flow -->
+    <div class="block-label">Data flow · what crosses the boundary</div>
+    <div class="tl-grid">
+      <div class="tl-card">
+        <div class="tl-time">3 PM · Read</div>
+        <h3 class="tl-title">Pre-call data pull</h3>
+        <ul class="tl-list">
+          <li class="tl-item"><span class="resource">Appointment</span></li>
+          <li class="tl-item"><span class="resource">Patient</span></li>
+          <li class="tl-item"><span class="resource">ServiceRequest</span></li>
+          <li class="tl-item"><span class="resource">Condition</span> <span class="desc">filtered</span></li>
+          <li class="tl-item"><span class="resource">MedicationRequest</span> <span class="desc">filtered</span></li>
+          <li class="tl-item"><span class="resource">Observation</span> <span class="desc">recent labs</span></li>
+          <li class="tl-item"><span class="resource">Custom fields</span> <span class="desc">prep, logistics</span></li>
+        </ul>
+      </div>
+      <div class="tl-card">
+        <div class="tl-time">6:05 PM · Write</div>
+        <h3 class="tl-title">Structured write-back</h3>
+        <ul class="tl-list">
+          <li class="tl-item"><span class="resource">DocumentReference</span> <span class="desc">note</span></li>
+          <li class="tl-item"><span class="resource">Flag</span> <span class="desc">if risk</span></li>
+          <li class="tl-item"><span class="resource">Observation</span> <span class="desc">patient-reported</span></li>
+          <li class="tl-item"><span class="resource">Communication</span> <span class="desc">In-Basket</span></li>
+        </ul>
+      </div>
+    </div>
 
-        <details style="margin-top:2rem;">
-          <summary>Full FHIR resource map</summary>
-          <div class="details-body">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th>Resource</th>
-                  <th>What we read</th>
-                  <th>Why we read it</th>
-                  <th>Variability</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td class="mono-cell">Appointment</td><td>Tomorrow's colonoscopy schedule, status, arrival time</td><td>Build the call roster and suppress cancelled cases</td><td>Local service-type codes vary by site</td></tr>
-                <tr><td class="mono-cell">ServiceRequest</td><td>Ordered procedure, indication, ordering physician</td><td>Confirm procedure context and physician-specific prep</td><td>Sometimes encoded in orders, sometimes in notes</td></tr>
-                <tr><td class="mono-cell">Patient</td><td>Name, DOB, preferred language, phone, consent flags</td><td>Identity verification and outreach eligibility</td><td>Preferred language quality varies</td></tr>
-                <tr><td class="mono-cell">Practitioner</td><td>GI physician and care team metadata</td><td>Map physician prep defaults and escalation ownership</td><td>Physician naming and pools differ by Epic instance</td></tr>
-                <tr><td class="mono-cell">Location</td><td>Endoscopy suite, arrival location, phone number</td><td>Give accurate logistics and caller framing</td><td>Multiple campuses under one service line</td></tr>
-                <tr><td class="mono-cell">Condition</td><td>Filtered diabetes, kidney disease, anticoagulation-relevant flags</td><td>Ask only clinically relevant safety questions</td><td>Use minimum-necessary filters, not full problem list</td></tr>
-                <tr><td class="mono-cell">MedicationStatement</td><td>Filtered anticoagulants, insulin, GLP-1s, iron</td><td>Confirm holds and identify nurse escalation triggers</td><td>Medication reconciliation can be stale</td></tr>
-                <tr><td class="mono-cell">Observation</td><td>Recent labs only when relevant to prep or medication safety</td><td>Support nurse-facing escalation context</td><td>Read-only context; agent does not interpret labs</td></tr>
-                <tr><td class="mono-cell">AllergyIntolerance</td><td>Relevant allergies and adverse reactions</td><td>Avoid unsafe scripted advice if patient asks</td><td>Escalate rather than improvise</td></tr>
-                <tr><td class="mono-cell">DocumentReference</td><td>Prep instruction templates and physician standing orders</td><td>Ground the call in the customer's approved language</td><td>Often PDF/template based, not structured FHIR</td></tr>
-                <tr><td class="mono-cell">Procedure</td><td>Completed/aborted status, BBPS if available</td><td>Pair call disposition to actual outcome</td><td>Used for eval loop after procedure</td></tr>
-                <tr><td class="mono-cell">DocumentReference</td><td>Agent call summary, transcript pointer, structured note</td><td>Write back nurse-readable documentation</td><td>Note type and filing location are customer-configured</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </details>
-      </div><!-- /tab-panel data flow -->
+    <!-- Block 3: Full FHIR resource map collapsible -->
+    <details>
+      <summary>Full FHIR resource map</summary>
+      <div class="details-body">
+        <table class="fhir-table">
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Why we read it</th>
+              <th>What we read</th>
+              <th>Fallback / handling</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="res-cell">Appointment</td><td>Build tomorrow's call roster</td><td>Datetime, location, practitioner ref, service-type code</td><td class="fb-cell">Skip patient if no Appointment found</td></tr>
+            <tr><td class="res-cell">Patient</td><td>Identity, contact, language</td><td>Demographics, phone, preferred language</td><td class="fb-cell">Skip if no phone; alert nurse pool</td></tr>
+            <tr><td class="res-cell">ServiceRequest</td><td>Confirm procedure context</td><td>Order, indication, ordering physician</td><td class="fb-cell">Fall back to Appointment service-type</td></tr>
+            <tr><td class="res-cell">Practitioner</td><td>Per-physician protocol lookup</td><td>Physician identity, care-team metadata</td><td class="fb-cell">Use site default protocol</td></tr>
+            <tr><td class="res-cell">Condition</td><td>Surface relevant comorbidities</td><td>Active conditions affecting prep or anesthesia</td><td class="fb-cell">Proceed without; flag for nurse review</td></tr>
+            <tr><td class="res-cell">MedicationRequest</td><td>Confirm med holds</td><td>Anticoagulants, insulin, GLP-1s</td><td class="fb-cell">Ask patient to confirm verbally; flag</td></tr>
+            <tr><td class="res-cell">Observation</td><td>Risk-adjust prep coaching</td><td>Recent labs (renal function, A1c)</td><td class="fb-cell">Proceed with default coaching</td></tr>
+            <tr><td class="res-cell">Custom extensions</td><td>Use-case-specific data not in FHIR</td><td>Prep regimen, arrival, physician protocol id</td><td class="fb-cell">Customer-mapped; missing fields block call</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
 
-      <div class="tab-panel">
-        <!-- Honest statements -->
-        <div class="three-col" style="margin-bottom:2rem;">
-          <div class="honest-col">
-            <h3>FHIR-first, hybrid in reality.</h3>
-            <p>The primary path is FHIR R4 for reads and most writes. HL7 v2 fallback for sites not yet FHIR-current. Epic-specific operations such as <code>Communication.$send-in-basket</code> for In-Basket messaging where standard FHIR doesn't cover the workflow.</p>
-          </div>
-          <div class="honest-col">
-            <h3>Pre-load discipline.</h3>
-            <p>The agent doesn't fetch data live during conversations. Comprehensive pre-load at 3 PM means zero EHR-dependent latency during patient calls. Voice doesn't tolerate the silence of a mid-conversation tool call. This is a deliberate safety and UX choice.</p>
-          </div>
-          <div class="honest-col">
-            <h3>The hardest deployment problem.</h3>
-            <p>Bowel prep regimen choice doesn't live in a standard FHIR field. It's a 30-minute working session per customer in deployment week one. Not a code problem — a configuration problem.</p>
-          </div>
-        </div>
-
-        <details>
-          <summary>Auth, security, and HIPAA posture</summary>
-          <div class="details-body">
-            <ul>
-              <li>OAuth 2.0 + SMART-on-FHIR Backend Services profile</li>
-              <li>JWT-signed assertions, system-level scopes registered through Epic Vendor Services</li>
-              <li>TLS 1.3 in transit, audit logging at every PHI access point</li>
-              <li>HIPAA + HITRUST certified pipeline (Hippocratic-side)</li>
-              <li>PHI never logged to LLM provider; minimum-necessary in agent prompt</li>
-              <li>Identity verification (DOB + last 4 of phone) before any clinical content</li>
-            </ul>
-          </div>
-        </details>
-
-        <details style="margin-top:1rem;">
-          <summary>Deployment timeline</summary>
-          <div class="details-body">
-            <ul>
-              <li><strong>Week 1:</strong> Discovery — service-type codes, In-Basket pool, note type mapping, prep regimen capture per physician</li>
-              <li><strong>Weeks 2–4:</strong> Integration build — FHIR/HL7 channel setup with customer's interface engine team, security review, scope provisioning</li>
-              <li><strong>Weeks 5–8:</strong> Configuration and shadow mode — agent runs in shadow, no actual calls placed; outputs reviewed by GI nurses</li>
-              <li><strong>Weeks 9–12:</strong> Pilot — limited patient cohort with explicit consent and nurse oversight on every call</li>
-              <li><strong>Weeks 13–16:</strong> Production rollout — full volume, weekly performance review for first quarter</li>
-              <li><strong>Subsequent sites on the same Epic instance:</strong> 2–3 weeks (configuration only, no integration build)</li>
-            </ul>
-          </div>
-        </details>
-      </div><!-- /tab-panel auth & deployment -->
-    </div><!-- /tabs -->
+    <!-- Block 4: Four design choices -->
+    <h3 class="section-title">Four design choices.</h3>
+    <div class="calls-grid">
+      <div class="call-card">
+        <div class="call-num">01</div>
+        <h4 class="call-title">Pre-load, then verify.</h4>
+        <p class="call-desc">All FHIR reads happen at 3 PM. The agent verbally re-confirms critical items — meds, escort — during the call. Chart drives the questions; patient answers drive the flags.</p>
+      </div>
+      <div class="call-card">
+        <div class="call-num">02</div>
+        <h4 class="call-title">Read minimum-necessary, not everything.</h4>
+        <p class="call-desc">Filter Condition and MedicationRequest to fields relevant to this procedure. PHI exposure scales with what you read.</p>
+      </div>
+      <div class="call-card">
+        <div class="call-num">03</div>
+        <h4 class="call-title">Customer-authorized service.</h4>
+        <p class="call-desc">IT approves it once. Read access to seven FHIR resources, write to four. Scoped to the GI service line.</p>
+      </div>
+      <div class="call-card">
+        <div class="call-num">04</div>
+        <h4 class="call-title">When the pre-load fails.</h4>
+        <p class="call-desc">If a patient's chart can't be loaded at 3 PM: skip that call, alert the nurse pool, trigger the customer's existing SMS reminder.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2135,8 +2255,8 @@
     'why-agentic':   { num: '02', label: 'How agent solves' },
     'the-agent':     { num: '03', label: 'The agent' },
     'configuration': { num: '04', label: 'Configuration' },
-    'integration':   { num: '05', label: 'Integration' },
-    'tradeoffs':     { num: '06', label: 'Tradeoffs' },
+    'integration':   { num: '04', label: 'Integration' },
+    'tradeoffs':     { num: '05', label: 'Tradeoffs' },
   };
 
   const progressBar = document.getElementById('progress-bar');
