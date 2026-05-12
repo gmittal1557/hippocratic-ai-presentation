@@ -41,321 +41,177 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ─── NAV ─── */
-    #site-nav {
-      position: fixed;
-      top: var(--bar-h); left: 0; right: 0;
-      height: var(--nav-h);
-      background: rgba(250, 250, 250, 0.93);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid transparent;
-      display: flex;
-      align-items: center;
-      z-index: 200;
-      transition: border-color 0.2s ease;
-    }
-    #site-nav.scrolled { border-bottom-color: var(--border); }
-    .nav-inner {
+    /* ─── STICKY NAV ─── */
+    .sticky-nav {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(15, 15, 15, 0.08);
+      padding: 0.75rem 2.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 2.75rem;
+      gap: 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-    /* ── Sections dropdown (right) ── */
-    .nav-sections-wrap { position: relative; }
-    .sections-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      background: rgba(0,0,0,0.03);
-      border: 1px solid var(--border);
-      border-radius: 99px;
-      cursor: pointer;
-      padding: 0.4rem 0.9rem 0.4rem 1rem;
-      font-family: var(--sans);
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .sections-btn:hover { background: var(--accent-bg); border-color: rgba(47,93,80,0.25); }
-    .sections-btn-num {
+    .nav-left { display: flex; align-items: center; gap: 1rem; }
+    .nav-brand {
       font-family: var(--mono);
       font-size: 11px;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-    .sections-btn-label {
-      font-size: 13.5px;
+      letter-spacing: 0.05em;
+      color: #2A2A2A;
       font-weight: 500;
-      color: var(--text);
     }
-    .sections-btn-chevron {
-      color: var(--muted);
-      transition: transform 0.2s ease;
-      flex-shrink: 0;
-    }
-    .sections-btn[aria-expanded="true"] .sections-btn-chevron { transform: rotate(180deg); }
-    .sections-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      left: auto;
-      background: rgba(250,250,250,0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    .nav-divider { width: 1px; height: 14px; background: rgba(15, 15, 15, 0.15); }
+    .nav-icon {
+      color: #555550;
+      transition: color 0.15s, background 0.15s;
+      display: inline-flex;
       padding: 0.4rem;
-      min-width: 240px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.05);
-      z-index: 300;
-      opacity: 0;
-      transform: translateY(-6px) scale(0.98);
-      pointer-events: none;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-    .sections-menu.open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-    .sections-item {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.55rem 0.875rem;
-      border-radius: 7px;
+      border-radius: 4px;
       text-decoration: none;
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 13.5px;
-      font-weight: 500;
-      transition: background 0.12s, color 0.12s;
-      position: relative;
     }
-    .sections-item:hover { background: var(--accent-bg); color: var(--text); }
-    .sections-item.active { color: var(--accent); background: var(--accent-bg); }
-    .sections-item-num {
+    .nav-icon:hover { color: var(--accent); background: rgba(47, 93, 80, 0.05); }
+    .nav-icon svg { width: 15px; height: 15px; display: block; }
+    .section-dropdown { position: relative; }
+    .section-trigger {
       font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted-light);
-      min-width: 1.4rem;
-      text-align: right;
-    }
-    .sections-item.active .sections-item-num { color: var(--accent); }
-    .sections-item-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-left: auto;
-      flex-shrink: 0;
-      display: none;
-    }
-    .sections-item.active .sections-item-dot { display: block; }
-
-    /* ── Identity block (left) ── */
-    .hero-identity {
-      display: flex;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: #2A2A2A;
+      background: rgba(47, 93, 80, 0.05);
+      border: 0.5px solid rgba(47, 93, 80, 0.2);
+      padding: 0.45rem 0.75rem 0.45rem 0.85rem;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      gap: 1.25rem;
-      flex-shrink: 0;
+      gap: 0.65rem;
+      transition: all 0.15s;
+      min-width: 180px;
+      justify-content: space-between;
     }
-    .hero-identity-name {
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: 14px;
-      color: var(--text);
-      white-space: nowrap;
+    .section-trigger:hover {
+      background: rgba(47, 93, 80, 0.09);
+      border-color: rgba(47, 93, 80, 0.35);
     }
-    .hero-identity-icons {
+    .section-trigger-num { color: var(--accent); font-weight: 500; }
+    .section-trigger-arrow {
+      font-size: 9px;
+      color: #888884;
+      transition: transform 0.2s;
+    }
+    .section-dropdown.open .section-trigger-arrow { transform: rotate(180deg); }
+    .section-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: white;
+      border: 0.5px solid rgba(15, 15, 15, 0.12);
+      border-radius: 6px;
+      box-shadow: 0 8px 24px rgba(15, 15, 15, 0.08);
+      min-width: 240px;
+      overflow: hidden;
+      display: none;
+      z-index: 110;
+    }
+    .section-dropdown.open .section-menu { display: block; }
+    .section-option {
       display: flex;
       align-items: center;
       gap: 0.75rem;
-    }
-    .hero-identity-icons a {
-      color: var(--muted);
-      display: flex;
-      align-items: center;
+      padding: 0.7rem 0.95rem;
       text-decoration: none;
-      transition: color 0.15s;
-      line-height: 1;
+      color: #2A2A2A;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      letter-spacing: 0.03em;
+      border-bottom: 0.5px solid #F4F4F0;
+      transition: background 0.1s;
     }
-    .hero-identity-icons a:hover { color: var(--accent); }
+    .section-option:last-child { border-bottom: none; }
+    .section-option:hover { background: rgba(47, 93, 80, 0.05); }
+    .section-option.current { background: rgba(47, 93, 80, 0.07); color: var(--accent); font-weight: 500; }
+    .section-option-num { color: #BBBBB7; font-size: 10px; letter-spacing: 0.05em; min-width: 18px; }
+    .section-option.current .section-option-num { color: var(--accent); }
 
     /* ─── HERO ─── */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
-      gap: clamp(2rem, 5vw, 5rem);
-      align-items: center;
-      justify-content: center;
-      text-align: left;
-      padding: calc(var(--bar-h) + var(--nav-h) + 3rem) max(2rem, calc((100vw - 1120px) / 2 + 2.75rem)) 4rem;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 86% 22%, rgba(47,93,80,0.08), transparent 28rem),
-        linear-gradient(180deg, #FBFBF9 0%, #F6F6F1 100%);
+    .hero {
+      background: #E2DED8;
+      padding: 4rem 2.5rem 3.5rem;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .hero-headline {
-      font-family: var(--serif);
-      font-size: clamp(38px, 5.5vw, 68px);
-      font-weight: 400;
-      line-height: 1.1;
-      max-width: 840px;
-      margin-bottom: 1.5rem;
-      letter-spacing: 0;
-    }
-    .hero-subhead {
-      font-family: var(--sans);
-      font-size: clamp(17px, 2vw, 22px);
-      font-weight: 300;
-      color: #505050;
-      max-width: 620px;
-      margin-bottom: 0;
-      line-height: 1.5;
-    }
-    .hero-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      border: 1px solid rgba(47,93,80,0.18);
-      background: rgba(255,255,255,0.72);
-      color: var(--accent);
-      border-radius: 999px;
-      padding: 0.45rem 0.8rem;
+    .hero-inner { max-width: 1100px; }
+    .hero-pretag {
       font-family: var(--mono);
       font-size: 11px;
-      letter-spacing: 0.08em;
+      font-weight: 500;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      margin-bottom: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
     }
-    .hero-kicker::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(47,93,80,0.1);
+    .hero-byline {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-style: italic;
+      color: #555550;
+      margin: 0 0 2rem;
     }
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
+    .hero-byline strong { font-style: normal; color: #0F0F0F; font-weight: 500; }
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin: 0 0 1.5rem;
+      text-wrap: balance;
+      max-width: 22ch;
+      color: #0F0F0F;
     }
-    .hero-btn {
+    .hero-subhead {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: #2A2A2A;
+      margin: 0 0 2.5rem;
+      max-width: 44rem;
+      text-wrap: balance;
+    }
+    .hero-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .hero-cta {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      border-radius: 999px;
-      border: 1px solid rgba(47,93,80,0.25);
-      padding: 0.72rem 1.05rem;
-      font-size: 14px;
-      font-weight: 600;
+      gap: 0.4rem;
       text-decoration: none;
-      color: var(--accent);
-      background: rgba(255,255,255,0.72);
-      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
-    .hero-btn.primary { background: var(--accent); color: white; }
-    .hero-btn:hover { transform: translateY(-1px); border-color: rgba(47,93,80,0.45); }
-    .hero-visual {
-      position: relative;
-      min-height: 520px;
-      width: 100%;
-    }
-    .photo-card {
-      overflow: hidden;
-      border-radius: 8px;
-      border: 1px solid rgba(15,15,15,0.08);
-      background: white;
-      box-shadow: 0 18px 50px rgba(31,45,40,0.12);
-    }
-    .photo-card img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .photo-card.main {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: min(100%, 390px);
-      height: 360px;
-    }
-    .photo-card.secondary {
-      position: absolute;
-      left: 0;
-      bottom: 58px;
-      width: 250px;
-      height: 190px;
-    }
-    .metric-card {
-      position: absolute;
-      right: 28px;
-      bottom: 0;
-      width: 260px;
-      border: 1px solid rgba(47,93,80,0.18);
-      border-radius: 8px;
-      padding: 1.1rem;
-      background: rgba(255,255,255,0.94);
-      box-shadow: 0 14px 34px rgba(31,45,40,0.12);
-    }
-    .metric-card .metric-num {
-      display: block;
-      font-family: var(--serif);
-      font-size: 46px;
-      line-height: 1;
-      color: var(--accent);
-    }
-    .metric-card p {
-      margin-top: 0.45rem;
-      color: #444440;
       font-size: 14px;
-      line-height: 1.45;
+      font-weight: 500;
+      padding: 0.65rem 1.2rem;
+      border-radius: 6px;
+      transition: all 0.15s;
     }
-    .rubric-strip {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1px;
-      margin-top: 2.2rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--border);
-      max-width: 760px;
-    }
-    .rubric-strip span {
-      background: rgba(255,255,255,0.7);
-      padding: 0.85rem;
+    .hero-cta.primary { background: var(--accent); color: white; }
+    .hero-cta.primary:hover { opacity: 0.92; }
+    .hero-cta.secondary { color: #2A2A2A; border: 0.5px solid #2A2A2A; }
+    .hero-cta.secondary:hover { background: rgba(15, 15, 15, 0.04); }
+    .scroll-cue {
       font-family: var(--mono);
       font-size: 10.5px;
-      line-height: 1.4;
-      color: #555550;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .scroll-cue {
-      position: absolute;
-      bottom: 1.65rem;
-      left: max(2rem, calc((100vw - 1120px) / 2 + 2.75rem));
-      font-family: var(--mono);
-      font-size: 12.5px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
+      color: #888884;
       text-decoration: none;
-      padding: 0.5rem 0.75rem;
-      white-space: nowrap;
-      transition: color 0.15s;
+      margin-top: 3rem;
+      align-self: flex-start;
     }
-    .scroll-cue:hover { color: var(--accent); }
+    section[id] { scroll-margin-top: 80px; }
 
     /* ─── LAYOUT ─── */
     section {
@@ -1671,85 +1527,46 @@
 <div id="progress-bar" aria-hidden="true"></div>
 
 <!-- PERSISTENT TOP BAR -->
-<nav id="site-nav" aria-label="Primary navigation">
-  <div class="nav-inner">
-    <!-- Left: identity -->
-    <div class="hero-identity">
-      <span class="hero-identity-name">Gaurav Mittal</span>
-      <div class="hero-identity-icons">
-        <a href="https://github.com/gmittal1557" aria-label="GitHub profile">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-          </svg>
-        </a>
-        <a href="https://www.linkedin.com/in/iamgauravmittal/" aria-label="LinkedIn profile">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-        </a>
-        <a href="mailto:gmittal1557@gmail.com" aria-label="Email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-    <!-- Right: sections dropdown -->
-    <div class="nav-sections-wrap">
-      <button class="sections-btn" id="sections-btn" aria-expanded="false" aria-controls="sections-menu" aria-haspopup="listbox">
-        <span class="sections-btn-num" id="sections-btn-num">01</span>
-        <span class="sections-btn-label" id="sections-btn-label">Problem</span>
-        <svg class="sections-btn-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </button>
-      <div class="sections-menu" id="sections-menu" role="listbox" aria-label="Page sections">
-        <a href="#problem"       class="sections-item active" role="option"><span class="sections-item-num">01</span>Problem<span class="sections-item-dot"></span></a>
-        <a href="#why-agentic"   class="sections-item"        role="option"><span class="sections-item-num">02</span>How agent solves<span class="sections-item-dot"></span></a>
-        <a href="#the-agent"     class="sections-item"        role="option"><span class="sections-item-num">03</span>The agent<span class="sections-item-dot"></span></a>
-        <a href="#configuration" class="sections-item"        role="option"><span class="sections-item-num">04</span>Configuration<span class="sections-item-dot"></span></a>
-        <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">04</span>Integration<span class="sections-item-dot"></span></a>
-        <a href="#deployment"     class="sections-item"        role="option"><span class="sections-item-num">05</span>Deployment<span class="sections-item-dot"></span></a>
-        <a href="#roadmap"        class="sections-item"        role="option"><span class="sections-item-num">06</span>Roadmap<span class="sections-item-dot"></span></a>
-      </div>
+<nav class="sticky-nav">
+  <div class="nav-left">
+    <div class="nav-brand">Gaurav Mittal</div>
+    <span class="nav-divider"></span>
+    <a href="https://www.linkedin.com/in/iamgauravmittal" target="_blank" rel="noopener noreferrer" class="nav-icon" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+    </a>
+    <a href="mailto:gmittal1557@gmail.com" class="nav-icon" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7l9 6 9-6M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7M3 7l9-4 9 4"/></svg>
+    </a>
+  </div>
+  <div class="section-dropdown" id="sectionDropdown">
+    <button class="section-trigger" id="sectionTrigger" aria-haspopup="true" aria-expanded="false">
+      <span id="sectionTriggerLabel"><span class="section-trigger-num">01 ·</span> Problem</span>
+      <span class="section-trigger-arrow">▼</span>
+    </button>
+    <div class="section-menu" role="menu">
+      <a href="#problem" class="section-option current" data-section="problem"><span class="section-option-num">01</span>Problem</a>
+      <a href="#why-agentic" class="section-option" data-section="why-agentic"><span class="section-option-num">02</span>Why an agent</a>
+      <a href="#the-agent" class="section-option" data-section="the-agent"><span class="section-option-num">03</span>The agent</a>
+      <a href="#integration" class="section-option" data-section="integration"><span class="section-option-num">04</span>Integration</a>
+      <a href="#deployment" class="section-option" data-section="deployment"><span class="section-option-num">05</span>Deployment</a>
+      <a href="#roadmap" class="section-option" data-section="roadmap"><span class="section-option-num">06</span>Roadmap</a>
     </div>
   </div>
 </nav>
 
 <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-<section id="hero" aria-label="Introduction">
-  <div>
-    <div class="hero-kicker">Hippocratic AI · Agent Deployment Architect</div>
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-pretag">Hippocratic AI · Agent Deployment Architect</div>
+    <p class="hero-byline">by <strong>Gaurav Mittal</strong></p>
     <h1 class="hero-headline">The check-in call the night before colonoscopy.</h1>
-    <p class="hero-subhead">A Day -1 voice agent that prevents same-day cancellations by coaching patients at the exact moment bowel prep fails.</p>
-    <div class="hero-actions">
-      <a class="hero-btn primary" href="#configuration">Show demo plan →</a>
-      <a class="hero-btn" href="#integration">Review technical flow</a>
-    </div>
-    <div class="rubric-strip" aria-label="Assignment rubric coverage">
-      <span>Workflow depth</span>
-      <span>ROI math</span>
-      <span>Demo realism</span>
-      <span>FHIR/API detail</span>
-      <span>Risks & mitigations</span>
+    <p class="hero-subhead">A Day-1 evening voice agent that prevents same-day cancellations by coaching patients at the exact moment bowel prep fails.</p>
+    <div class="hero-ctas">
+      <a href="#the-agent" class="hero-cta primary">See what the agent does →</a>
+      <a href="#integration" class="hero-cta secondary">Review the integration</a>
     </div>
   </div>
-  <div class="hero-visual" aria-hidden="true">
-    <figure class="photo-card main">
-      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=82" alt="">
-    </figure>
-    <figure class="photo-card secondary">
-      <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=700&q=82" alt="">
-    </figure>
-    <div class="metric-card">
-      <span class="metric-num">$3.1M</span>
-      <p>central annual recovered value for a 30,000-procedure GI service line.</p>
-    </div>
-  </div>
-  <a href="#problem" class="scroll-cue" aria-label="Scroll to the problem section">Scroll to the problem ↓</a>
+  <a href="#problem" class="scroll-cue">Scroll to the problem ↓</a>
 </section>
 
 <!-- ═══════════════════════════ SECTION 1: PROBLEM ═══════════════════════════ -->
@@ -2486,124 +2303,49 @@
 </button>
 
 <script>
-  // ── Sticky nav visibility ──
-  const nav     = document.getElementById('site-nav');
-  const hero    = document.getElementById('hero');
-  const bttBtn  = document.getElementById('back-to-top');
-  const section2 = document.getElementById('why-agentic');
-  const sections    = Array.from(document.querySelectorAll('section[id]:not(#hero)'));
-  const sectionItems = Array.from(document.querySelectorAll('.sections-item'));
-  const sectionsBtn  = document.getElementById('sections-btn');
-  const sectionsMenu = document.getElementById('sections-menu');
-  const btnNum       = document.getElementById('sections-btn-num');
-  const btnLabel     = document.getElementById('sections-btn-label');
-
-  // Section metadata for button label updates
-  const sectionMeta = {
-    'problem':       { num: '01', label: 'Problem' },
-    'why-agentic':   { num: '02', label: 'How agent solves' },
-    'the-agent':     { num: '03', label: 'The agent' },
-    'configuration': { num: '04', label: 'Configuration' },
-    'integration':   { num: '04', label: 'Integration' },
-    'deployment':    { num: '05', label: 'Deployment' },
-    'roadmap':       { num: '06', label: 'Roadmap' },
-  };
-
+  // ── Progress bar ──
+  const heroEl      = document.getElementById('hero');
+  const bttBtn      = document.getElementById('back-to-top');
   const progressBar = document.getElementById('progress-bar');
-  const updateActiveSection = () => {
-    let activeId = sections[0]?.id;
-    sections.forEach(section => {
-      if (section.getBoundingClientRect().top <= 140) activeId = section.id;
-    });
-    const meta = sectionMeta[activeId];
-    sectionItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + activeId));
-    if (meta) { btnNum.textContent = meta.num; btnLabel.textContent = meta.label; }
-  };
 
   new IntersectionObserver(([e]) => {
-    const past = !e.isIntersecting;
-    nav.classList.toggle('scrolled', past);
-    progressBar.classList.toggle('visible', past);
-  }, { threshold: 0.05 }).observe(hero);
+    progressBar.classList.toggle('visible', !e.isIntersecting);
+  }, { threshold: 0.05 }).observe(heroEl);
 
   window.addEventListener('scroll', () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     progressBar.style.width = (total > 0 ? scrollY / total * 100 : 0) + '%';
-    updateActiveSection();
   }, { passive: true });
-  window.addEventListener('hashchange', updateActiveSection);
-  window.addEventListener('load', updateActiveSection);
-
-  // ── Dropdown open / close ──
-  sectionsBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    const isOpen = sectionsMenu.classList.toggle('open');
-    sectionsBtn.setAttribute('aria-expanded', isOpen);
-  });
-  document.addEventListener('click', () => {
-    sectionsMenu.classList.remove('open');
-    sectionsBtn.setAttribute('aria-expanded', 'false');
-  });
-  sectionsMenu.addEventListener('click', e => e.stopPropagation());
-
-  // ── Citation chip ──
-  const citationBtn   = document.getElementById('citation-btn-1');
-  const citationPanel = document.getElementById('citation-panel-1');
-  citationBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    const isOpen = citationPanel.classList.toggle('open');
-    citationBtn.setAttribute('aria-expanded', isOpen);
-  });
-  citationPanel.addEventListener('click', e => e.stopPropagation());
-  document.addEventListener('click', () => {
-    citationPanel.classList.remove('open');
-    citationBtn.setAttribute('aria-expanded', 'false');
-  });
-
-  // ── Smooth scroll ──
-  const smoothScrollTo = href => {
-    const target = document.querySelector(href);
-    if (!target) return;
-    window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - 72, behavior: 'smooth' });
-  };
-
-  sectionItems.forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      smoothScrollTo(a.getAttribute('href'));
-      sectionsMenu.classList.remove('open');
-      sectionsBtn.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  const scrollCue = document.querySelector('.scroll-cue');
-  if (scrollCue) scrollCue.addEventListener('click', e => { e.preventDefault(); smoothScrollTo(scrollCue.getAttribute('href')); });
-
-  // ── Active section: highlight item + update button label ──
-  const secObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id   = e.target.id;
-        const meta = sectionMeta[id];
-        sectionItems.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-        if (meta) { btnNum.textContent = meta.num; btnLabel.textContent = meta.label; }
-      }
-    });
-  }, { threshold: 0.3, rootMargin: '-60px 0px -55% 0px' });
-  sections.forEach(s => secObs.observe(s));
-  updateActiveSection();
 
   // ── Back to top ──
+  const section2 = document.getElementById('why-agentic');
   new IntersectionObserver(([e]) => bttBtn.classList.toggle('visible', !e.isIntersecting), { threshold: 0 })
     .observe(section2);
   bttBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // ── Fade-in on scroll ──
+  const sections = Array.from(document.querySelectorAll('section[id]:not(#hero)'));
   sections.forEach(s => s.classList.add('fade-section'));
   const fadeObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
   }, { threshold: 0.08 });
   sections.forEach(s => fadeObs.observe(s));
+
+  // ── Citation chip ──
+  const citationBtn   = document.getElementById('citation-btn-1');
+  const citationPanel = document.getElementById('citation-panel-1');
+  if (citationBtn && citationPanel) {
+    citationBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = citationPanel.classList.toggle('open');
+      citationBtn.setAttribute('aria-expanded', isOpen);
+    });
+    citationPanel.addEventListener('click', e => e.stopPropagation());
+    document.addEventListener('click', () => {
+      citationPanel.classList.remove('open');
+      citationBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   // ── Tabs ──
   document.querySelectorAll('[data-tabs]').forEach(tabs => {
@@ -2628,9 +2370,8 @@
     summary.addEventListener('click', e => {
       e.preventDefault();
       if (det.open) {
-        // Close
         body.style.height = body.scrollHeight + 'px';
-        body.offsetHeight; // reflow
+        body.offsetHeight;
         body.style.transition = 'height 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
         body.style.height = '0';
         body.style.overflow = 'hidden';
@@ -2639,12 +2380,11 @@
           body.style.cssText = '';
         }, { once: true });
       } else {
-        // Open
         det.open = true;
         const h = body.scrollHeight;
         body.style.height = '0';
         body.style.overflow = 'hidden';
-        body.offsetHeight; // reflow
+        body.offsetHeight;
         body.style.transition = 'height 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
         body.style.height = h + 'px';
         body.addEventListener('transitionend', () => {
@@ -2653,6 +2393,67 @@
       }
     });
   });
+</script>
+
+<script>
+(function() {
+  const dropdown = document.getElementById('sectionDropdown');
+  const trigger  = document.getElementById('sectionTrigger');
+  const triggerLabel = document.getElementById('sectionTriggerLabel');
+  if (!dropdown || !trigger || !triggerLabel) return;
+
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = dropdown.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  dropdown.querySelectorAll('.section-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      dropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const sectionMap = {
+    'problem':     { num: '01', title: 'Problem' },
+    'why-agentic': { num: '02', title: 'Why an agent' },
+    'the-agent':   { num: '03', title: 'The agent' },
+    'integration': { num: '04', title: 'Integration' },
+    'deployment':  { num: '05', title: 'Deployment' },
+    'roadmap':     { num: '06', title: 'Roadmap' }
+  };
+
+  function setCurrentSection(id) {
+    const info = sectionMap[id];
+    if (!info) return;
+    triggerLabel.innerHTML = '<span class="section-trigger-num">' + info.num + ' ·</span> ' + info.title;
+    dropdown.querySelectorAll('.section-option').forEach(opt => {
+      opt.classList.toggle('current', opt.dataset.section === id);
+    });
+  }
+
+  const targets = Object.keys(sectionMap)
+    .map(id => document.getElementById(id))
+    .filter(el => el);
+
+  if ('IntersectionObserver' in window && targets.length) {
+    const obs = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible.length) setCurrentSection(visible[0].target.id);
+    }, { rootMargin: '-30% 0px -50% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+    targets.forEach(t => obs.observe(t));
+  }
+})();
 </script>
 </body>
 </html>
