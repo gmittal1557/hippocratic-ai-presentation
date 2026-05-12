@@ -1471,6 +1471,71 @@
       max-width: 48rem;
       margin-bottom: 2.5rem;
     }
+
+    /* ─── SECTION 5 DEPLOYMENT ─── */
+    .s5-anchor {
+      font-family: var(--serif);
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.45;
+      color: #2A2A2A;
+      max-width: 40rem;
+      margin: 0 0 3rem;
+      text-wrap: balance;
+    }
+    .q-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .q-card {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.4rem 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .q-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .q-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted-light);
+      letter-spacing: 0.06em;
+    }
+    .q-week {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: rgba(47,93,80,0.07);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .q-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+      margin: 0;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    .q-answer {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #555550;
+      margin: 0;
+      padding-top: 0.8rem;
+      border-top: 0.5px solid #F0F0ED;
+    }
   </style>
 </head>
 <body>
@@ -1519,7 +1584,7 @@
         <a href="#the-agent"     class="sections-item"        role="option"><span class="sections-item-num">03</span>The agent<span class="sections-item-dot"></span></a>
         <a href="#configuration" class="sections-item"        role="option"><span class="sections-item-num">04</span>Configuration<span class="sections-item-dot"></span></a>
         <a href="#integration"   class="sections-item"        role="option"><span class="sections-item-num">04</span>Integration<span class="sections-item-dot"></span></a>
-        <a href="#tradeoffs"     class="sections-item"        role="option"><span class="sections-item-num">05</span>Tradeoffs<span class="sections-item-dot"></span></a>
+        <a href="#deployment"     class="sections-item"        role="option"><span class="sections-item-num">05</span>Deployment<span class="sections-item-dot"></span></a>
       </div>
     </div>
   </div>
@@ -2121,102 +2186,56 @@
   </div>
 </section>
 
-<!-- ══════════════════════ SECTION 6: TRADEOFFS ══════════════════════ -->
-<section id="tradeoffs" aria-labelledby="h-tradeoffs">
+<!-- ══════════════════════ SECTION 5: DEPLOYMENT ══════════════════════ -->
+<section id="deployment" aria-labelledby="h-deployment">
   <div class="container">
     <div class="section-divider">
-      <span class="section-divider-num">06</span>
+      <span class="section-divider-num">05</span>
       <div class="section-divider-line"></div>
-      <span class="section-divider-label">Tradeoffs &amp; Roadmap</span>
+      <span class="section-divider-label">Deployment</span>
     </div>
-    <h2 class="section-heading" id="h-tradeoffs">Tradeoffs and roadmap</h2>
-    <p class="section-subtitle" style="margin-bottom:3rem;">Three things will be hard. Here's how I'd handle each.</p>
+    <h2 class="section-heading" id="h-deployment">Open deployment questions.</h2>
+    <p class="s5-anchor">What I'd resolve with the customer before going live.</p>
 
-    <div class="interview-grid" aria-label="Likely interviewer concerns and concise answers">
-      <div class="interview-card">
-        <h3>Q: Is this clinically safe?</h3>
-        <p>The agent does not diagnose or change medication plans. It verifies instructions, detects deviations, and escalates on predefined criteria with a human handoff.</p>
+    <div class="q-grid">
+
+      <!-- Card 1 -->
+      <div class="q-card">
+        <div class="q-top">
+          <span class="q-num">01</span>
+          <span class="q-week">Week 1</span>
+          <p class="q-title">Who owns escalation routing?</p>
+        </div>
+        <div class="q-answer">
+          <p>The agent can detect a deviation and decide to escalate — but to whom, through what channel, and with what SLA? That decision belongs to the GI service line, not engineering. We need a named nurse or coordinator, an on-call fallback, and a documented response window before the first live call.</p>
+        </div>
       </div>
-      <div class="interview-card">
-        <h3>Q: Will nurses trust it?</h3>
-        <p>Adoption hinges on escalation precision. The first pilot should measure whether nurse interventions are actually useful, not just whether calls complete.</p>
+
+      <!-- Card 2 -->
+      <div class="q-card">
+        <div class="q-top">
+          <span class="q-num">02</span>
+          <span class="q-week">Week 1</span>
+          <p class="q-title">What is the right escalation threshold?</p>
+        </div>
+        <div class="q-answer">
+          <p>A threshold set too low floods nurses with low-acuity flags and kills adoption. Too high and we miss real prep failures. The right setting depends on the nurse team's capacity and risk tolerance — not on a default we ship. I'd spend deployment week one pairing with the clinical team to calibrate this on historical data before going live.</p>
+        </div>
       </div>
-      <div class="interview-card">
-        <h3>Q: Can it integrate for real?</h3>
-        <p>FHIR R4 is the primary path, HL7 v2 is the fallback, and site-specific prep logic is captured as configuration during deployment week one.</p>
+
+      <!-- Card 3 -->
+      <div class="q-card">
+        <div class="q-top">
+          <span class="q-num">03</span>
+          <span class="q-week">Week 2</span>
+          <p class="q-title">How do we measure success?</p>
+        </div>
+        <div class="q-answer">
+          <p>Colonoscopy prep adequacy rate is the outcome that matters, but it takes weeks to accumulate. Leading indicators — call completion rate, escalation precision, patient-reported confidence score — let us tune the agent before the lagging metric arrives. We need agreement on the primary metric and a dashboard owner before launch, not after.</p>
+        </div>
       </div>
+
     </div>
-
-    <div class="risk-block">
-      <h3>Risk 1: GI nurse adoption.</h3>
-      <p class="risk-desc">Nurses worry the agent will replace them or that it will generate too many false escalations and waste their time. A failed adoption looks like nurses ignoring agent flags or routing patients around the agent.</p>
-      <p class="mit-label">Mitigation</p>
-      <p class="mitigation">Position the agent as a triage layer that increases nurse leverage — nurses get higher-quality patients to review, not more patients. Track escalation precision (percent of escalated calls where the nurse actually intervened) as a primary metric. Co-design escalation rules with the GI service line in deployment week one. Expect the first month of production to require active tuning.</p>
-    </div>
-
-    <div class="risk-block">
-      <h3>Risk 2: Patient pushback on robocalls.</h3>
-      <p class="risk-desc">Patients hate cold-call IVRs and may hang up before the agent can establish what it is. Older patients in particular may distrust the medium.</p>
-      <p class="mit-label">Mitigation</p>
-      <p class="mitigation">Caller ID branding (the call shows "Cleveland Clinic GI" not a random number). Opt-in at scheduling so patients are pre-warned. Evening time window respected (no calls before 5 PM or after 9 PM). Immediate handoff to a human within 30 seconds when patient asks. Hippocratic's published 9.0/10 patient ratings on existing post-discharge agents are evidence the approach works when these principles are followed.</p>
-    </div>
-
-    <div class="risk-block">
-      <h3>Risk 3: Multi-language deployment.</h3>
-      <p class="risk-desc">A high-volume AMC serves Spanish, Mandarin, Vietnamese, and other-language patients. Day-one deployment in English only would exclude the populations who most need attention.</p>
-      <p class="mit-label">Mitigation</p>
-      <p class="mitigation">Day-one deployment includes English and Spanish. Phase two expands per customer demand. Important not to over-promise on day one — patients don't tolerate a robocall in the wrong language. Better to escalate to a human nurse for non-supported languages than to attempt a poor agent experience.</p>
-    </div>
-
-    <!-- Roadmap timeline SVG -->
-    <div class="diagram-wrap" style="margin-top:4rem;">
-      <svg viewBox="0 0 800 200" role="img" aria-label="Three-phase roadmap: current use case, Phase 2, Phase 3">
-        <!-- Connectors -->
-        <line x1="168" y1="82" x2="346" y2="82" stroke="#E8E8E5" stroke-width="2"/>
-        <line x1="454" y1="82" x2="632" y2="82" stroke="#E8E8E5" stroke-width="2"/>
-        <polygon points="340,77 352,82 340,87" fill="#E8E8E5"/>
-        <polygon points="626,77 638,82 626,87" fill="#E8E8E5"/>
-
-        <!-- Node 1: current (filled accent) -->
-        <circle cx="120" cy="82" r="34" fill="#2F5D50" fill-opacity="0.1"/>
-        <circle cx="120" cy="82" r="24" fill="#2F5D50"/>
-        <text x="120" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="white" font-weight="500">NOW</text>
-
-        <text x="120" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#0F0F0F" font-weight="600">This use case</text>
-        <text x="120" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Day -1 evening prep</text>
-        <text x="120" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">coaching agent</text>
-
-        <!-- Node 2 -->
-        <circle cx="400" cy="82" r="34" fill="#E8E8E5" fill-opacity="0.5"/>
-        <circle cx="400" cy="82" r="24" fill="#E8E8E5" stroke="#C8C8C4" stroke-width="1.5"/>
-        <text x="400" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">PH.2</text>
-
-        <text x="400" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#444440" font-weight="600">Phase 2</text>
-        <text x="400" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Transportation agent.</text>
-        <text x="400" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Fear-of-findings agent</text>
-        <text x="400" y="182" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">for FIT-positive patients</text>
-
-        <!-- Node 3 -->
-        <circle cx="680" cy="82" r="34" fill="#E8E8E5" fill-opacity="0.3"/>
-        <circle cx="680" cy="82" r="24" fill="#E8E8E5" stroke="#C8C8C4" stroke-width="1.5"/>
-        <text x="680" y="87" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" fill="#888884">PH.3</text>
-
-        <text x="680" y="132" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="13" fill="#444440" font-weight="600">Phase 3</text>
-        <text x="680" y="150" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">Payor expansion.</text>
-        <text x="680" y="166" text-anchor="middle" font-family="'Source Sans 3',sans-serif" font-size="12" fill="#888884">HEDIS COL-FU attribution</text>
-      </svg>
-    </div>
-
-    <p style="max-width:760px; margin:2rem auto 0; color:#444440; line-height:1.7;">This agent addresses the prep-related share of colonoscopy misses — about 30% of the failure modes. Other failure types (transportation, fear of findings, financial access) each deserve their own agent with different conversational depth, different integrations, and different safety architecture. The provider deployment generates the outcome data that makes the payor expansion fast.</p>
-
-    <details style="max-width:760px; margin:2rem auto 0;">
-      <summary>Why provider-first, payor-second</summary>
-      <div class="details-body">
-        <p>Payors have a real and growing interest in colonoscopy outcomes. The new HEDIS COL-FU measure tracks completion of follow-up colonoscopy after positive stool tests — currently sitting around 35–65% completion. Federal regulations as of January 2023 eliminated patient cost-sharing for these follow-up procedures, which puts payors more financially on the hook for completion.</p>
-        <p>A Medicare Advantage plan with 200,000 members in the screening-age population sees roughly 20,000 colonoscopies per year. If our agent reduces inadequate prep rate by 8 percentage points, that's 1,600 fewer repeat procedures within 12 months — about $2.4M in avoided medical spend.</p>
-        <p>But the right sequence is provider deployment first. Providers feel the pain immediately through cancelled OR slots. Payors feel it annually through HEDIS attestation. The provider deployment generates per-call outcome data that makes the payor sale fast and defensible. Going to a payor first means making claims about effect size we can't yet prove.</p>
-      </div>
-    </details>
   </div>
 </section>
 
@@ -2256,7 +2275,7 @@
     'the-agent':     { num: '03', label: 'The agent' },
     'configuration': { num: '04', label: 'Configuration' },
     'integration':   { num: '04', label: 'Integration' },
-    'tradeoffs':     { num: '05', label: 'Tradeoffs' },
+    'deployment':    { num: '05', label: 'Deployment' },
   };
 
   const progressBar = document.getElementById('progress-bar');
