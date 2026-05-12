@@ -1522,69 +1522,39 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1rem;
-      position: relative;
     }
     .next-card {
       background: white;
-      border: 0.5px solid var(--border);
+      border: 0.5px solid var(--border, #E8E8E5);
       border-radius: 8px;
-      padding: 1.15rem 1.3rem 1.3rem;
+      padding: 1.3rem 1.4rem 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      position: relative;
+      gap: 0.75rem;
     }
-    .next-card-head {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.2rem;
-    }
-    .next-step {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      color: var(--muted-light);
-      font-weight: 500;
-    }
-    .next-when {
-      font-family: var(--mono);
+    .next-category {
+      font-family: var(--mono, 'JetBrains Mono', monospace);
       font-size: 9.5px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent, #2F5D50);
       font-weight: 500;
-      background: rgba(47, 93, 80, 0.07);
-      padding: 3px 8px;
-      border-radius: 3px;
+      align-self: flex-start;
     }
     .next-title {
-      font-size: 14.5px;
+      font-size: 16px;
       font-weight: 600;
-      color: var(--text);
+      color: var(--text, #0F0F0F);
       margin: 0;
       letter-spacing: -0.01em;
       line-height: 1.3;
     }
     .next-desc {
-      font-size: 12.5px;
+      font-size: 13px;
       line-height: 1.55;
       color: #555550;
       margin: 0;
     }
-    .next-grid::before,
-    .next-grid::after {
-      content: '→';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-family: var(--mono);
-      font-size: 14px;
-      color: #D4D4D0;
-      z-index: 1;
-    }
-    .next-grid::before { left: calc(33.33% - 4px); }
-    .next-grid::after  { left: calc(66.66% - 4px); }
   </style>
 </head>
 <body>
@@ -2225,30 +2195,21 @@
       <div class="next-grid">
 
         <div class="next-card">
-          <div class="next-card-head">
-            <span class="next-step">01</span>
-            <span class="next-when">Months 3–6</span>
-          </div>
-          <h4 class="next-title">Other GI prep procedures.</h4>
-          <p class="next-desc">EGD prep, capsule endoscopy prep. Same patient population, same FHIR integration. Fastest extension of the pilot.</p>
+          <span class="next-category">Coverage</span>
+          <h4 class="next-title">A logistics agent and an anxiety agent.</h4>
+          <p class="next-desc">Same patient. Different failure modes. Covers 70% of misses, not 30%.</p>
         </div>
 
         <div class="next-card">
-          <div class="next-card-head">
-            <span class="next-step">02</span>
-            <span class="next-when">Months 6–9</span>
-          </div>
-          <h4 class="next-title">Day-after follow-up call.</h4>
-          <p class="next-desc">Same patient, 24 hours later. Confirms recovery, captures symptoms, surfaces escalations. Closes the loop on the procedure.</p>
+          <span class="next-category">Market</span>
+          <h4 class="next-title">A lighter version for community GI practices.</h4>
+          <p class="next-desc">Same agent. Lighter deployment. Smaller volumes, simpler EHRs.</p>
         </div>
 
         <div class="next-card">
-          <div class="next-card-head">
-            <span class="next-step">03</span>
-            <span class="next-when">Months 9–12</span>
-          </div>
-          <h4 class="next-title">Follow-up after positive at-home stool test.</h4>
-          <p class="next-desc">Different trigger — patient's at-home stool test came back positive and they need a diagnostic colonoscopy. Same site, same handoff pattern.</p>
+          <span class="next-category">Journey</span>
+          <h4 class="next-title">Day-of and Day-after calls.</h4>
+          <p class="next-desc">Arrival confirmation. Recovery check-in. Same patient, same pipeline.</p>
         </div>
 
       </div>
