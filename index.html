@@ -1024,6 +1024,7 @@
       color: var(--accent);
       margin-bottom: 0.6rem;
       font-weight: 500;
+      white-space: nowrap;
     }
     .tl-title {
       font-size: 15px;
@@ -1977,11 +1978,11 @@
 
           <text x="440" y="345" font-family="'Source Sans 3', sans-serif" font-style="italic" font-size="10.5" fill="#5C7A6E">Authored in SafetyPortal. Operated by Hippocratic.</text>
 
-          <text x="360" y="84" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">FHIR reads · 3 PM</text>
+          <text x="360" y="84" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">Reads · 3 PM</text>
           <line x1="300" y1="94" x2="420" y2="94" stroke="#2F5D50" stroke-width="1.4"/>
           <polygon points="414,90 422,94 414,98" fill="#2F5D50"/>
 
-          <text x="360" y="124" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">FHIR writes · 6:05 PM</text>
+          <text x="360" y="124" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="10" fill="#2F5D50" font-weight="500">Writes · 6:05 PM</text>
           <line x1="420" y1="134" x2="300" y2="134" stroke="#2F5D50" stroke-width="1.4"/>
           <polygon points="306,130 298,134 306,138" fill="#2F5D50"/>
 
@@ -2001,18 +2002,21 @@
     </div>
 
     <!-- Block 2: Data flow -->
-    <div class="block-label">Data flow · what crosses the boundary</div>
+    <div class="block-label">DATA FLOW · WHAT CROSSES THE BOUNDARY</div>
     <div class="tl-grid">
       <div class="tl-card">
         <div class="tl-time">3 PM · Read</div>
         <h3 class="tl-title">Pre-call data pull</h3>
         <ul class="tl-list">
-          <li class="tl-item"><span class="resource">Appointment</span></li>
-          <li class="tl-item"><span class="resource">Patient</span></li>
-          <li class="tl-item"><span class="resource">ServiceRequest</span></li>
-          <li class="tl-item"><span class="resource">Condition</span> <span class="desc">filtered</span></li>
-          <li class="tl-item"><span class="resource">MedicationRequest</span> <span class="desc">filtered</span></li>
-          <li class="tl-item"><span class="resource">Observation</span> <span class="desc">recent labs</span></li>
+          <li class="tl-item"><span class="resource">Patient</span> <span class="desc">demographics, contact</span></li>
+          <li class="tl-item"><span class="resource">Appointment</span> <span class="desc">+ status</span></li>
+          <li class="tl-item"><span class="resource">ServiceRequest</span> <span class="desc">procedure order</span></li>
+          <li class="tl-item"><span class="resource">Practitioner</span> <span class="desc">ordering physician</span></li>
+          <li class="tl-item"><span class="resource">Condition</span> <span class="desc">active problem list</span></li>
+          <li class="tl-item"><span class="resource">MedicationRequest</span> <span class="desc">active meds</span></li>
+          <li class="tl-item"><span class="resource">Observation</span> <span class="desc">labs as present</span></li>
+          <li class="tl-item"><span class="resource">DocumentReference</span></li>
+          <li class="tl-item"><span class="resource">Device</span></li>
           <li class="tl-item"><span class="resource">Custom fields</span> <span class="desc">prep, logistics</span></li>
         </ul>
       </div>
@@ -2020,7 +2024,7 @@
         <div class="tl-time">6:05 PM · Write</div>
         <h3 class="tl-title">Structured write-back</h3>
         <ul class="tl-list">
-          <li class="tl-item"><span class="resource">DocumentReference</span> <span class="desc">note</span></li>
+          <li class="tl-item"><span class="resource">DocumentReference</span> <span class="desc">call note</span></li>
           <li class="tl-item"><span class="resource">Flag</span> <span class="desc">if risk</span></li>
           <li class="tl-item"><span class="resource">Observation</span> <span class="desc">patient-reported</span></li>
           <li class="tl-item"><span class="resource">Communication</span> <span class="desc">In-Basket</span></li>
@@ -2030,7 +2034,7 @@
 
     <!-- Block 3: Full FHIR resource map collapsible -->
     <details>
-      <summary>Full FHIR resource map</summary>
+      <summary>Full FHIR resource map ▾</summary>
       <div class="details-body">
         <table class="fhir-table">
           <thead>
@@ -2042,14 +2046,16 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td class="res-cell">Appointment</td><td>Build tomorrow's call roster</td><td>Datetime, location, practitioner ref, service-type code</td><td class="fb-cell">Skip patient if no Appointment found</td></tr>
-            <tr><td class="res-cell">Patient</td><td>Identity, contact, language</td><td>Demographics, phone, preferred language</td><td class="fb-cell">Skip if no phone; alert nurse pool</td></tr>
-            <tr><td class="res-cell">ServiceRequest</td><td>Confirm procedure context</td><td>Order, indication, ordering physician</td><td class="fb-cell">Fall back to Appointment service-type</td></tr>
-            <tr><td class="res-cell">Practitioner</td><td>Per-physician protocol lookup</td><td>Physician identity, care-team metadata</td><td class="fb-cell">Use site default protocol</td></tr>
-            <tr><td class="res-cell">Condition</td><td>Surface relevant comorbidities</td><td>Active conditions affecting prep or anesthesia</td><td class="fb-cell">Proceed without; flag for nurse review</td></tr>
-            <tr><td class="res-cell">MedicationRequest</td><td>Confirm med holds</td><td>Anticoagulants, insulin, GLP-1s</td><td class="fb-cell">Ask patient to confirm verbally; flag</td></tr>
-            <tr><td class="res-cell">Observation</td><td>Risk-adjust prep coaching</td><td>Recent labs (renal function, A1c)</td><td class="fb-cell">Proceed with default coaching</td></tr>
-            <tr><td class="res-cell">Custom extensions</td><td>Use-case-specific data not in FHIR</td><td>Prep regimen, arrival, physician protocol id</td><td class="fb-cell">Customer-mapped; missing fields block call</td></tr>
+            <tr><td class="res-cell">Patient</td><td>Identity, contact, language</td><td>Name, gender, DOB, phone, preferred language</td><td class="fb-cell">Skip if no phone; alert nurse pool</td></tr>
+            <tr><td class="res-cell">Appointment</td><td>Build tomorrow's call roster</td><td>Datetime, status, location, practitioner reference</td><td class="fb-cell">Skip patient if no Appointment found</td></tr>
+            <tr><td class="res-cell">ServiceRequest</td><td>The procedure order</td><td>Procedure code, status, indication, ordering physician</td><td class="fb-cell">Fall back to Appointment service-type</td></tr>
+            <tr><td class="res-cell">Practitioner</td><td>Identify the ordering physician</td><td>Practitioner reference and metadata as available</td><td class="fb-cell">Use whatever is on the chart</td></tr>
+            <tr><td class="res-cell">Condition</td><td>Medical history relevant to the procedure</td><td>Active conditions on the problem list</td><td class="fb-cell">Proceed without; flag for nurse review</td></tr>
+            <tr><td class="res-cell">MedicationRequest</td><td>Patient's active medications</td><td>All active medications with dose, frequency, status</td><td class="fb-cell">Ask patient to confirm verbally; flag</td></tr>
+            <tr><td class="res-cell">Observation</td><td>Labs and observations on the chart</td><td>Lab results and observations as present</td><td class="fb-cell">Proceed if absent</td></tr>
+            <tr><td class="res-cell">DocumentReference</td><td>Clinical notes on the chart</td><td>Clinical notes as present</td><td class="fb-cell">Proceed if absent</td></tr>
+            <tr><td class="res-cell">Device</td><td>Devices on the chart</td><td>Devices as present</td><td class="fb-cell">Proceed if absent</td></tr>
+            <tr><td class="res-cell">Custom extensions</td><td>Use-case-specific data not in standard FHIR</td><td>upcoming_procedure_prep, _date, _arrival_location, _arrival_buffer, _reason, _type</td><td class="fb-cell">Customer-mapped; missing fields block call</td></tr>
           </tbody>
         </table>
       </div>
@@ -2065,13 +2071,13 @@
       </div>
       <div class="call-card">
         <div class="call-num">02</div>
-        <h4 class="call-title">Read minimum-necessary, not everything.</h4>
-        <p class="call-desc">Filter Condition and MedicationRequest to fields relevant to this procedure. PHI exposure scales with what you read.</p>
+        <h4 class="call-title">Integration delivers, agent decides.</h4>
+        <p class="call-desc">The integration pulls every resource on the chart. Which conditions, meds, or labs are clinically relevant is decided by the customer's filters at the agent layer — not at fetch.</p>
       </div>
       <div class="call-card">
         <div class="call-num">03</div>
         <h4 class="call-title">Customer-authorized service.</h4>
-        <p class="call-desc">IT approves it once. Read access to seven FHIR resources, write to four. Scoped to the GI service line.</p>
+        <p class="call-desc">IT approves it once. Read access to nine FHIR resources, write to four. Scoped to the GI service line.</p>
       </div>
       <div class="call-card">
         <div class="call-num">04</div>
