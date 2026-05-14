@@ -613,6 +613,127 @@
       padding-left: 2px;
     }
 
+    /* ─── ROI CALLOUT (Section 01) ─── */
+    .roi-callout {
+      text-align: center;
+      margin: 4rem auto 0;
+      padding: 2.75rem 2rem 2.5rem;
+      background: white;
+      border: 0.5px solid #C8C4BD;
+      border-radius: 10px;
+      max-width: 36rem;
+    }
+    .roi-prefix {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .roi-number {
+      font-family: var(--serif);
+      font-size: 72px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin: 0;
+      line-height: 1;
+    }
+    .roi-label {
+      font-size: 14.5px;
+      color: #555550;
+      margin: 0.85rem 0 0.4rem;
+    }
+    .roi-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-style: italic;
+      margin: 0;
+    }
+    .roi-collapse-wrap {
+      margin: 1rem auto 0;
+      max-width: 36rem;
+    }
+    .roi-collapse-wrap details {
+      border-radius: 8px;
+      border: 0.5px solid #C8C4BD;
+    }
+    .roi-collapse-wrap summary {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 0.9rem 1.2rem;
+    }
+    .roi-collapse-wrap .details-body { font-size: 14px; }
+
+    /* ─── CELL VERDICT (Section 02 table) ─── */
+    .cell-verdict {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0F0F0F;
+      display: block;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    .col-agent .cell-verdict.win { color: var(--accent); }
+    .col-agent .cell-verdict.adequate { color: #0F0F0F; }
+    .cell-detail {
+      font-size: 12.5px;
+      color: #555550;
+      line-height: 1.45;
+      display: block;
+    }
+
+    /* ─── ROI STRIP (Section 02) ─── */
+    .roi-strip {
+      margin-top: 1.5rem;
+      background: var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      color: white;
+      max-width: 60rem;
+    }
+    .roi-strip-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.5rem;
+    }
+    .roi-strip-line1 {
+      font-size: 15px;
+      font-weight: 500;
+      color: white;
+      margin: 0 0 0.3rem;
+      line-height: 1.4;
+    }
+    .roi-strip-line2 {
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .roi-strip-number {
+      font-family: var(--serif);
+      font-size: 42px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: white;
+      margin: 0;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .roi-strip-sub {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 0.4rem;
+    }
+
     /* ─── COLLAPSIBLES ─── */
     details {
       border: 1px solid var(--border);
@@ -1686,21 +1807,96 @@
       </div><!-- end right col -->
     </div><!-- end two-col -->
 
-    <div class="callout">
-      Day-1 evening calls work. But staffing them at scale would cost 9 dedicated evening nurses, a position no GI service line wants to add.
+    <div class="roi-callout">
+      <div class="roi-prefix">At scale · per high-volume GI service line</div>
+      <h2 class="roi-number">$2.5M+</h2>
+      <p class="roi-label">in absorbed annual cost from prep failures</p>
+      <p class="roi-sub">Wasted slots and downstream repeat procedures.</p>
     </div>
 
-    <div class="citation-wrap" id="citation-wrap-1">
-      <button class="citation-chip" id="citation-btn-1" aria-expanded="false" aria-controls="citation-panel-1">
-        Published evidence ↗
-      </button>
-      <div class="citation-panel" id="citation-panel-1" role="listbox">
-        <ul>
-          <li><strong>Liu et al., 2021</strong> — RCT showing Day-1 telephone education improved adequate prep from 70.3% to 81.6% (n=470)</li>
-          <li><strong>Kohli et al., 2018</strong> — multi-site retrospective cohort (n=4,016) showing scheduled Day -5 nurse calls had no measurable effect on prep adequacy</li>
-          <li><strong>ASGE GI Operations Benchmarking Survey, 2019</strong> — same-day cancellation rates of 5.6–8.45% across U.S. endoscopy units</li>
-        </ul>
-      </div>
+    <div class="roi-collapse-wrap">
+      <details>
+        <summary>See the scenario math</summary>
+        <div class="details-body">
+
+          <p style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Central case · 30K-procedure GI service line</p>
+
+          <p style="font-size:12px;color:#555550;line-height:1.5;margin-bottom:0.4rem;">All numbers are <strong style="font-weight:500;color:var(--text);">avoided cost</strong>. Slots can't be backfilled — every patient needs 24 hours of prep.</p>
+
+          <p style="font-size:10.5px;font-style:italic;color:var(--muted-light);margin-bottom:1.25rem;">Hover any underlined number to see where it comes from.</p>
+
+          <!-- Flow row -->
+          <div style="display:flex;align-items:center;gap:0;margin-bottom:1.25rem;">
+            <div class="flow-step">
+              <div class="flow-num">30,000</div>
+              <div class="flow-label">colonoscopies / yr</div>
+            </div>
+
+            <!-- Arrow zone -->
+            <div style="position:relative;width:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--accent);transform:translateY(-50%);"></div>
+              <svg style="position:absolute;top:50%;right:0;transform:translateY(-50%)" width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="var(--accent)"/></svg>
+              <span class="src-num" style="position:relative;z-index:1;background:var(--bg);padding:0 4px;">
+                <span class="src-link">× 8pp</span>
+                <span class="src-tip">~75% of the RCT's 11pp lift (Liu et al. 2021). Conservative discount on real-world agent effect vs. trial conditions.</span>
+              </span>
+            </div>
+
+            <div class="flow-step accent">
+              <div class="flow-num">2,400</div>
+              <div class="flow-label">avoided inadequate prep cases</div>
+            </div>
+          </div>
+
+          <!-- Split label + down arrow -->
+          <div style="text-align:center;margin-bottom:1rem;">
+            <span class="src-num">
+              <span class="src-link" style="font-family:var(--mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;">Splits 40 / 60</span>
+              <span class="src-tip">Of inadequate prep cases: ~40% are caught early and cancelled (slot wasted, can't be backfilled); ~60% proceed and require a repeat within 12 months. Based on GI operations practice.</span>
+            </span>
+            <div style="margin-top:0.35rem;">
+              <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="0,0 14,0 7,14" fill="var(--muted)"/></svg>
+            </div>
+          </div>
+
+          <!-- Two cost cards -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0;">
+            <div class="math-cost-card">
+              <div class="math-cost-card-header">
+                <span class="math-cost-card-title">Wasted slots</span>
+                <span class="math-cost-card-share">40% · 960 cases</span>
+              </div>
+              <div class="math-cost-card-num">$384K</div>
+              <div class="math-cost-card-calc">
+                <span class="src-num"><span class="src-link">$400</span><span class="src-tip">Wasted-slot cost per cancellation: staff time, anesthesia setup, room turnover, prep materials. Revenue is deferred (patient reschedules), not lost.</span></span>
+                × 960
+              </div>
+            </div>
+            <div class="math-cost-card">
+              <div class="math-cost-card-header">
+                <span class="math-cost-card-title">Repeat procedures</span>
+                <span class="math-cost-card-share">60% · 1,440 cases</span>
+              </div>
+              <div class="math-cost-card-num">$2.16M</div>
+              <div class="math-cost-card-calc">
+                <span class="src-num"><span class="src-link">$1,500</span><span class="src-tip">Blended cost of one repeat colonoscopy: facility, physician, and anesthesia at an AMC.</span></span>
+                × 1,440
+              </div>
+            </div>
+          </div>
+
+          <!-- Sum row -->
+          <div class="math-sum-row">
+            <span class="math-sum-parts">$384K + $2.16M</span>
+            <span class="math-sum-eq">=</span>
+            <span class="math-sum-total">$2.5M</span>
+            <span class="math-sum-label">avoided / yr</span>
+          </div>
+
+          <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:1rem;">Conservative: ~$1.5M (50% of RCT effect) · Optimistic: ~$3.5M (full RCT effect)</p>
+
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -1714,136 +1910,88 @@
       <span class="section-divider-label">How the Agent Solves It</span>
     </div>
     <h2 class="section-heading" id="h-why">Why an agent fits this gap.</h2>
-    <p class="section-subtitle">The clinical bar is met. The staffing math isn't.</p>
+    <p class="section-subtitle">The intervention is settled. The question is who delivers it at scale.</p>
 
     <div class="compare-table">
-      <table class="compare" aria-label="Comparison of prep coaching approaches">
+      <table class="compare" aria-label="Day-1 nurse call vs Day-1 AI agent">
         <thead>
           <tr>
             <th></th>
-            <th class="compare-col">Mailed instructions only</th>
-            <th class="compare-col">Day -5 nurse call</th>
-            <th class="compare-col-accent">Day-1 evening agent</th>
+            <th class="compare-col">Day-1 nurse call</th>
+            <th class="compare-col-accent col-agent">Day-1 AI agent</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="compare-label">Prep adequacy lift</td>
-            <td class="compare-col">Baseline (0pp)</td>
-            <td class="compare-col">No measurable lift — timing is too early</td>
-            <td class="compare-col-accent">+11pp <span class="cite-footnote">per Liu et al.</span></td>
+            <td class="compare-label">Clinical accuracy</td>
+            <td class="compare-col">
+              <span class="cell-verdict">Better</span>
+              <span class="cell-detail">Clinical judgment, edge cases</span>
+            </td>
+            <td class="compare-col-accent col-agent">
+              <span class="cell-verdict adequate">Adequate</span>
+              <span class="cell-detail">In-scope. Escalates the rest.</span>
+            </td>
           </tr>
           <tr>
-            <td class="compare-label">Confirms appointment</td>
-            <td class="compare-col">No</td>
-            <td class="compare-col">Yes, but 5 days out</td>
-            <td class="compare-col-accent">Yes, the evening before</td>
+            <td class="compare-label">Bedside manner</td>
+            <td class="compare-col">
+              <span class="cell-verdict">Better</span>
+              <span class="cell-detail">Human warmth and empathy</span>
+            </td>
+            <td class="compare-col-accent col-agent">
+              <span class="cell-verdict adequate">Adequate</span>
+              <span class="cell-detail">Trained for warmth, not human</span>
+            </td>
           </tr>
           <tr>
-            <td class="compare-label">Coaches at failure moment</td>
-            <td class="compare-col">No — static PDF, no dialogue</td>
-            <td class="compare-col">No — call precedes the failure window</td>
-            <td class="compare-col-accent">Yes — live Q&amp;A when prep errors happen</td>
+            <td class="compare-label">Reliability</td>
+            <td class="compare-col">
+              <span class="cell-verdict">Variable</span>
+              <span class="cell-detail">Fatigue, time pressure, end-of-shift</span>
+            </td>
+            <td class="compare-col-accent col-agent">
+              <span class="cell-verdict win">Consistent</span>
+              <span class="cell-detail">Call 1 and call 100 sound the same</span>
+            </td>
           </tr>
           <tr>
-            <td class="compare-label">Cost per intervention</td>
-            <td class="compare-col">~$2 (print + postage)</td>
-            <td class="compare-col">~$23 (nurse time)</td>
-            <td class="compare-col-accent">&lt;$3 per call at scale</td>
+            <td class="compare-label">Cost per call</td>
+            <td class="compare-col">
+              <span class="cell-verdict">~$23</span>
+              <span class="cell-detail">Loaded nurse time</span>
+            </td>
+            <td class="compare-col-accent col-agent">
+              <span class="cell-verdict win">&lt;$3</span>
+              <span class="cell-detail">~8× cheaper at scale</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="compare-label">Capacity matching</td>
+            <td class="compare-col">
+              <span class="cell-verdict">Doesn't flex</span>
+              <span class="cell-detail">30 patients = idle nurses. 100 = a queue.</span>
+            </td>
+            <td class="compare-col-accent col-agent">
+              <span class="cell-verdict win">Matches demand</span>
+              <span class="cell-detail">30 or 300 calls, same staffing</span>
+            </td>
           </tr>
         </tbody>
       </table>
-      <p class="compare-footer">Liu et al. 2021 · RCT, n = 484 · automated evening call vs. mailed instructions only</p>
     </div>
 
-    <div class="stat-block">
-      <div class="stat-large">$2.5M+</div>
-      <p class="stat-label">recoverable annual cost per high-volume GI service line</p>
-    </div>
-    <p style="text-align:center; color:#444440; max-width:640px; margin:0 auto 2.5rem; font-size:16px;">Net of wasted slots and avoided repeat procedures.</p>
-
-    <details>
-      <summary>See the scenario math</summary>
-      <div class="details-body">
-
-        <p style="font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;">Central case · 30K-procedure GI service line</p>
-
-        <p style="font-size:12px;color:#555550;line-height:1.5;margin-bottom:0.4rem;">All numbers are <strong style="font-weight:500;color:var(--text);">avoided cost</strong>. Slots can't be backfilled — every patient needs 24 hours of prep.</p>
-
-        <p style="font-size:10.5px;font-style:italic;color:var(--muted-light);margin-bottom:1.25rem;">Hover any underlined number to see where it comes from.</p>
-
-        <!-- Flow row -->
-        <div style="display:flex;align-items:center;gap:0;margin-bottom:1.25rem;">
-          <div class="flow-step">
-            <div class="flow-num">30,000</div>
-            <div class="flow-label">colonoscopies / yr</div>
-          </div>
-
-          <!-- Arrow zone -->
-          <div style="position:relative;width:70px;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
-            <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--accent);transform:translateY(-50%);"></div>
-            <svg style="position:absolute;top:50%;right:0;transform:translateY(-50%)" width="8" height="10" viewBox="0 0 8 10"><polygon points="0,0 8,5 0,10" fill="var(--accent)"/></svg>
-            <span class="src-num" style="position:relative;z-index:1;background:var(--bg);padding:0 4px;">
-              <span class="src-link">× 8pp</span>
-              <span class="src-tip">~75% of the RCT's 11pp lift (Liu et al. 2021). Conservative discount on real-world agent effect vs. trial conditions.</span>
-            </span>
-          </div>
-
-          <div class="flow-step accent">
-            <div class="flow-num">2,400</div>
-            <div class="flow-label">avoided inadequate prep cases</div>
-          </div>
-        </div>
-
-        <!-- Split label + down arrow -->
-        <div style="text-align:center;margin-bottom:1rem;">
-          <span class="src-num">
-            <span class="src-link" style="font-family:var(--mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;">Splits 40 / 60</span>
-            <span class="src-tip">Of inadequate prep cases: ~40% are caught early and cancelled (slot wasted, can't be backfilled); ~60% proceed and require a repeat within 12 months. Based on GI operations practice.</span>
-          </span>
-          <div style="margin-top:0.35rem;">
-            <svg width="14" height="14" viewBox="0 0 14 14"><polygon points="0,0 14,0 7,14" fill="var(--muted)"/></svg>
-          </div>
-        </div>
-
-        <!-- Two cost cards -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0;">
-          <div class="math-cost-card">
-            <div class="math-cost-card-header">
-              <span class="math-cost-card-title">Wasted slots</span>
-              <span class="math-cost-card-share">40% · 960 cases</span>
-            </div>
-            <div class="math-cost-card-num">$384K</div>
-            <div class="math-cost-card-calc">
-              <span class="src-num"><span class="src-link">$400</span><span class="src-tip">Wasted-slot cost per cancellation: staff time, anesthesia setup, room turnover, prep materials. Revenue is deferred (patient reschedules), not lost.</span></span>
-              × 960
-            </div>
-          </div>
-          <div class="math-cost-card">
-            <div class="math-cost-card-header">
-              <span class="math-cost-card-title">Repeat procedures</span>
-              <span class="math-cost-card-share">60% · 1,440 cases</span>
-            </div>
-            <div class="math-cost-card-num">$2.16M</div>
-            <div class="math-cost-card-calc">
-              <span class="src-num"><span class="src-link">$1,500</span><span class="src-tip">Blended cost of one repeat colonoscopy: facility, physician, and anesthesia at an AMC.</span></span>
-              × 1,440
-            </div>
-          </div>
-        </div>
-
-        <!-- Sum row -->
-        <div class="math-sum-row">
-          <span class="math-sum-parts">$384K + $2.16M</span>
-          <span class="math-sum-eq">=</span>
-          <span class="math-sum-total">$2.5M</span>
-          <span class="math-sum-label">avoided / yr</span>
-        </div>
-
-        <p style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:1rem;">Conservative: ~$1.5M (50% of RCT effect) · Optimistic: ~$3.5M (full RCT effect)</p>
-
+    <div class="roi-strip">
+      <div>
+        <div class="roi-strip-label">The trade-off</div>
+        <p class="roi-strip-line1">Agent wins on cost, capacity, and reliability.</p>
+        <p class="roi-strip-line2">Nurses still own clinical depth and every escalation.</p>
       </div>
-    </details>
+      <div style="text-align: right;">
+        <p class="roi-strip-number">~25× ROI</p>
+        <div class="roi-strip-sub">on agent spend · drives $2.5M+ recovered</div>
+      </div>
+    </div>
   </div>
 </section>
 
