@@ -616,55 +616,40 @@
     /* ─── ROI CALLOUT (Section 01) ─── */
     .roi-callout {
       text-align: center;
-      margin: 4rem auto 0;
-      padding: 2.75rem 2.5rem 2.5rem;
-      background: white;
-      border: 0.5px solid #C8C4BD;
-      border-radius: 10px;
-      display: table;
+      margin: 4rem 0 0;
+      padding: 3.5rem 0 1rem;
     }
     .roi-prefix {
       font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
     }
     .roi-number {
       font-family: var(--serif);
-      font-size: 72px;
-      font-weight: 400;
-      letter-spacing: -0.03em;
+      font-size: clamp(54px, 6vw, 80px);
+      font-weight: 300;
+      letter-spacing: -0.02em;
       color: var(--text);
       margin: 0;
       line-height: 1;
     }
     .roi-label {
-      font-size: 14.5px;
-      color: #555550;
-      margin: 0.85rem 0 0.4rem;
+      font-size: 16px;
+      color: var(--muted);
+      margin: 0.75rem 0 0.4rem;
     }
     .roi-sub {
-      font-size: 12.5px;
-      color: var(--muted);
+      font-size: 13px;
+      color: var(--muted-light);
       font-style: italic;
       margin: 0;
     }
     .roi-collapse-wrap {
-      margin: 1rem auto 0;
-      display: table;
+      margin: 1.5rem 0 0;
     }
-    .roi-collapse-wrap details {
-      border-radius: 8px;
-      border: 0.5px solid #C8C4BD;
-    }
-    .roi-collapse-wrap summary {
-      font-size: 13px;
-      font-weight: 500;
-      padding: 0.9rem 1.2rem;
-    }
-    .roi-collapse-wrap .details-body { font-size: 14px; }
 
     /* ─── CELL VERDICT (Section 02 table) ─── */
     .cell-verdict {
