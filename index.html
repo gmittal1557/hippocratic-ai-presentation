@@ -561,16 +561,18 @@
     .conv-escalations-line .esc-cond { color: var(--muted); }
     .conv-escalations-line .esc-action { color: var(--risk); }
     /* ─── TABLES ─── */
-    .data-table {
+
+    /* ─── COMPARE TABLE ─── */
+    .compare-table { margin: 2rem 0; overflow-x: auto; }
+    .compare {
       width: 100%;
       border-collapse: collapse;
       font-size: 15px;
-      margin: 2rem 0;
     }
-    .data-table th {
+    .compare th {
       font-family: var(--sans);
       font-weight: 600;
-      font-size: 12.5px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.07em;
       color: var(--muted);
@@ -579,20 +581,37 @@
       border-bottom: 2px solid var(--border);
       white-space: nowrap;
     }
-    .data-table td {
+    .compare td {
       padding: 13px 16px;
       border-bottom: 1px solid var(--border);
       vertical-align: top;
       line-height: 1.5;
     }
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table th.featured,
-    .data-table td.featured {
+    .compare tr:last-child td { border-bottom: none; }
+    .compare-label {
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .compare-col { color: #444440; }
+    .compare-col-accent {
       background: var(--accent-bg);
       border-left: 2px solid var(--accent);
+      color: var(--text);
+      font-weight: 500;
     }
-    .data-table tr.bold-row td { font-weight: 700; }
-    .data-table .mono-cell { font-family: var(--mono); font-size: 13px; }
+    .compare th.compare-col-accent {
+      color: var(--accent);
+      font-weight: 700;
+      border-left: 2px solid var(--accent);
+    }
+    .compare-footer {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 0.6rem;
+      padding-left: 2px;
+    }
 
     /* ─── COLLAPSIBLES ─── */
     details {
@@ -642,7 +661,6 @@
     .details-body p { margin-bottom: 0.8rem; }
     .details-body ul { padding-left: 1.25rem; margin: 0.5rem 0; }
     .details-body li { margin-bottom: 0.5rem; }
-    .details-body .data-table { font-size: 13.5px; }
 
     .collapsible-row { display: flex; gap: 1rem; flex-wrap: wrap; }
     .collapsible-row details { flex: 1; min-width: 240px; margin: 0; }
@@ -1698,30 +1716,45 @@
     <h2 class="section-heading" id="h-why">Why an agent fits this gap.</h2>
     <p class="section-subtitle">The clinical bar is met. The staffing math isn't.</p>
 
-    <table class="data-table" aria-label="Comparison of prep coaching approaches">
-      <thead>
-        <tr>
-          <th>Metric</th>
-          <th>Mailed instructions only</th>
-          <th>Day -5 nurse call</th>
-          <th class="featured">Day-1 evening agent</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Scale</td>
-          <td>Unlimited</td>
-          <td>9 nurses, ~$700K/year</td>
-          <td class="featured">30,000 calls/year, no added FTEs</td>
-        </tr>
-        <tr>
-          <td>Outcome impact</td>
-          <td>Baseline</td>
-          <td>No measurable lift in prep adequacy — timing is too early</td>
-          <td class="featured">+11pp prep adequacy <span class="cite-footnote">per Liu et al.</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="compare-table">
+      <table class="compare" aria-label="Comparison of prep coaching approaches">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="compare-col">Mailed instructions only</th>
+            <th class="compare-col">Day -5 nurse call</th>
+            <th class="compare-col-accent">Day-1 evening agent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="compare-label">Prep adequacy lift</td>
+            <td class="compare-col">Baseline (0pp)</td>
+            <td class="compare-col">No measurable lift — timing is too early</td>
+            <td class="compare-col-accent">+11pp <span class="cite-footnote">per Liu et al.</span></td>
+          </tr>
+          <tr>
+            <td class="compare-label">Confirms appointment</td>
+            <td class="compare-col">No</td>
+            <td class="compare-col">Yes, but 5 days out</td>
+            <td class="compare-col-accent">Yes, the evening before</td>
+          </tr>
+          <tr>
+            <td class="compare-label">Coaches at failure moment</td>
+            <td class="compare-col">No — static PDF, no dialogue</td>
+            <td class="compare-col">No — call precedes the failure window</td>
+            <td class="compare-col-accent">Yes — live Q&amp;A when prep errors happen</td>
+          </tr>
+          <tr>
+            <td class="compare-label">Cost per intervention</td>
+            <td class="compare-col">~$2 (print + postage)</td>
+            <td class="compare-col">~$23 (nurse time)</td>
+            <td class="compare-col-accent">&lt;$3 per call at scale</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="compare-footer">Liu et al. 2021 · RCT, n = 484 · automated evening call vs. mailed instructions only</p>
+    </div>
 
     <div class="stat-block">
       <div class="stat-large">$2.5M+</div>
